@@ -10,6 +10,7 @@ Goal: Generate skills which solve a provided goal.
 Use When:
 - You need to create a new skill.
 - You need to update an existing skill's structure or components (scripts, references, assets).
+- You need to deploy skills to a `TARGET_DIRECTORY`.
 
 ## Standard Directory Structure
 
@@ -44,6 +45,22 @@ skill-name/
 
 4.  **Phase 4: Final Validation**
     - Run `skills-ref validate <skill-dir>` to ensure the package is spec-compliant.
+
+### Local Skill Deployment
+
+1. **Phase 1: Preparation**
+    - Use the current working directory as the source for deployment.
+    - Identify the `TARGET_DIRECTORY` for deployment from the user.
+    - Identify the method of [deployment](references/DEPLOYMENT.md); mirroring or syncing from the user.
+
+2. **Phase 2: Confirmation**
+    - Confirm source directory, target directory and method of deployment with the user.
+    - Provide a full command line for the deployment to be run.
+    - Ensure the user accepts the deployment plan before proceeding.
+
+3. **Phase 3: Deployment**
+    - Execute the confirmed plan.
+    - Provide the results.
 
 ## Examples
 
