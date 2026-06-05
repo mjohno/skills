@@ -1,0 +1,7 @@
+- [ ] Frontmatter description includes triggers ("Use when...")
+- [ ] SKILL.md under 100 lines
+- [ ] Writing is information dense and concise
+- [ ] No time-sensitive info
+- [ ] Consistent terminology
+- [ ] Concrete examples included under ## Examples
+- [ ] References one level deep
