@@ -15,7 +15,7 @@ See [State Machine](state_machine.md) for transitions.
 - Check the actual work, not just the state marker.
 - `[x]` means ready for review.
 - `[ ]` means it needs more implementation.
-- Keep the TODO list and nearby comment in sync.
+- Keep the TODO list and inline comment in sync.
 
 ## Examples
 ### Example 1: verified

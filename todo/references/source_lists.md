@@ -23,8 +23,8 @@ TODO_NAME: AAAA
 ```
 - The TODO list is a list of TODO items, not a comment block.
 - Each item keeps its ID in the list.
-- Comments may live near the item that needs updating.
-- The nearby comment uses the canonical comment block.
+- Inline comments are separate from the list structure.
+- Use `mode:commentor` for inline comment instances.
 
 ## IDs
 - Use `<NAME>-<NUM>`.
@@ -38,6 +38,7 @@ TODO_NAME: AAAA
 - `BLAH-1` means operate on one task.
 - If multiple lists are present and the target is unclear, ask for an explicit ordered worklist.
 - Fuzzy ordering is allowed if the intent is still unambiguous.
+- For inline comment IDs, use `mode:commentor`.
 
 ## Searchability
 - `rg -n '^TODO_NAME:\s*' .`
@@ -58,9 +59,6 @@ TODO_NAME: BLAH
 [ ] - BLAH-1 - define parser
 [.] - BLAH-2 - verify cleanup
 [x] - BLAH-3 - merge rules
-
-TODO(BLAH-1, default, P1): define parser
-> support chat and files
 ```
 
 ### Example 2: inferred name

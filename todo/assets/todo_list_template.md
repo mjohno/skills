@@ -9,15 +9,9 @@ TODO_NAME: BLAH
 [x] - BLAH-3 - document merge rules
 ```
 
-Near an item that needs updating, use a TODO comment:
-```text
-TODO(BLAH-1, default, P1): define the parser
-> support chat and files
-> keep grepable output
-```
-
 Notes:
 - `TODO_NAME:` names the TODO list.
 - IDs are immutable once assigned.
 - Priority waves sort within the list.
 - `default` means the implementer picks the assignee.
+- Use `mode:commentor` for inline TODO comments.
