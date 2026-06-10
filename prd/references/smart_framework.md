@@ -26,6 +26,3 @@ The goal must align with the broader business objectives and the core problem th
 The goal must have a defined start and end point, or a specific target date/window.
 - **Bad**: "Improve performance soon."
 - **Good**: "Achieve the target latency by the end of Q3."
-
----
-*Technical Reference for `prd` skill*

@@ -8,9 +8,10 @@ description: Generates spec-compliant AgentSkills.io skill packages. Use when yo
 Goal: Generate skills which solve a provided goal.
 
 Use When:
-- You need to create a new skill.
-- You need to update an existing skill's structure or components (scripts, references, assets).
-- You need to deploy skills to a `TARGET_DIRECTORY`.
+- You need to create a new skill (see [Create Mode](references/mode_create.md)).
+- You need to update an existing skill (see [Create Mode](references/mode_create.md)).
+- You need to review a skill's quality or compliance (see [Review Mode](references/mode_review.md)).
+- You need to deploy a skill to a target directory (see [Deploy Mode](references/mode_deploy.md)).
 
 ## Standard Directory Structure
 
@@ -25,57 +26,26 @@ skill-name/
 
 ## Workflows
 
-### Standard Skill Creation
+### [Create Mode](references/mode_create.md)
+For scaffolding new skills or adding/updating components in existing ones.
 
-1.  **Phase 1: Planning & Specification**
-    - Determine the `name` (kebab-case, must match folder) and `description`.
-    - Define the goal and identify required components (scripts, references, assets).
-    - **Constraint Check**: Verify the `name` complies with the [Constraints & Rules](references/RULES.md).
+### [Review Mode](references/mode_review.md)
+For auditing a skill for compliance, structure, and information density.
 
-2.  **Phase 2: Scaffolding**
-    - Create the root directory `<name>/`.
-    - Initialize `SKILL.md` by applying the template found in `assets/skill_template.md`.
-    - Create required sub-directories: `scripts/`, `references/`, and `assets/`.
-
-3.  **Phase 3: Implementation & Refinement**
-    - **Logic**: Implement self-contained scripts in `scripts/`.
-    - **Documentation**: Populate `references/` with technical details or detailed processes.
-    - **Resources**: Add necessary templates or data to `assets/`.
-    - **Quality Control**: Review the completed `SKILL.md` against `assets/checklist.md` to ensure compliance, conciseness, and correct formatting.
-
-4.  **Phase 4: Final Validation**
-    - Run `skills-ref validate <skill-dir>` to ensure the package is spec-compliant.
-
-### Local Skill Deployment
-
-1. **Phase 1: Preparation**
-    - Use the current working directory as the source for deployment.
-    - Identify the `TARGET_DIRECTORY` for deployment from the user.
-    - Identify the method of [deployment](references/DEPLOYMENT.md); mirroring or syncing from the user.
-
-2. **Phase 2: Confirmation**
-    - Confirm source directory, target directory and method of deployment with the user.
-    - Provide a full command line for the deployment to be run.
-    - Ensure the user accepts the deployment plan before proceeding.
-
-3. **Phase 3: Deployment**
-    - Execute the confirmed plan.
-    - Provide the results.
+### [Deploy Mode](references/mode_deploy.md)
+For synchronizing your local skill directory to a target directory.
 
 ## Examples
 
-### Example 1
-
+### Example 1: Creating a Skill
 **Prompt**: "Create a skill called 'weather-fetcher' that uses an API to get weather data. Include a python script for the API call and a JSON template for output formatting."
 
 **Decisions**:
 - Used kebab-case for the skill name: `weather-fetcher`.
 - Created a standard directory structure with `scripts/` and `assets/`.
-- Did not include a `references/` directory as it was not necessary for this particular skill.
 - Implemented requested components: `fetch_weather.py` and `output_template.json`.
 
 **Outcome**:
-
 ```
 weather-fetcher/
 ├── SKILL.md
