@@ -1,6 +1,6 @@
 # Density Guidelines
 
-Use these guidelines when performing an information density and impact review.
+Use these guidelines when reviewing prose for lexical economy and impact.
 
 | Issue Type | Observation | Suggested Action |
 | :--- | :--- | :--- |

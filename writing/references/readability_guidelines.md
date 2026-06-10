@@ -1,6 +1,6 @@
 # Readability Guidelines
 
-Use these guidelines when performing a readability and conciseness review.
+Use these guidelines when reviewing prose for readability, sentence rhythm, and conciseness.
 
 | Issue Type | Observation | Suggested Action |
 | :--- | :--- | :--- |

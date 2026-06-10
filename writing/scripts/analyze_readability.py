@@ -105,7 +105,7 @@ def analyze_text(file_path):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print(json.dumps({"error": "Usage: python analyze_length.py <file_path>"}))
+        print(json.dumps({"error": "Usage: python analyze_readability.py <file_path>"}))
         sys.exit(1)
 
     file_to_analyze = sys.argv[1]

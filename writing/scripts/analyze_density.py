@@ -111,7 +111,7 @@ def analyze_text(text):
     }
 
 def main():
-    parser = argparse.ArgumentParser(description="Analyze text for conciseness and density.")
+    parser = argparse.ArgumentParser(description="Analyze text for density and impact.")
     parser.add_argument("file", help="Path to the text file to analyze.")
     args = parser.parse_args()
 
