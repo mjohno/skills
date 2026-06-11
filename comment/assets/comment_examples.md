@@ -9,17 +9,23 @@
 ## TypeScript
 
 ```ts
-// COMMENT(AUTH-EXPIRY-2): Clarify this branch against RFC-AUTH#D2.
+// CHECK(AUTH-EXPIRY-2): Confirm this branch matches RFC-AUTH#D2.
 ```
 
 ## Python
 
 ```py
-# COMMENT(AUTH-EXPIRY-3): This parser case needs an invalid-input example.
+# TODO(AUTH-EXPIRY-3): Add an invalid-input parser example.
 ```
 
 ## SQL
 
 ```sql
--- COMMENT(REPORTING-1): Confirm whether soft-deleted rows should be excluded.
+-- REVIEW(REPORTING-1): Confirm whether soft-deleted rows should be excluded.
+```
+
+## Completion note
+
+```ts
+// DONE(AUTH-EXPIRY-4): Expired-session redirect implementation is ready for review.
 ```

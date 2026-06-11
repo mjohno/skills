@@ -30,7 +30,8 @@ Use When:
 ### Normalize Comment
 1. Keep human-readable language first.
 2. Add a stable ID only when the comment needs to be referenced later.
-3. Keep structured fields short and optional.
+3. Use a purpose tag when the comment should guide later discussion, implementation, verification, or review.
+4. Keep structured fields short and optional.
 
 See [Comment Syntax](references/comment_syntax.md) and [Comment Format](references/comment_format.md).
 
@@ -46,8 +47,8 @@ Outcome:
 
 ### Example 2: TypeScript comment
 Prompt: "Mark this branch as needing clarification from RFC-AUTH#D2."
-Decisions: Use `//` because the target is a TypeScript statement-level note.
+Decisions: Use `//` because the target is a TypeScript statement-level note; use `CHECK` because a verifier should confirm behavior.
 Outcome:
 ```ts
-// COMMENT(AUTH-EXPIRY-2): Clarify this branch against RFC-AUTH#D2.
+// CHECK(AUTH-EXPIRY-2): Confirm this branch matches RFC-AUTH#D2.
 ```
