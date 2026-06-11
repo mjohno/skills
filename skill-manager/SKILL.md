@@ -1,9 +1,9 @@
 ---
-name: skiller
+name: skill-manager
 description: Generates spec-compliant AgentSkills.io skill packages. Use when you need to create a new skill or update an existing skill structure.
 ---
 
-# Skiller
+# Skill Manager
 
 Goal: Generate skills which solve a provided goal.
 

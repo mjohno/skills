@@ -24,78 +24,86 @@ Each skill below represents a technical capability. The `mode` indicates the **I
 ### 1. `prd` (Product Requirements Domain)
 * **Description:** Capability to manage, manipulate, and reason about product requirement artifacts.
 * **Engagement Modes:**
-    * **`mode: write`** $\rightarrow$ *Injects: Product Strategist* (Focus: Creation, Empathy, S.M.A.R.T. structure)
-    * **`mode: review`** $\rightarrow$ *Injects: Critical Analyst* (Focus: Skepticism, Edge cases, Ambiguity)
-    * **`mode: validate`** $\rightarrow$ *Injects: Compliance Auditor* (Focus: Strict S.M.A.R.T. verification)
+    * **`mode: write`** $ightarrow$ *Injects: Product Strategist* (Focus: Creation, Empathy, S.M.A.R.T. structure)
+    * **`mode: review`** $ightarrow$ *Injects: Critical Analyst* (Focus: Skepticism, Edge cases, Ambiguity)
+    * **`mode: validate`** $ightarrow$ *Injects: Compliance Auditor* (Focus: Strict S.M.A.R.T. verification)
 * **Primary Artifacts:** `PRD.md`, User Stories, Acceptance Criteria (AC).
 
 ### 2. `rfc` (Technical Design Domain)
 * **Description:** Capability to design technical solutions and ensure architectural alignment.
 * **Engagement Modes:**
-    * **`mode: write`** $\rightarrow$ *Injects: System Architect* (Focus: Design, API specs, Data models)
-    * **`mode: review`** $\rightarrow$ *Injects: Peer Reviewer* (Focus: Scalability, Security, Edge cases)
-    * **`mode: validate`** $\rightarrow$ *Injects: Alignment Specialist* (Focus: RFC vs. PRD compliance)
+    * **`mode: write`** $ightarrow$ *Injects: System Architect* (Focus: Design, API specs, Data models)
+    * **`mode: review`** $ightarrow$ *Injects: Peer Reviewer* (Focus: Scalability, Security, Edge cases)
+    * **`mode: validate`** $ightarrow$ *Injects: Alignment Specialist* (Focus: RFC vs. PRD compliance)
 * **Primary Artifacts:** `RFC.md`, System Diagrams, API Specs.
 
 ### 3. `adr` (Architectural Decision Domain)
 * **Description:** Capability to capture and preserve the rationale behind significant architectural choices.
 * **Engagement Modes:**
-    * **`mode: write`** $\rightarrow$ *Injects: Decision Recorder* (Focus: Context, Rationale, Alternatives)
-    * **`mode: review`** $\rightarrow$ *Injects: Historian* (Focus: Consistency with previous ADRs)
-    * **`mode: validate`** $\rightarrow$ *Injects: Auditor* (Focus: Permanence and Clarity)
+    * **`mode: write`** $ightarrow$ *Injects: Decision Recorder* (Focus: Context, Rationale, Alternatives)
+    * **`mode: review`** $ightarrow$ *Injects: Historian* (Focus: Consistency with previous ADRs)
+    * **`mode: validate`** $ightarrow$ *Injects: Auditor* (Focus: Permanence and Clarity)
 * **Primary Artifacts:** `ADR_XXX.md`.
 
-### 4. `task` (Work Decomposition Domain)
-* **Description:** Capability to break down high-level designs into granular engineering work.
+### 4. `plan` (Work Planning Domain)
+* **Description:** Capability to turn approved intent into ordered, gap-closing work plans.
 * **Engagement Modes:**
-    * **`mode: decompose`** $\rightarrow$ *Injects: Task Planner* (Focus: I.N.V.E.S.T. decomposition)
-    * **`mode: review`** $\rightarrow$ *Injects: Scoping Specialist* (Focus: Task independence and size)
-    * **`mode: validate`** $\rightarrow$ *Injects: Scope Auditor* (Focus: Coverage of the RFC)
-* **Primary Artifacts:** Task Lists, Jira/Linear Tickets, GitHub Issues.
+    * **`mode: write`** $ightarrow$ *Injects: Planner* (Focus: Gap mapping, ordering, dependencies)
+    * **`mode: review`** $ightarrow$ *Injects: Gap Analyst* (Focus: Coverage, coupling, ambiguity)
+    * **`mode: validate`** $ightarrow$ *Injects: Plan Auditor* (Focus: Gap closure, stable IDs, done criteria)
+* **Primary Artifacts:** Plans, Gap Maps, Ordered Work Items.
 
-### 5. `implementation` (Engineering Domain)
+### 5. `task` (Work Decomposition Domain)
+* **Description:** Capability to break down plans and high-level designs into portable task packets and granular engineering work.
+* **Engagement Modes:**
+    * **`mode: decompose`** $ightarrow$ *Injects: Task Planner* (Focus: I.N.V.E.S.T. decomposition)
+    * **`mode: review`** $ightarrow$ *Injects: Scoping Specialist* (Focus: Task independence and size)
+    * **`mode: validate`** $ightarrow$ *Injects: Scope Auditor* (Focus: Coverage of the RFC or plan)
+* **Primary Artifacts:** Task Packets, Task Lists, Jira/Linear Tickets, GitHub Issues.
+
+### 6. `implementation` (Engineering Domain)
 * **Description:** Capability to translate technical designs into high-quality code.
 * **Engagement Modes:**
-    * **`mode: write`** $\rightarrow$ *Injects: Software Engineer* (Focus: Implementation, Unit tests)
-    * **`mode: review`** $\rightarrow$ *Injects: Code Reviewer* (Focus: Patterns, Style, Logic)
-    * **`mode: validate`** $\rightarrow$ *Injects: CI/CD Runner* (Focus: Automated test/lint pass)
+    * **`mode: write`** $ightarrow$ *Injects: Software Engineer* (Focus: Implementation, Unit tests)
+    * **`mode: review`** $ightarrow$ *Injects: Code Reviewer* (Focus: Patterns, Style, Logic)
+    * **`mode: validate`** $ightarrow$ *Injects: CI/CD Runner* (Focus: Automated test/lint pass)
 * **Primary Artifacts:** Source Code, Unit Tests, Pull Requests (PRs).
 
-### 6. `verification` (Quality Assurance Domain)
+### 7. `verification` (Quality Assurance Domain)
 * **Description:** Capability to confirm the implementation meets functional and technical intent.
 * **Engagement Modes:**
-    * **`mode: test`** $\rightarrow$ *Injects: QA Engineer* (Focus: Integration, Manual, UAT)
-    * **`mode: review`** $\rightarrow$ *Injects: Bug Analyst* (Focus: Failure logs, bug reports)
-    * **`mode: validate`** $\rightarrow$ *Injects: Requirements Validator* (Focus: Formal AC sign-off)
+    * **`mode: test`** $ightarrow$ *Injects: QA Engineer* (Focus: Integration, Manual, UAT)
+    * **`mode: review`** $ightarrow$ *Injects: Bug Analyst* (Focus: Failure logs, bug reports)
+    * **`mode: validate`** $ightarrow$ *Injects: Requirements Validator* (Focus: Formal AC sign-off)
 * **Primary Artifacts:** Test Reports, Bug Reports, Validation Sign-offs.
 
-### 7. `deployment` (Infrastructure Delivery Domain)
+### 8. `deployment` (Infrastructure Delivery Domain)
 * **Description:** The technical act of moving verified code into the production environment.
 * **Engagement Modes:**
-    * **`mode: plan`** $\rightarrow$ *Injects: DevOps Engineer* (Focus: Deployment strategies)
-    * **`mode: execute`** $\rightarrow$ *Injects: Release Orchestrator* (Focus: Technical rollout)
-    * **`mode: monitor`** $\rightarrow$ *Injects: SRE* (Focus: Infrastructure smoke tests/health)
+    * **`mode: plan`** $ightarrow$ *Injects: DevOps Engineer* (Focus: Deployment strategies)
+    * **`mode: execute`** $ightarrow$ *Injects: Release Orchestrator* (Focus: Technical rollout)
+    * **`mode: monitor`** $ightarrow$ *Injects: SRE* (Focus: Infrastructure smoke tests/health)
 * **Primary Artifacts:** Deployment Plans, CI/CD Pipelines, Infrastructure Logs.
 
-### 8. `release` (Feature Delivery Domain)
+### 9. `release` (Feature Delivery Domain)
 * **Description:** The business-controlled act of making features available to users.
 * **Engagement Modes:**
-    * **`mode: control`** $\rightarrow$ *Injects: Product Owner* (Focus: Feature flags, user segments)
-    * **`mode: schedule`** $\rightarrow$ *Injects: Release Manager* (Focus: Market timing, coordination)
-    * **`mode: manage`** $\rightarrow$ *Injects: Rollout Specialist* (Focus: Canary/Gradual rollouts)
+    * **`mode: control`** $ightarrow$ *Injects: Product Owner* (Focus: Feature flags, user segments)
+    * **`mode: schedule`** $ightarrow$ *Injects: Release Manager* (Focus: Market timing, coordination)
+    * **`mode: manage`** $ightarrow$ *Injects: Rollout Specialist* (Focus: Canary/Gradual rollouts)
 * **Primary Artifacts:** Feature Flag Configs, Release Notes, Rollout Schedules.
 
-### 9. `observability` (Telemetry Domain)
+### 10. `observability` (Telemetry Domain)
 * **Description:** Capability to monitor system health and user behavior for ground truth.
 * **Engagement Modes:**
-    * **`mode: collect`** $\rightarrow$ *Injects: Data Aggregator* (Focus: Logs, metrics, traces)
-    * **`mode: analyze`** $\rightarrow$ *Injects: Data Scientist* (Focus: KPI vs. RFC/PRD targets)
-    * **`mode: report`** $\rightarrow$ *Injects: Insights Generator* (Focus: Retrospective-ready reports)
+    * **`mode: collect`** $ightarrow$ *Injects: Data Aggregator* (Focus: Logs, metrics, traces)
+    * **`mode: analyze`** $ightarrow$ *Injects: Data Scientist* (Focus: KPI vs. RFC/PRD targets)
+    * **`mode: report`** $ightarrow$ *Injects: Insights Generator* (Focus: Retrospective-ready reports)
 * **Primary Artifacts:** Dashboards, Performance Reports, User Behavior Analytics.
 
-### 10. `retrospective` (Meta-Review Domain)
+### 11. `retrospective` (Meta-Review Domain)
 * **Description:** Capability to facilitate high-level reviews of the business, technical, or procedural processes.
 * **Engagement Modes:**
-    * **`mode: facilitate`** $\rightarrow$ *Injects: Facilitator* (Focus: Business, Technical, or Procedural review)
-    * **`mode: update`** $\rightarrow$ *Injects: Process Engineer* (Focus: Workflow/Template refinement)
+    * **`mode: facilitate`** $ightarrow$ *Injects: Facilitator* (Focus: Business, Technical, or Procedural review)
+    * **`mode: update`** $ightarrow$ *Injects: Process Engineer* (Focus: Workflow/Template refinement)
 * **Primary Artifacts:** Retrospective Reports, Updated Workflow/Templates.
