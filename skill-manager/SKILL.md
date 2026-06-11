@@ -7,6 +7,8 @@ description: Generates spec-compliant AgentSkills.io skill packages. Use when yo
 
 Goal: Generate skills which solve a provided goal.
 
+Non-Goals: Do not implement skills directly, deploy skills to target directories, or execute skill validation code.
+
 Use When:
 - You need to create a new skill (see [Create Mode](references/mode_create.md)).
 - You need to update an existing skill (see [Create Mode](references/mode_create.md)).

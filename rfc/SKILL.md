@@ -8,6 +8,8 @@ description: Capability to design technical solutions and ensure architectural a
 ## Goal
 Capability to design technical solutions and ensure architectural alignment.
 
+Non-Goals: Do not manage product requirements, execute implementation tasks, or handle deployment operations.
+
 ## Use When
 - You need to write or update an RFC (see [Write Mode](references/mode_write.md)).
 - You need to review an RFC from a specific lens (see [Review Mode](references/mode_review.md)).

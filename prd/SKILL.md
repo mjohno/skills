@@ -8,6 +8,8 @@ description: Capability to manage the lifecycle of Product Requirement Documents
 ## Goal
 Capability to manage the lifecycle of Product Requirement Documents (PRDs), including Strategic Goals, User Stories, and Gherkin-formatted Acceptance Criteria.
 
+Non-Goals: Do not create implementation plans, execute tasks, or manage technical design documents.
+
 ## Use When
 - You need to write or update a PRD (see [Write Mode](references/mode_write.md)).
 - You need to audit requirement quality (see [Review Mode](references/mode_review.md)).
