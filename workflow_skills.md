@@ -137,12 +137,17 @@ ightarrow$ *Injects: Process Engineer* (Focus: Workflow/Template refinement)
 
 The following skills are not part of the core workflow but support it. They operate on whatever input they are given and do not create cross-skill coupling.
 
-### 1. `comment` (Inline Annotation Domain)
+### 1. `investigate` (Evidence Discovery Domain)
+* **Description:** Curious fact-finding skill for building an evidence map from local files and web sources. Produces sourced facts, confidence ratings, and unresolved gaps.
+* **Workflows:** Scope, Collect Evidence, Track Uncertainty, Resolve Conflicts, Stop When Exhausted.
+* **Primary Artifacts:** YAML evidence maps with summary, facts, and gaps.
+
+### 2. `comment` (Inline Annotation Domain)
 * **Description:** Manage file-local comments in code and documents. Use when you need to add, update, find, normalize, or remove comments without deciding or executing work.
 * **Workflows:** Add Comment, Update or Remove Comment, Normalize Comment.
 * **Primary Artifacts:** Inline comments with stable IDs and purpose tags.
 
-### 2. `writing` (Prose Quality Domain)
+### 3. `writing` (Prose Quality Domain)
 * **Description:** A unified writing skill for reviewing and drafting English prose. Use when you need to critique prose for readability, density, and style, or generate polished prose from notes, drafts, or rough ideas.
 * **Engagement Modes:**
     * **`mode: review`** $
@@ -151,17 +156,17 @@ ightarrow$ *Injects: Prose Critic* (Focus: Readability, density, style, ranked f
 ightarrow$ *Injects: Prose Polisher* (Focus: Drafting, polishing, voice preservation)
 * **Primary Artifacts:** Reviewed prose, polished drafts.
 
-### 3. `git-commit` (Version Control Domain)
+### 4. `git-commit` (Version Control Domain)
 * **Description:** Generates and executes a git commit adhering to the Conventional Commits specification. Used when you need to make a commit.
 * **Workflows:** Pre-flight check, analyze changes, draft message, review & approval, execute commit.
 * **Primary Artifacts:** Git commits with Conventional Commits formatted messages.
 
-### 4. `grill-me` (Design Stress-Test Domain)
+### 5. `grill-me` (Design Stress-Test Domain)
 * **Description:** Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions "grill me".
 * **Workflows:** Sequential questioning, codebase exploration for facts, recommendation per question.
 * **Primary Artifacts:** Shared understanding, resolved decision branches.
 
-### 5. `skill-manager` (Skill Creation Domain)
+### 6. `skill-manager` (Skill Creation Domain)
 * **Description:** Generates spec-compliant AgentSkills.io skill packages. Use when you need to create a new skill or update an existing skill structure.
 * **Engagement Modes:**
     * **`mode: create`** $
