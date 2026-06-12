@@ -41,28 +41,30 @@ ightarrow$ *Injects: System Architect* (Focus: Design, API specs, Data models)
 ightarrow$ *Injects: Peer Reviewer* (Focus: Scalability, Security, Edge cases)
     * **`mode: validate`** $
 ightarrow$ *Injects: Alignment Specialist* (Focus: RFC vs. PRD compliance)
+    * **`mode: manager`** $
+ightarrow$ *Injects: RFC Curator* (Focus: RFC index maintenance, lifecycle status tracking)
 * **Primary Artifacts:** `RFC.md`, System Diagrams, API Specs.
 
 ### 3. `plan` (Work Planning Domain)
 * **Description:** Capability to turn approved intent into ordered, gap-closing work plans.
-* **Engagement Modes:**
-    * **`mode: write`** $
+* **Workflows:**
+    * **Create Plan** $
 ightarrow$ *Injects: Planner* (Focus: Gap mapping, ordering, dependencies)
-    * **`mode: review`** $
-ightarrow$ *Injects: Gap Analyst* (Focus: Coverage, coupling, ambiguity)
-    * **`mode: validate`** $
-ightarrow$ *Injects: Plan Auditor* (Focus: Gap closure, stable IDs, done criteria)
+    * **Update Plan** $
+ightarrow$ *Injects: Planner* (Focus: Preserve IDs, add/split/merge/reorder, gap closure)
+    * **Check Plan Shape** $
+ightarrow$ *Injects: Plan Auditor* (Focus: Every gap has a closing item, items name their gap)
 * **Primary Artifacts:** Plans, Gap Maps, Ordered Work Items.
 
 ### 4. `task` (Work Decomposition Domain)
 * **Description:** Capability to break down plans and high-level designs into portable task packets and granular engineering work.
-* **Engagement Modes:**
-    * **`mode: decompose`** $
-ightarrow$ *Injects: Task Planner* (Focus: I.N.V.E.S.T. decomposition)
-    * **`mode: review`** $
-ightarrow$ *Injects: Scoping Specialist* (Focus: Task independence and size)
-    * **`mode: validate`** $
-ightarrow$ *Injects: Scope Auditor* (Focus: Coverage of the RFC or plan)
+* **Workflows:**
+    * **Create Task Packet** $
+ightarrow$ *Injects: Task Planner* (Focus: I.N.V.E.S.T. decomposition, stable IDs)
+    * **Extract Task Packet** $
+ightarrow$ *Injects: Task Planner* (Focus: Copy relevant context, preserve source references)
+    * **Update or Normalize Task Packet** $
+ightarrow$ *Injects: Scope Auditor* (Focus: Preserve ID, keep fields concise, no false certainty)
 * **Primary Artifacts:** Task Packets, Task Lists, Jira/Linear Tickets, GitHub Issues.
 
 ### 5. `implementation` (Engineering Domain)
@@ -128,3 +130,44 @@ ightarrow$ *Injects: Facilitator* (Focus: Business, Technical, or Procedural rev
     * **`mode: update`** $
 ightarrow$ *Injects: Process Engineer* (Focus: Workflow/Template refinement)
 * **Primary Artifacts:** Retrospective Reports, Updated Workflow/Templates.
+
+---
+
+## III. Utility Skills
+
+The following skills are not part of the core workflow but support it. They operate on whatever input they are given and do not create cross-skill coupling.
+
+### 1. `comment` (Inline Annotation Domain)
+* **Description:** Manage file-local comments in code and documents. Use when you need to add, update, find, normalize, or remove comments without deciding or executing work.
+* **Workflows:** Add Comment, Update or Remove Comment, Normalize Comment.
+* **Primary Artifacts:** Inline comments with stable IDs and purpose tags.
+
+### 2. `writing` (Prose Quality Domain)
+* **Description:** A unified writing skill for reviewing and drafting English prose. Use when you need to critique prose for readability, density, and style, or generate polished prose from notes, drafts, or rough ideas.
+* **Engagement Modes:**
+    * **`mode: review`** $
+ightarrow$ *Injects: Prose Critic* (Focus: Readability, density, style, ranked findings)
+    * **`mode: write`** $
+ightarrow$ *Injects: Prose Polisher* (Focus: Drafting, polishing, voice preservation)
+* **Primary Artifacts:** Reviewed prose, polished drafts.
+
+### 3. `git-commit` (Version Control Domain)
+* **Description:** Generates and executes a git commit adhering to the Conventional Commits specification. Used when you need to make a commit.
+* **Workflows:** Pre-flight check, analyze changes, draft message, review & approval, execute commit.
+* **Primary Artifacts:** Git commits with Conventional Commits formatted messages.
+
+### 4. `grill-me` (Design Stress-Test Domain)
+* **Description:** Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions "grill me".
+* **Workflows:** Sequential questioning, codebase exploration for facts, recommendation per question.
+* **Primary Artifacts:** Shared understanding, resolved decision branches.
+
+### 5. `skill-manager` (Skill Creation Domain)
+* **Description:** Generates spec-compliant AgentSkills.io skill packages. Use when you need to create a new skill or update an existing skill structure.
+* **Engagement Modes:**
+    * **`mode: create`** $
+ightarrow$ *Injects: Skill Architect* (Focus: Scaffolding, directory structure, component generation)
+    * **`mode: review`** $
+ightarrow$ *Injects: Skill Auditor* (Focus: Compliance, structure, information density)
+    * **`mode: deploy`** $
+ightarrow$ *Injects: Deployment Operator* (Focus: Synchronization to target directory)
+* **Primary Artifacts:** Skill packages, updated skill structures.

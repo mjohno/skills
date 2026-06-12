@@ -28,7 +28,32 @@ The workflow is composed of three concentric, interacting feedback loops operati
 
 ---
 
-## II. Node-by-Node Deep Dive
+## II. Mode vs. Workflow Convention
+
+Skills in this system use one of two interaction patterns. The pattern chosen reflects how the skill's capability is structured.
+
+### Modes (`mode: <name>`)
+* **Use when:** The skill has an injectable persona that changes the *style*, *focus*, or *cognitive bias* of execution while the domain stays the same.
+* **Pattern:** `mode: <name>` $
+ightarrow$ *Injects: Persona* (Focus: ...
+* **Example:** `prd` skill with `mode: write` (Product Strategist) vs `mode: review` (Critical Analyst).
+* **Reference:** See [workflow_skills.md](workflow_skills.md) §II for the full mode registry.
+
+### Workflows
+* **Use when:** The skill has fixed operational procedures — distinct steps that don't change based on persona, but rather on the *task* being performed.
+* **Pattern:** `### <Workflow Name>` with numbered steps.
+* **Example:** `plan` skill with Create Plan, Update Plan, Check Plan Shape.
+* **Reference:** See [workflow_skills.md](workflow_skills.md) for which skills use workflows.
+
+### Guideline
+* **Capability-first, persona-driven** $
+ightarrow$ use modes.
+* **Capability-first, procedure-driven** $
+ightarrow$ use workflows.
+
+---
+
+## III. Node-by-Node Deep Dive
 
 ### 1. PRD (Product Requirements Document) — *The Strategic Compass*
 * **Purpose:** To define the "Problem Space" and the "Value Proposition."
@@ -96,7 +121,7 @@ The workflow is composed of three concentric, interacting feedback loops operati
 
 ---
 
-## III. The Meta-Review Layer (Retrospectives)
+## IV. The Meta-Review Layer (Retrospectives)
 
 Retrospectives are the highest level of feedback in the network. They do not verify the *product*; they verify the *process* and the *assumptions* that drove the product.
 
@@ -123,7 +148,7 @@ Retrospectives are the highest level of feedback in the network. They do not ver
 
 ---
 
-## IV. Summary Mapping: Information Flow
+## V. Summary Mapping: Information Flow
 
 | If you want to know... | Look at this Node... | By checking this... |
 | :--- | :--- | :--- |
@@ -137,6 +162,6 @@ Retrospectives are the highest level of feedback in the network. They do not ver
 
 ---
 
-## V. The Golden Rule of Documentation
+## VI. The Golden Rule of Documentation
 **Information must be promoted when it becomes a rule.**
 If a discussion in a **Task**, **Plan**, or **Pull Request** results in a permanent change to the system's architecture or design principles, it **must** be updated in the **RFC**. Work breakdown and sequencing that do not change architecture should stay in **Plans** or **Task Packets**. Failure to do so leads to "Knowledge Drift," where the documentation no longer reflects the reality of the system.
