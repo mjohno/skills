@@ -16,7 +16,7 @@ The workflow is composed of three concentric, interacting feedback loops operati
 
 ### 2. The Tactical Loop (Middle)
 * **Focus:** Technical Feasibility & Design.
-* **Nodes:** `RFC` $\leftrightarrow$ `ADR` $\leftrightarrow$ `Task Packets` $\leftrightarrow$ `Implementation`.
+* **Nodes:** `RFC` $\leftrightarrow$ `Plan` $\leftrightarrow$ `Task Packets` $\leftrightarrow$ `Implementation`.
 * **Cadence:** Weekly / Bi-weekly.
 * **Goal:** Ensures the technical approach is robust and documented.
 
@@ -41,7 +41,7 @@ The workflow is composed of three concentric, interacting feedback loops operati
 
 ### 2. RFC (Request for Comments) — *The Technical Blueprint*
 * **Purpose:** To define the "Solution Space" and ensure technical feasibility.
-* **Inputs:** The `PRD`, existing architecture, previous `ADRs`, security standards, and technical constraints.
+* **Inputs:** The `PRD`, existing architecture, security standards, and technical constraints.
 * **Process:** Architectural design, prototyping, edge-case analysis, and peer review.
 * **Outputs:** **RFC Document** (API specs, data models, system diagrams).
 * **Verification Gates:**
@@ -49,32 +49,22 @@ The workflow is composed of three concentric, interacting feedback loops operati
     * **Alignment Check:** Does the design satisfy all `PRD` Acceptance Criteria?
     * **Consensus Check:** Has the engineering community identified/resolved breaking flaws?
 
-### 3. ADR (Architecture Decision Record) — *The Decision Memory*
-* **Purpose:** To capture the "Rationale" for permanent architectural changes.
-* **Inputs:** Decisions ratified in the `RFC`, or critical pivots discovered during implementation.
-* **Process:** Documenting context, the chosen path, and rejected alternatives.
-* **Outputs:** **ADR (Markdown file)** stored in the code repository and referenced by the `RFC`, plan, and task packets when relevant.
-* **Verification Gates:**
-    * **Permanence Check:** Is this a fundamental change to the system's architecture?
-    * **Clarity Check:** Is the reasoning clear enough for a future engineer to understand?
-* **Scope Note:** ADRs do not carry work breakdown or scheduling detail; that belongs in plans and task packets.
-
-### 4. Task Packets — *The Work Capsules*
+### 3. Task Packets — *The Work Capsules*
 * **Purpose:** To decompose approved design into portable, actionable units of work.
-* **Inputs:** The `RFC`, relevant `ADR`s, and plan items.
+* **Inputs:** The `RFC` and plan items.
 * **Process:** Breaking scope into stable task IDs, goals, targets, constraints, and verification hints.
 * **Outputs:** **Task Packets** for implementation and review.
 * **Verification Gates:**
     * **I.N.V.E.S.T. Check:** Are tasks Independent, Negotiable, Valuable, Estimable, Small, and Testable?
     * **Traceability Check:** Does each packet link back to source context?
 
-### 5. Implementation — *The Engine*
+### 4. Implementation — *The Engine*
 * **Purpose:** To translate design into functional reality.
-* **Inputs:** The `RFC`, the `ADR`, and `Task Packets` (decomposed from plan items and User Stories).
+* **Inputs:** The `RFC` and `Task Packets` (decomposed from plan items and User Stories).
 * **Process:** Coding, unit testing, and refactoring.
 * **Outputs:** **Pull Requests (PRs)** and updated documentation.
 * **Verification Gates:**
-    * **Code Review:** Does implementation follow patterns in the `RFC`/`ADR`?
+    * **Code Review:** Does implementation follow patterns in the `RFC`?
     * **CI/CD Check:** Do all automated tests and linters pass?
 
 ### 6. Verification — *The Quality Gate*
@@ -118,16 +108,16 @@ Retrospectives are the highest level of feedback in the network. They do not ver
 * **Output:** Updates to the Product Roadmap or revisions to the PRD framework.
 
 ### 2. Technical Retrospective (Tactical Review)
-* **Scope:** The alignment between the **RFC/ADR** and the **System Reality**.
+* **Scope:** The alignment between the **RFC** and the **System Reality**.
 * **Trigger:** Major architectural shifts, significant production incidents, or end of a technical milestone.
 * **Input:** `Observability` (performance/stability) vs. `RFC` design goals.
 * **Question:** *"Did our architectural decisions hold up under load, and did our design patterns serve us well?"*
-* **Output:** Updates to the `ADR` library or revisions to the `RFC` technical templates.
+* **Output:** Revisions to the `RFC` technical templates.
 
 ### 3. Procedural Retrospective (Operational Review)
 * **Scope:** The efficiency and health of the **Workflow** itself.
 * **Trigger:** End of a sprint, a project completion, or a "process friction" event.
-* **Input:** Team feedback on the friction/utility of the `PRD` $\rightarrow$ `RFC` $\rightarrow$ `ADR` $\rightarrow$ `Task Packets` flow.
+* **Input:** Team feedback on the friction/utility of the `PRD` $\rightarrow$ `RFC` $\rightarrow$ `Task Packets` flow.
 * **Question:** *"Did our documentation and decision-making process accelerate delivery or create unnecessary overhead?"*
 * **Output:** Refinements to the `workflow.md` and the team's operating model.
 
@@ -139,7 +129,7 @@ Retrospectives are the highest level of feedback in the network. They do not ver
 | :--- | :--- | :--- |
 | **"Why are we doing this?"** | **PRD** | User Stories & Business Goals |
 | **"How will it work?"** | **RFC** | Architecture & API Specs |
-| **"Why did they choose X?"** | **ADR** | Rationale & Alternatives |
+
 | **"What needs to be done?"** | **Task Packets** | Goals, Targets & Constraints |
 | **"Is the code correct?"** | **Implementation** | Code Review & Unit Tests |
 | **"Does it meet requirements?"** | **Verification** | Acceptance Criteria (AC) |
@@ -149,4 +139,4 @@ Retrospectives are the highest level of feedback in the network. They do not ver
 
 ## V. The Golden Rule of Documentation
 **Information must be promoted when it becomes a rule.**
-If a discussion in a **Task**, **Plan**, or **Pull Request** results in a permanent change to the system's architecture or design principles, it **must** be captured in an **ADR**. Work breakdown and sequencing that do not change architecture should stay in **Plans** or **Task Packets**. Failure to do so leads to "Knowledge Drift," where the documentation no longer reflects the reality of the system.
+If a discussion in a **Task**, **Plan**, or **Pull Request** results in a permanent change to the system's architecture or design principles, it **must** be updated in the **RFC**. Work breakdown and sequencing that do not change architecture should stay in **Plans** or **Task Packets**. Failure to do so leads to "Knowledge Drift," where the documentation no longer reflects the reality of the system.
