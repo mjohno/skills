@@ -1,6 +1,7 @@
+- [ ] Frontmatter has `metadata.type: skill`
 - [ ] Frontmatter description includes triggers ("Use when...")
 - [ ] SKILL.md under 100 lines
-- [ ] Overview has a clear goal and Use when clauses
+- [ ] Root level has a Goal and Use When clauses
 - [ ] Writing is information dense and concise
 - [ ] No time-sensitive info
 - [ ] Consistent terminology

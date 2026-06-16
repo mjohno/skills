@@ -1,0 +1,13 @@
+- [ ] Frontmatter has `metadata.type: router`
+- [ ] Frontmatter description includes triggers ("Use when...")
+- [ ] Root level has a Goal
+- [ ] Root level has Non-Goals
+- [ ] SKILL.md under 100 lines
+- [ ] Use When section lists explicit invocation triggers
+- [ ] Inputs section lists all required inputs
+- [ ] Workflow section contains Gather Context, Route the Request, and Execute the Workflow
+- [ ] Outputs section describes the outputs
+- [ ] Examples section includes usage examples
+- [ ] Has a `Default Route:` (asks for more data or routes to another workflow)
+- [ ] Each workflow file has: context, steps, patterns, constraints, outputs
+- [ ] Workflow files are self-contained (no cross-skill references)

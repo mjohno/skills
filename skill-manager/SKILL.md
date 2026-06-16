@@ -1,58 +1,100 @@
 ---
 name: skill-manager
-description: Generates spec-compliant AgentSkills.io skill packages. Use when you need to create a new skill or update an existing skill structure.
+description: Generates spec-compliant AgentSkills.io skill packages. Use when you need to create a new skill, review an existing skill, or deploy a skill to a target directory.
+metadata:
+  type: router
 ---
 
 # Skill Manager
 
-Goal: Generate skills which solve a provided goal.
+Goal: Generate, review, comply and deploy spec-compliant AgentSkills.io skill packages.
+Non-Goals: Managing non-skill resources, CI/CD pipelines, or version control operations.
 
-Non-Goals: Do not implement skills directly, deploy skills to target directories, or execute skill validation code.
+## Use When
+- Creating skills (classic or router-based)
+- Reviewing skills against their source specifications
+- Complying skills to meet spec requirements
+- Deploying skills to a target directory
 
-Use When:
-- You need to create a new skill (see [Create Mode](references/mode_create.md)).
-- You need to update an existing skill (see [Create Mode](references/mode_create.md)).
-- You need to review a skill's quality or compliance (see [Review Mode](references/mode_review.md)).
-- You need to deploy a skill to a target directory (see [Deploy Mode](references/mode_deploy.md)).
+## Inputs
+1. Operation type (create, comply, review, deploy)
+2. Subject skill name (for create, review, comply, deploy)
+3. Source specification (for create, review)
 
-## Standard Directory Structure
+## Workflow
+1. Gather Context
+2. Route the Request
+3. Execute the Workflow
 
-```
-skill-name/
-├── SKILL.md          # Required: metadata + instructions
-├── scripts/          # Optional: executable code
-├── references/       # Optional: documentation
-├── assets/           # Optional: templates, resources
-└── ...               # Optional: Any additional files or directories
-```
+### Gather Context
+1. Collect Inputs
+2. Identify the requested operation (create, comply, review, deploy).
+3. Identify the skill which is the object of the operation.
 
-## Workflows
+### Route the Request
+- Create classic skill → `references/workflow_classic_skill.md`
+- Create router skill → `references/workflow_router_skill.md`
+- Review skill → `references/workflow_review.md`
+- Comply skill → `references/workflow_comply.md`
+- Deploy skill → `references/workflow_deploy.md`
+- Default → Gather more information and clarify the request.
 
-### [Create Mode](references/mode_create.md)
-For scaffolding new skills or adding/updating components in existing ones.
+### Execute the Workflow
+- Read and follow the steps outlined in the routed workflow file to complete the requested operation.
 
-### [Review Mode](references/mode_review.md)
-For auditing a skill for compliance, structure, and information density.
-
-### [Deploy Mode](references/mode_deploy.md)
-For synchronizing your local skill directory to a target directory.
+## Outputs
+- See outputs in each workflow.
 
 ## Examples
 
-### Example 1: Creating a Skill
-**Prompt**: "Create a skill called 'weather-fetcher' that uses an API to get weather data. Include a python script for the API call and a JSON template for output formatting."
+### Example 1: Create a skill
 
-**Decisions**:
-- Used kebab-case for the skill name: `weather-fetcher`.
-- Created a standard directory structure with `scripts/` and `assets/`.
-- Implemented requested components: `fetch_weather.py` and `output_template.json`.
+**Prompt:**
+> Create a new skill called `code-review` that helps review code for quality and best practices.
 
-**Outcome**:
-```
-weather-fetcher/
-├── SKILL.md
-├── scripts/
-│   └── fetch_weather.py
-└── assets/
-    └── output_template.json
-```
+**Routing:**
+- Operation: create
+- Type: skill (classic standalone skill)
+- → Read and follow `references/workflow_classic_skill.md`
+- See examples in `workflow_classic_skill.md` for results.
+
+### Example 2: Create a router skill
+
+**Prompt:**
+> Create a new router skill called `design-manager` that dispatches to design workflows.
+
+**Routing:**
+- Operation: create
+- Type: router
+- → Read and follow `references/workflow_router_skill.md`
+- See examples in `workflow_router_skill.md` for results.
+
+### Example 3: Review a skill
+
+**Prompt:**
+> Review the `git-commit` skill for compliance and quality.
+
+**Routing:**
+- Operation: review
+- → Read and follow `references/workflow_review.md`
+- See examples in `workflow_review.md` for results.
+
+### Example 4: Comply (pass/fail test)
+
+**Prompt:**
+> Run compliance checks on the `grill-me` skill.
+
+**Routing:**
+- Operation: comply
+- → Read and follow `references/workflow_comply.md`
+- See examples in `workflow_comply.md` for results.
+
+### Example 5: Deploy a skill
+
+**Prompt:**
+> Deploy the `investigate` skill to `C:\Users\matjo\.pi\agent\skills\`.
+
+**Routing:**
+- Operation: deploy
+- → Read and follow `references/workflow_deploy.md`
+- See examples in `workflow_deploy.md` for results.

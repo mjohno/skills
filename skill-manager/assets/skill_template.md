@@ -1,6 +1,8 @@
 ---
 name: [Skill Name]
 description: [Skill Description; a concise overview; has a use when clause]
+metadata:
+  type: skill
 ---
 
 # [Skill Name]
@@ -10,7 +12,7 @@ Non-Goals: [Optional; What the skill is not designed to do]
 
 Use When:
 - [Clause 1]
-- [Claue n]
+- [Clause n]
 
 ## Workflows
 
@@ -22,7 +24,7 @@ Use When:
 
 ### Example 1
 
-[Mandatory; A example of how to use the skill]
+[Mandatory; An example of how to use the skill]
 Prompt: [The prompt used to invoke the skill]
 Decisions: [The decisions made by the agent when executing the skill]
 Outcome: [The outcome of executing the skill]
