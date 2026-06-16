@@ -52,7 +52,7 @@ Targets:
 - src/auth/middleware.ts
 ```
 
-### Example 2: From comment
-Prompt: "Turn COMMENT(AUTH-EXPIRY-1) into a task packet."
-Decisions: Reference the comment as source and state unknown fields explicitly.
+### Example 2: From annotation
+Prompt: "Turn TODO(AUTH-SESSION-1) into a task packet."
+Decisions: Reference the annotation as source and state unknown fields explicitly.
 Outcome: A task packet whose `Source` includes `COMMENT(AUTH-EXPIRY-1)`.
