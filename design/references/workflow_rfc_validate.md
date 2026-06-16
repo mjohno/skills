@@ -1,11 +1,14 @@
-# Mode: Validate
+# Workflow: RFC Validation
 
-This mode is used to verify that an RFC meets structural and compliance requirements against its source PRD.
+## Context
+Verify that an RFC meets structural and compliance requirements against its source PRD. Produce a human-readable risk scorecard.
 
-## Purpose
-To verify that an RFC is structurally complete, properly aligned with its source PRD, and ready for implementation.
+## Inputs
+1. Target RFC file (`RFC-NNN-<name>.md`)
+2. Source PRD file (for cross-reference validation)
+3. Source workflow path (for reference): `references/workflow_rfc.md`
 
-## Workflow
+## Steps
 
 ### 1. Structural Integrity Check
 Verify that the RFC contains all required sections:
@@ -54,3 +57,18 @@ Produce a **human-readable risk scorecard**:
 ### Notes
 [Brief summary of findings and recommended actions.]
 ```
+
+## Patterns
+- **Structured Validation**: Each check produces a Pass/Partial/Fail result
+- **Risk Scorecard**: Human-readable summary with per-check and overall risk levels
+- **Actionable Notes**: Each scorecard includes a summary of findings and recommended actions
+
+## Constraints
+1. All checks must produce a Pass/Partial/Fail result
+2. Each check must have an associated risk level
+3. Overall Risk is derived from the individual check results
+4. Notes must provide actionable recommendations
+
+## Outputs
+- Validation Risk Scorecard with per-check results and overall risk level
+- Notes with findings summary and recommended actions

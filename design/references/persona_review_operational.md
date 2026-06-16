@@ -18,4 +18,4 @@
 - **Low**: Minor operational improvement suggestion.
 
 ## Output Format
-Follow the standard review template in `mode_review.md`. Focus on production readiness and operational concerns.
+Follow the standard review template in `workflow_rfc_review.md`. Focus on production readiness and operational concerns.

@@ -17,4 +17,4 @@
 - **Low**: Minor cost optimization suggestion; budget is reasonable.
 
 ## Output Format
-Follow the standard review template in `mode_review.md`. Focus on financial and resource efficiency concerns.
+Follow the standard review template in `workflow_rfc_review.md`. Focus on financial and resource efficiency concerns.

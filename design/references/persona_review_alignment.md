@@ -16,4 +16,4 @@
 - **Low**: Design aligns well with PRD; minor documentation improvements suggested.
 
 ## Output Format
-Follow the standard review template in `mode_review.md`. Focus on PRD-RFC traceability and scope integrity.
+Follow the standard review template in `workflow_rfc_review.md`. Focus on PRD-RFC traceability and scope integrity.

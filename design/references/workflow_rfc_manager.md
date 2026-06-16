@@ -1,8 +1,9 @@
-# Mode: Manager
+# Workflow: RFC Manager
 
-This mode is used to maintain the RFC index and track the lifecycle of RFCs.
+## Context
+Maintain the RFC index and track the lifecycle of RFCs within the design skill.
 
-## Workflow
+## Steps
 
 ### 1. Register
 When a new RFC is written:
@@ -50,3 +51,19 @@ Last updated: [Timestamp]
 | RFC-001 | [Name] | [Status] | [PRD ref] | [N] | [N] | [Yes/No] |
 | RFC-002 | [Name] | [Status] | [PRD ref] | [N] | [N] | [Yes/No] |
 ```
+
+## Patterns
+- **Sequential Numbering**: RFCs are numbered sequentially (RFC-001, RFC-002, ...)
+- **Status Lifecycle**: Draft → Review → Approved → Superseded
+- **Index Consistency**: Validate checks for orphaned entries and files
+
+## Constraints
+1. RFC numbers must be sequential with no gaps
+2. Status transitions must follow the defined lifecycle
+3. Superseded RFCs must reference the superseding RFC number
+4. Index must always reflect the current state of all RFCs
+
+## Outputs
+- RFC_INDEX.md with current status of all RFCs
+- Audit report with RFC summary table
+- Validation results for index consistency

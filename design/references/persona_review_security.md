@@ -17,4 +17,4 @@
 - **Low**: Minor security hardening suggestion.
 
 ## Output Format
-Follow the standard review template in `mode_review.md`. Focus on security-specific findings.
+Follow the standard review template in `workflow_rfc_review.md`. Focus on security-specific findings.

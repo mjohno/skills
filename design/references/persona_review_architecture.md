@@ -16,4 +16,4 @@
 - **Low**: Minor suggestion for improvement; design is sound overall.
 
 ## Output Format
-Follow the standard review template in `mode_review.md`. Focus on structural and architectural concerns.
+Follow the standard review template in `workflow_rfc_review.md`. Focus on structural and architectural concerns.

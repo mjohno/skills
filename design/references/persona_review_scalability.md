@@ -17,4 +17,4 @@
 - **Low**: Minor optimization suggestion for future growth.
 
 ## Output Format
-Follow the standard review template in `mode_review.md`. Focus on performance and capacity concerns.
+Follow the standard review template in `workflow_rfc_review.md`. Focus on performance and capacity concerns.
