@@ -1,6 +1,8 @@
 ---
 name: investigate
 description: Curious fact-finding skill for building an evidence map from local files and, when needed, web sources. Use when you need exhaustive discovery, evidence-backed facts, and clear gaps without remediation.
+metadata:
+  type: skill
 ---
 
 # Investigate
