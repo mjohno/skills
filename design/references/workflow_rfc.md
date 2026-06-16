@@ -18,10 +18,11 @@ Create a comprehensive Request for Comments (RFC) that defines the technical sol
 
 ### 3. Persona Selection
 - Ask: "What type of RFC is this?"
-- Load the corresponding persona from `references/`:
-  - Default: `persona_write_system_architect.md`
-  - Extensible: add `persona_write_<name>.md` files as needed.
-- The loaded persona shapes the design focus, depth, and priorities of the RFC.
+- Apply the System Architect persona as the default design lens:
+  - **Focus**: System boundaries, data flow, API contracts, technology selection, scalability
+  - **Design Principles**: Separation of Concerns, Loose Coupling, Explicit Contracts, Fail Gracefully, Document the Why
+  - **RFC Sections to Emphasize**: Architecture & Data Models, Design Decisions, Feasibility Assessment
+- Extensible: define additional personas inline with their own focus areas and design principles.
 
 ### 4. Solution Design
 Produce the following sections, guided by the loaded persona's domain focus:
@@ -41,7 +42,17 @@ Produce the following sections, guided by the loaded persona's domain focus:
   - Include a summary table at the top
 
 ### 7. Output
-- Produce a complete `RFC-NNN-<name>.md` file using `assets/rfc_template.md`
+- Produce a complete `RFC-NNN-<name>.md` file following this structure:
+  - Header: RFC ID, Status, Author, Related PRD
+  - Section 1: Context (anchored to PRD, not repeating it)
+  - Section 2: Proposed Solution
+  - Section 3: Design Decisions (with rationale and alternatives)
+  - Section 4: Architecture & Data Models
+  - Section 5: Feasibility Assessment
+  - Section 6: Alignment with PRD (AC mapping table)
+  - Section 7: Open Questions
+  - Section 8: Decision Log (summary table + detailed entries)
+  - Section 9: Review Comments
 - Set status to **Draft**
 - Output a list of **recommended review personas** based on the RFC's scope:
   - Example: "This RFC touches infrastructure, auth, and data — recommend running review:architecture, review:security, and review:scalability."

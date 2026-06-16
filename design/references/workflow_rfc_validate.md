@@ -3,11 +3,6 @@
 ## Context
 Verify that an RFC meets structural and compliance requirements against its source PRD. Produce a human-readable risk scorecard.
 
-## Inputs
-1. Target RFC file (`RFC-NNN-<name>.md`)
-2. Source PRD file (for cross-reference validation)
-3. Source workflow path (for reference): `references/workflow_rfc.md`
-
 ## Steps
 
 ### 1. Structural Integrity Check
@@ -25,19 +20,23 @@ Verify that the RFC contains all required sections:
 - Verify that the Context section references a valid PRD.
 - Ensure the technical problem is clearly anchored to (not repeating) the PRD's user story.
 - Confirm the problem is narrowed down to a specific technical challenge.
+- If no PRD is provided, note this as a structural concern.
 
 ### 3. Acceptance Criteria Coverage
 - For each PRD Acceptance Criterion, verify there is a corresponding RFC section that addresses it.
 - Flag any PRD requirement that has no RFC mapping.
+- If no PRD is provided, note this as a validation concern.
 
 ### 4. Decision Log Completeness
 - Verify all significant decisions are logged.
 - Each decision must have: Decision, Rationale, Alternatives Considered, Author, Status.
 - Check for superseded decisions and verify they reference the superseding decision.
+- Verify the Decision Log includes a summary table at the top.
 
 ### 5. Open Questions Resolution
 - Verify that open questions are documented.
 - Flag any critical open questions that should be resolved before moving to "Approved."
+- Check that each open question has a clear owner or resolution path.
 
 ### 6. Output: Risk Scorecard
 Produce a **human-readable risk scorecard**:

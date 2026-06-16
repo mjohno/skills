@@ -12,27 +12,35 @@ Read the provided business context, high-level goals, or stakeholder requirement
 - The core problem being solved
 
 ### 2. Structure
-Use `assets/prd_template.md` as the structural foundation. Create the document with all mandatory sections.
+Create the document with all mandatory sections:
+- Section 1: Executive Summary
+- Section 2: Strategic Goals (S.M.A.R.T. table + detailed descriptions)
+- Section 3: User Stories (table + numbered detail with Acceptance Criteria)
+- Section 4: Risks & Mitigations
+- Section 5: Assumptions & Dependencies
+- Section 6: Constraints
+- Section 7: Out of Scope
 
 ### 3. Define Strategic Goals
 - Define 3-7 strategic goals using the S.M.A.R.T. framework
 - Each goal must be Specific, Measurable, Achievable, Relevant, and Time-bound
 - Focus on impact and outcomes, not features
-- Cross-check against `references/smart_framework.md` for quality
+- S.M.A.R.T. criteria: Specific (clearly defined), Measurable (quantifiable), Achievable (realistic), Relevant (aligned with business), Time-bound (has deadline)
 
 ### 4. Write User Stories
 - Generate user stories following the pattern: `As a [role], I want [action], so that [value]`
 - Each story must have a clear role, a concrete action, and articulated value
-- Use the `assets/user_story_template.md` pattern for each story
 - Number stories sequentially (US-001, US-002, etc.)
+- Include a summary table with ID, Role, Requirement, and Value columns
 
 ### 5. Define Acceptance Criteria
 - For each user story, define acceptance criteria using strict Gherkin syntax
 - Cover both the happy path and critical edge cases
-- Use the `assets/user_story_template.md` Gherkin pattern:
+- Gherkin pattern:
   - `Given` [precondition/context]
   - `When` [action/event occurs]
   - `Then` [expected outcome/observable result]
+- One Given/When/Then per scenario; cover happy path first, then edge cases
 
 ### 6. Add Supporting Sections
 - **Risks & Mitigations**: Identify key risks and proposed mitigations

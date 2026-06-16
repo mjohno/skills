@@ -3,19 +3,17 @@
 ## Context
 Review an existing RFC from a domain-specific perspective. Load a persona to guide the review criteria and depth.
 
-## Inputs
-1. Target RFC file (`RFC-NNN-<name>.md`)
-2. Review persona name (e.g., `security`, `architecture`, `scalability`) — defaults to System Architect if not specified
-3. Source workflow path (for reference): `references/workflow_rfc.md`
-
 ## Steps
 
 ### 1. Ingest
 - Read the target RFC file (`RFC-NNN-<name>.md`)
 - Accept the review persona name from the orchestrator
-- Load the corresponding persona from `references/` (e.g., `persona_review_security.md`)
+- Apply the persona's review criteria:
+  - **System Architect**: System boundaries, data flow, API contracts, scalability, technology selection
+  - **Security**: AuthN/Z, data protection, input validation, API security, secrets management, threat model, compliance
+  - Extensible: define additional personas with their own review criteria
 
-### 2. Execute Review (Persona-Guided)
+### 2. Execute Review
 Apply the loaded persona's focused lens to the RFC. Each persona defines its own review criteria and depth.
 
 ### 3. Output Review Round

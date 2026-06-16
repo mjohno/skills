@@ -15,16 +15,19 @@ Programmatically and semantically verify that a design artifact meets mandatory 
 - Load the associated template from `assets/` if applicable
 
 ### 3. Run Programmatic Validation
-Execute the validation script specified by the user or routed from the router.
-- PRD → `python scripts/validate_prd.py <target_file>`
-- Parse the JSON output for heuristic failures
+Execute structural validation checks:
+- Verify all mandatory sections are present
+- Check for required formatting (e.g., Gherkin syntax, S.M.A.R.T. format)
+- Validate cross-references between sections
+- Parse any available structured output for heuristic failures
 
 ### 4. Perform Semantic Audit
 Perform a deep dive to verify:
-- **Structural Integrity**: Adherence to the template structure
+- **Structural Integrity**: Adherence to the expected template structure
 - **Source Compliance**: Every requirement in the source workflow is satisfied
 - **Cross-Reference Consistency**: Internal references are valid and consistent
 - **Completeness**: No required sections or elements are missing
+- **Quality**: Writing is clear, concise, and free of vague language
 
 ### 5. Produce Validation Scorecard
 Report:
