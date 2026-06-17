@@ -34,7 +34,7 @@ Non-Goals: Managing non-skill resources, CI/CD pipelines, or version control ope
 ### Route the Request
 - Create classic skill → `references/workflow_classic_skill.md`
 - Create router skill → `references/workflow_router_skill.md`
-- Review skill → `references/workflow_review.md`
+- Review skill → delegate to review skill
 - Comply skill → `references/workflow_comply.md`
 - Deploy skill → `references/workflow_deploy.md`
 - Default → Gather more information and clarify the request.
@@ -76,8 +76,8 @@ Non-Goals: Managing non-skill resources, CI/CD pipelines, or version control ope
 
 **Routing:**
 - Operation: review
-- → Read and follow `references/workflow_review.md`
-- See examples in `workflow_review.md` for results.
+- → Delegate to review skill with the skill package as target
+- See examples in the review skill for results.
 
 ### Example 4: Comply (pass/fail test)
 

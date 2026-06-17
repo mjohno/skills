@@ -1,6 +1,6 @@
 ---
 name: design
-description: Route design artifact requests to the appropriate workflow (PRD, RFC). Use when you need to write, review, or validate a design artifact.
+description: Route design artifact requests to the appropriate workflow (PRD, RFC). Use when you need to write or validate a design artifact. For review, use the review skill.
 metadata:
   type: router
 ---
@@ -12,8 +12,8 @@ Non-Goals: Execute implementation, manage deployment, or perform strategic analy
 
 ## Use When
 - You need to write or update a design artifact (PRD, RFC).
-- You need to review a design artifact against its workflow specification.
 - You need to validate a design artifact against mandatory quality standards.
+- For review of design artifacts, use the review skill instead.
 
 ## Inputs
 1. Target artifact (file path or content)
@@ -29,24 +29,24 @@ Non-Goals: Execute implementation, manage deployment, or perform strategic analy
 
 ### Route the Request
 - **PRD + write/create** → `references/workflow_prd.md`
-- **PRD + review** → `references/workflow_prd_review.md`
+- **PRD + review** → delegate to review skill
 - **PRD + validate** → `references/workflow_prd_validate.md`
 - **RFC + write/create** → `references/workflow_rfc.md`
-- **RFC + review** → `references/workflow_rfc_review.md`
+- **RFC + review** → delegate to review skill
 - **RFC + validate** → `references/workflow_rfc_validate.md`
-- **General review** → `references/workflow_review.md`
+- **General review** → delegate to review skill
 - **General validate** → `references/workflow_validate.md`
-- **Default Route:** Ask the user to specify the artifact type (PRD/RFC) and action (write/create/review/validate).
+- **Default Route:** Ask the user to specify the artifact type (PRD/RFC) and action (write/create/validate). Review actions are delegated to the review skill.
 
 ### Execute the Workflow
 Follow the execution instructions provided by the routed workflow.
-Load referenced templates from `assets/` and scripts from `scripts/`.
-Load referenced personas from `references/`.
+- For write/validate routes: load referenced templates from `assets/` and scripts from `scripts/`.
+- For review routes: delegate to the review skill with the target artifact and context.
 
 ## Outputs
 - Design artifact (PRD or RFC) in the appropriate template format.
-- Review report with findings categorized by severity.
 - Validation scorecard with pass/fail status and remediation suggestions.
+- For review actions: delegates to the review skill.
 
 ## Examples
 
@@ -57,8 +57,8 @@ Load referenced personas from `references/`.
 
 ### Example 2
 **Prompt:** Review the PRD in `PRD-001.md`.
-**Decisions:** Route to `workflow_prd_review.md`. Load PRD workflow as source specification. Compare the PRD against the workflow requirements section by section.
-**Outcome:** Review report with findings categorized by severity.
+**Decisions:** Delegate to the review skill with the PRD target and design context.
+**Outcome:** Review report with findings categorized by severity (produced by the review skill).
 
 ### Example 3
 **Prompt:** Write an RFC for the PRD in `PRD-001-user-auth.md`. This is a general technical RFC.
@@ -67,8 +67,8 @@ Load referenced personas from `references/`.
 
 ### Example 4
 **Prompt:** Review RFC-001-user-auth.md from a security perspective.
-**Decisions:** Route to `workflow_rfc_review.md`. Load persona (`persona_review_security.md`). Evaluate authN/Z, token handling, data protection.
-**Outcome:** Review report with findings categorized by severity.
+**Decisions:** Delegate to the review skill with the RFC target and security lens request.
+**Outcome:** Review report with findings categorized by severity (produced by the review skill).
 
 ### Example 5
 **Prompt:** Validate RFC-001.md against the RFC workflow specification.
