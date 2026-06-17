@@ -39,6 +39,12 @@ Use template: `assets/template_report.md`
 1. Same as workflow_generic.md
 2. Lightweight pattern matching only (REVIEW(<id>) format)
 3. Do not import full annotation format from annotate skill
+4. Severity scale: P1-P5
+   - **P1**: Violates the spec/lens/annotation requirement
+   - **P2**: Could be improved
+   - **P3**: Minor suggestion
+   - **P4**: Cosmetic suggestion
+   - **P5**: Nice-to-have suggestion
 
 ## Output
 Review report using `assets/template_report.md` with findings categorized P1-P5, annotation references included.

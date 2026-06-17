@@ -15,16 +15,27 @@ Non-Goals: Execute review logic (that's the workflow's job), manage task packets
 - Asked to compare an output against a spec or goal.
 - Asked to audit a document, code, skill, or prose.
 
-## Router Steps
+## Inputs
+1. **Target** — the artifact to review (file path or content)
+2. **Lens hints** — any named lenses the user specifies (e.g., "from a security perspective")
+3. **Workflow hints** — any named workflow overrides (e.g., "using spec_review")
+4. **Custom specs** — any user-provided spec files
 
-### 1. Build Context from Input
+## Workflow
+1. Gather Context
+2. Route the Request
+3. Execute the Workflow
+
+### Gather Context
+
+#### 1. Build Context from Input
 Parse the user's natural language input. Extract:
 - **Target**: the artifact to review (file path or content)
 - **Lens hints**: any named lenses the user specifies (e.g., "from a security perspective")
 - **Workflow hints**: any named workflow overrides (e.g., "using spec_review")
 - **Custom specs**: any user-provided spec files
 
-### 2. Detect Artifact Type
+#### 2. Detect Artifact Type
 Read the target artifact and analyze its content via LLM to classify:
 - `prd` — contains Strategic Goals, User Stories, Acceptance Criteria, Gherkin scenarios
 - `rfc` — contains Proposed Solution, Design Decisions, Architecture, Feasibility
@@ -37,14 +48,16 @@ If confidence is below threshold, ask the user to confirm.
 
 **User override always wins** — if the user specifies an artifact type explicitly, use it.
 
-### 3. Discover Specs
+### Route the Request
+
+#### 3. Discover Specs
 Load the built-in `spec_<type>.md` file for the detected artifact type. This contains:
 - References to source files that define correctness for this artifact type
 - Additional criteria not captured by source files
 
 If the user provides custom spec files, they override built-in specs.
 
-### 4. Suggest Lenses
+#### 4. Suggest Lenses
 Always apply **lens_generic.md** (base lens) — universal critical thinking:
 1. Internal consistency — no contradictions within the artifact
 2. Completeness — no missing required elements (from the spec)
@@ -60,23 +73,25 @@ If the user does not specify lenses, suggest relevant ones based on artifact typ
 - Skill → no automatic lens suggestions
 - Prose → no automatic lens suggestions
 
-### 5. Discover Annotate REVIEW Hints
+#### 5. Discover Annotate REVIEW Hints
 Scan the target artifact and its surrounding directory for `REVIEW(<id>)` annotations.
 Use lightweight pattern matching — only match `REVIEW(<id>)` format (do not import full annotation format).
 Each discovered REVIEW annotation becomes a targeted review criterion.
 
-### 6. Route
+#### 6. Route
 If inputs are insufficient (no target, no spec, no lens), ask the user with helpful recommendations:
 - For unclear target: suggest likely candidates
 - For unclear specs: suggest built-in spec files or ask for custom specs
 - For unclear lenses: suggest relevant lenses based on artifact type
 
 Otherwise, route to the appropriate workflow:
-- **Default route** → `references/workflow_generic.md` (base lens only)
+- **Default Route:** → `references/workflow_generic.md` (base lens only)
 - **User specifies workflow** → `references/workflow_<name>.md`
 - **User provides custom specs** → `references/workflow_spec_review.md`
 
-### 7. Build Context for Workflow
+### Execute the Workflow
+
+#### 7. Build Context for Workflow
 Pass to the workflow:
 - **Target**: the artifact to review
 - **Spec**: loaded spec criteria (from spec_ file + custom specs)
@@ -84,13 +99,9 @@ Pass to the workflow:
 - **Annotation hints**: discovered REVIEW(<id>) annotations
 - **Workflow**: the routed workflow file
 
-## Severity Scale
-All workflows use **P1-P5**:
-- **P1**: Violates the spec (missing required elements, contradictions, syntax errors)
-- **P2**: Could be improved (quality, completeness, clarity)
-- **P3**: Minor suggestion (formatting, consistency)
-- **P4**: Cosmetic suggestion
-- **P5**: Nice-to-have suggestion
+## Outputs
+- Review report via the routed workflow, using `assets/template_report.md`
+- Report contains: sources → targets → summary → findings (P1-P5) → recommended changes
 
 ## Constraints
 1. Be specific: cite exact source requirements

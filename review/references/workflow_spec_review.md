@@ -32,6 +32,12 @@ Use template: `assets/template_report.md`
 1. Same as workflow_generic.md
 2. Prioritize user-specified specs over built-in specs
 3. Note when built-in specs are used as fallback
+4. Severity scale: P1-P5
+   - **P1**: Violates the spec (missing required elements, contradictions, syntax errors)
+   - **P2**: Could be improved (quality, completeness, clarity)
+   - **P3**: Minor suggestion (formatting, consistency)
+   - **P4**: Cosmetic suggestion
+   - **P5**: Nice-to-have suggestion
 
 ## Output
 Review report using `assets/template_report.md` with findings categorized P1-P5 and spec provenance noted.

@@ -45,6 +45,12 @@ Use template: `assets/template_report.md`
 3. Don't introduce new requirements beyond the specs
 4. Report both what's missing AND what's wrong
 5. Do not perform remediation — only comparison and reporting
+6. Severity scale: P1-P5
+   - **P1**: Violates the spec or lens (missing required elements, contradictions, syntax errors)
+   - **P2**: Could be improved (quality, completeness, clarity)
+   - **P3**: Minor suggestion (formatting, consistency)
+   - **P4**: Cosmetic suggestion
+   - **P5**: Nice-to-have suggestion
 
 ## Output
 Review report using `assets/template_report.md` with findings categorized P1-P5.
