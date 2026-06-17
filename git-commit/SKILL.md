@@ -1,6 +1,8 @@
 ---
 name: git-commit
-description: Generates and executes a git commit adhering to the Conventional Commits specification. Used when you need to make a commit.
+description: Generates and executes a git commit message adhering to the Conventional Commits specification. Use when you need to commit staged changes.
+metadata:
+  type: skill
 ---
 
 # Git Commit
@@ -10,7 +12,12 @@ Goal: Generate and execute a git commit message that adheres strictly to the [Co
 Use When:
 - You need to commit staged changes with automated analysis.
 
-## Workflows
+Non-Goals:
+- Committing unstaged changes (requires manual staging first)
+- Creating merge commits, amends, or rebases
+- Bypassing commit message standards
+
+## Workflow
 
 1. **Pre-flight Check**:
    - Run `git status --porcelain` to check the state of the repository.
