@@ -2,9 +2,6 @@
 
 This spec defines criteria for reviewing code, source files, tests, and diffs.
 
-## Source References
-- **Reviewer agent guidance**: `pi-subagents/agents/reviewer.md`
-
 ## Additional Criteria
 
 ### Implementation Correctness

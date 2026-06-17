@@ -3,9 +3,9 @@
 This spec references the PRD workflow specification and templates to define what makes a PRD correct.
 
 ## Source References
-- **Workflow spec**: `design/references/workflow_prd.md`
-- **PRD template**: `design/assets/prd_template.md`
-- **User story template**: `design/assets/user_story_template.md`
+- **Workflow spec**: `../../design/references/workflow_prd.md`
+- **PRD template**: `../../design/assets/prd_template.md`
+- **User story template**: `../../design/assets/user_story_template.md`
 
 ## Additional Criteria
 

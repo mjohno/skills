@@ -3,9 +3,9 @@
 This spec defines criteria for reviewing prose, documents, comments, and documentation text.
 
 ## Source References
-- **Readability guidelines**: `writing/references/readability_guidelines.md`
-- **Density guidelines**: `writing/references/density_guidelines.md`
-- **Review mode**: `writing/references/mode_review.md`
+- **Readability guidelines**: `../../writing/references/readability_guidelines.md`
+- **Density guidelines**: `../../writing/references/density_guidelines.md`
+- **Review mode**: `../../writing/references/mode_review.md`
 
 ## Additional Criteria
 

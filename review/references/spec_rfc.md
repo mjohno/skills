@@ -3,8 +3,8 @@
 This spec references the RFC workflow specification and templates to define what makes an RFC correct.
 
 ## Source References
-- **Workflow spec**: `design/references/workflow_rfc.md`
-- **RFC template**: `design/assets/rfc_template.md`
+- **Workflow spec**: `../../design/references/workflow_rfc.md`
+- **RFC template**: `../../design/assets/rfc_template.md`
 
 ## Additional Criteria
 

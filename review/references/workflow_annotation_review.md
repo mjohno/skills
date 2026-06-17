@@ -24,7 +24,7 @@ For each discovered annotation:
 - Annotation criteria (from discovered REVIEW annotations)
 
 ### 4. Categorize Findings by Severity
-Use the router's P1-P5 severity scale (defined in Step 7 of SKILL.md).
+Use the severity scale defined in `assets/severity.md`.
 
 ### 5. Report Findings
 Use template: `assets/template_report.md`
@@ -39,12 +39,5 @@ Use template: `assets/template_report.md`
 1. Same as workflow_generic.md
 2. Lightweight pattern matching only (REVIEW(<id>) format)
 3. Do not import full annotation format from annotate skill
-4. Severity scale: P1-P5
-   - **P1**: Violates the spec/lens/annotation requirement
-   - **P2**: Could be improved
-   - **P3**: Minor suggestion
-   - **P4**: Cosmetic suggestion
-   - **P5**: Nice-to-have suggestion
-
 ## Output
 Review report using `assets/template_report.md` with findings categorized P1-P5, annotation references included.
