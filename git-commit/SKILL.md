@@ -75,12 +75,4 @@ Refs: ABC-123
 ### Example 3: Advanced commit (Breaking Change)
 **Prompt**: "commit my changes. I'm breaking the API by removing the old login method."
 **Decisions**: Detected a breaking change in the diff; appended `!` to the header and added a `BREAKING CHANGE` footer.
-**Outcome**:
-```
-refactor(auth)!: remove deprecated login method
-
-The legacy login method has been removed in favor of the new OAuth flow.
-This requires all clients to update their authentication handlers.
-
-BREAKING CHANGE: The `login()` method is no longer available.
-```
+**Outcome**: `refactor(auth)!: remove deprecated login method` with body and `BREAKING CHANGE` footer.
