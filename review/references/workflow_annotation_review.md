@@ -39,5 +39,5 @@ Use template: `assets/template_report.md`
 1. Same as workflow_generic.md
 2. Lightweight pattern matching only (REVIEW(<id>) format)
 3. Do not import full annotation format from annotate skill
-## Output
+## Outputs
 Review report using `assets/template_report.md` with findings categorized P1-P5, annotation references included.

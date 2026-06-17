@@ -27,7 +27,7 @@ Non-Goals: Execute review logic (that's the workflow's job), manage task packets
 1. **Build Context from Input** — Parse input to extract target, lens hints, workflow hints, custom specs.
 2. **Detect Artifact Type** — Classify as prd, rfc, code, skill, prose, or generic. User override always wins.
 3. **Discover Specs** — Load `spec_<type>.md` for the detected type. User-provided specs override built-in.
-4. **Suggest Lenses** — Always apply `lens_generic.md`. If user specifies domain lenses, load `lens_*.md`. Suggest RFC → system_architect + security, Code → security.
+4. **Suggest Lenses** — Always apply `lens_generic.md`. If user specifies domain lenses, load `lens_*.md`. Suggest relevant domain lenses based on the artifact's content and context. Avoid hard-mapping artifact types to specific lenses — the same artifact type may benefit from different lenses depending on its purpose, audience, and risk profile.
 5. **Discover Annotations** — Scan for `REVIEW(<id>)` annotations. Each becomes a targeted criterion.
 
 ### Route the Request

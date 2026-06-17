@@ -29,8 +29,8 @@ Use template: `assets/template_report.md`
 - Highlight spec provenance in findings (user-specified vs. built-in)
 
 ## Constraints
-1. Same as workflow_generic.md
-2. Prioritize user-specified specs over built-in specs
-3. Note when built-in specs are used as fallback
-## Output
+1. In addition to workflow_generic.md constraints:
+   - Prioritize user-specified specs over built-in specs
+   - Note when built-in specs are used as fallback
+## Outputs
 Review report using `assets/template_report.md` with findings categorized P1-P5 and spec provenance noted.

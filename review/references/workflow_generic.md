@@ -45,5 +45,5 @@ Use template: `assets/template_report.md`
 3. Don't introduce new requirements beyond the specs
 4. Report both what's missing AND what's wrong
 5. Do not perform remediation — only comparison and reporting
-## Output
+## Outputs
 Review report using `assets/template_report.md` with findings categorized P1-P5.
