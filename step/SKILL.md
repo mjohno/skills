@@ -2,46 +2,42 @@
 name: step
 description: Execute one step toward a high-level goal, verify the result, and report outcomes along with the next step. Use when you need to iterate on a set of references (plans, tasks, files, docs) until the goal is complete, with human review between steps.
 metadata:
-  type: skill
+  category: orchestrate
 ---
 
 # step
 
 Goal: Execute one step toward a high-level goal, verify the result, and report: (1) the high-level goal, (2) what happened during execution, and (3) the next step to work on.
-
 Non-Goals: Creating or breaking down plans, long-term state management, fully autonomous execution, or operating without human oversight.
+Use-When: You have a high-level goal and references to iterate on.
 
-Use When:
-- You have a high-level goal and references (plans, tasks, files, docs) to iterate on.
-- You need to execute one step, verify it, and determine what comes next.
-- You need to iterate repeatedly until a goal is complete with human review between steps.
+## 0. Prerequisites
+- A high-level goal and a specific step to execute
+- References (plans, tasks, files, docs) to guide iteration
 
-## Inputs
+## 1. Inputs
+- High-level goal from prompt
+- Next step to execute from prompt
+- References (plans, tasks, files, docs) from prompt
 
-1. **High-level goal** — What you're ultimately trying to achieve.
-2. **Next step** — The specific step to execute right now.
-3. **Refs** — A list of references used to iterate on. These may include plans, tasks, files, docs, or any other context. The skill uses them to determine what comes after this step.
+## 2. Processes
+1. **Execute**: Carry out the step using available tools (shell, file ops, git, subagents, etc.).
+2. **Verify**: Check that the step succeeded. Run tests, inspect outputs, confirm artifacts exist.
+3. **Report**: Return the high-level goal, what happened (success/failure/partial), and evidence of what was done.
+4. **Propose next step**: If the refs indicate more work, suggest the next step. If the goal appears achieved, signal completion. If the step failed, decide whether to suggest recovery directly or delegate to a sub-skill.
 
-## Workflows
+## 3. Outputs
+- Structured report in the prompt with: Goal, Step executed, Result (Success/Failure/Partial), Next step, Notes
+- If user specifies an output file, write to that path instead
 
-1. **Execute** — Carry out the step using available tools (shell, file ops, git, subagents, etc.).
-2. **Verify** — Check that the step succeeded. Run tests, inspect outputs, confirm artifacts exist.
-3. **Report** — Return:
-   - The high-level goal
-   - What happened (success, failure, partial)
-   - Evidence of what was done
-4. **Propose next step** — If the refs indicate more work, suggest the next step. If the goal appears achieved, signal completion. If the step failed, decide whether to suggest recovery directly or delegate to a sub-skill (see `references/failure_handling.md`).
+## 4. Next Steps
+- `step` — continue with the next step
+- `plan` — update plan status for completed steps
+- `task` — extract a task packet for the next step
+- `investigate` — if the step failed with unknown root cause
+- `step` — if the step failed with a simple recovery
 
-## Output
-
-Always return (aligned with `assets/skill_template.md`):
-- **Goal:** The high-level goal
-- **Step executed:** Which step was run
-- **Result:** Success / Failure / Partial — with evidence
-- **Next step:** The recommended next step (or "goal complete" if done)
-- **Notes:** Any issues, blockers, or human decisions needed
-
-## Examples
+## 5. Examples
 
 ### Example 1
 
