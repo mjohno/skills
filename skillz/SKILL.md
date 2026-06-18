@@ -21,16 +21,19 @@ Use-When: Creating skills, reviewing skills against specifications, complying sk
 
 ## 2. Processes
 1. Gather context: identify the requested operation and skill target
-2. Route to the appropriate workflow file:
-   - create → `references/workflow_classic_skill.md`
-   - comply → `references/workflow_comply.md`
-   - deploy → `references/workflow_deploy.md`
+2. Route to the appropriate process file:
+   - create → `references/process_classic_skill.md`
+   - comply → `references/process_comply.md`
+   - deploy → `references/process_deploy.md`
    - review → delegate to the `review` skill (external)
-3. Execute the workflow steps
+3. Execute the process steps
 4. Report results
 
 ## 3. Outputs
-- See outputs in each workflow file
+- create → skill package (SKILL.md + optional scripts/, references/, assets/)
+- review → audit report from the `review` skill
+- comply → pass/fail compliance report
+- deploy → synchronized target directory
 
 ## 4. Next Steps
 - After creating a skill: review it with the `review` skill
@@ -46,9 +49,8 @@ Use-When: Creating skills, reviewing skills against specifications, complying sk
 
 **Execution:**
 - Operation: create
-- → Read and follow `references/workflow_classic_skill.md`
+- → Read and follow `references/process_classic_skill.md`
 - Category: `transform` (analyzing code)
-- See examples in `workflow_classic_skill.md` for results.
 
 ### Example 2: Review a skill
 
@@ -66,7 +68,7 @@ Use-When: Creating skills, reviewing skills against specifications, complying sk
 
 **Execution:**
 - Operation: comply
-- → Read and follow `references/workflow_comply.md`
+- → Read and follow `references/process_comply.md`
 
 ### Example 4: Deploy a skill
 
@@ -75,4 +77,4 @@ Use-When: Creating skills, reviewing skills against specifications, complying sk
 
 **Execution:**
 - Operation: deploy
-- → Read and follow `references/workflow_deploy.md`
+- → Read and follow `references/process_deploy.md`

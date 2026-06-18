@@ -1,4 +1,4 @@
-# Skill Deploy Workflow
+# Skill Deploy Process
 
 ## Context
 Synchronize a local skill directory to a `TARGET_DIRECTORY` for active use.

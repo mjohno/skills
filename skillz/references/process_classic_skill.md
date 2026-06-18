@@ -1,4 +1,4 @@
-# Skill Creation Workflow
+# Skill Creation Process
 
 ## Context
 Create a new classic standalone skill or update an existing skill package.
@@ -41,8 +41,7 @@ Create a new classic standalone skill or update an existing skill package.
 - **Quality Control**: Review the completed `SKILL.md` against `assets/checklist.md`.
    - Verify `metadata.category` is set in frontmatter.
 
-### Phase 4: Final Compliance
-- Run `skills-ref validate <skill-dir>` to ensure the package is spec-compliant.
+
 
 ## Patterns
 - **Naming**: kebab-case for skill names
@@ -50,15 +49,7 @@ Create a new classic standalone skill or update an existing skill package.
 - **Template**: Use `assets/skill_template.md` for SKILL.md scaffolding
 - **Referenced files**: For larger skills, externalize Inputs/Processes/Outputs into `references/input_*.md`, `references/process_*.md`, or `references/output_*.md`
 
-## File Classification
-Files in `references/` and `assets/` can use an optional `type` field in their frontmatter (if they have frontmatter) for classification:
-- `type: template` — .md templates (e.g., `skill_template.md`)
-- `type: input` — expected input formats
-- `type: output` — expected output formats
-- `type: process` — procedural reference docs
-- `type: spec` — specification documents
 
-If a file has no frontmatter, the filename prefix (`input_`, `process_`, `output_`) serves as the implicit type.
 
 ## Constraints
 1. Frontmatter has `metadata.category` (not `type`)
@@ -72,5 +63,3 @@ If a file has no frontmatter, the filename prefix (`input_`, `process_`, `output
 
 ## Outputs
 - A complete classic skill package with SKILL.md, optional scripts/, references/, and assets/
-- Use template: `assets/skill_template.md`
-- Use checklist: `assets/checklist.md`

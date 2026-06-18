@@ -1,4 +1,4 @@
-# Skill Compliance Workflow
+# Skill Compliance Process
 
 ## Context
 Assert a pass/fail test over an existing skill package against the universal format specification.
