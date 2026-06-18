@@ -62,7 +62,8 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 **Closes:** GAP-5
 **Description:** Use `skillz` operation `create` to scaffold `ideate/SKILL.md` — generates and narrows solutions. Reads problem statement + requirements from prompt (pipeline-style). Outputs solution concepts to prompt. If user specifies an output file, write to that path. Pushes next: prototype, define (loop-back). Category: `transform`.
 **Deliverable:** `ideate/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
-**Status:** planned
+**Status:** done
+**Committed:** `feat(transform): create ideate skill`
 
 ### ITEM-8: Create `prototype` skill (transform)
 **Closes:** GAP-5
