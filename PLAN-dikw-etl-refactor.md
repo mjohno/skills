@@ -69,7 +69,8 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 **Closes:** GAP-5
 **Description:** Use `skillz` operation `create` to scaffold `prototype/SKILL.md` — makes concepts tangible. Reads solution concepts from prompt (pipeline-style). Outputs prototype description to prompt. If user specifies output files, write to those paths. Category: `transform`.
 **Deliverable:** `prototype/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
-**Status:** planned
+**Status:** done
+**Committed:** `feat(transform): create prototype skill`
 
 ### ITEM-9: Create `test` skill (transform)
 **Closes:** GAP-5
