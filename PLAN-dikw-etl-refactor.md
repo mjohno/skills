@@ -6,11 +6,11 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 
 | Gap ID | Current Problem | Target State |
 |---|---|---|
-| GAP-1 | `design` skill is a PRD/RFC router that skips the entire design lifecycle | Remove `design`; replace with 6 composable transform skills (analyze, synthesize, define, ideate, prototype, test) |
+| GAP-1 | `design` skill is a PRD/RFC router that skips the entire design lifecycle | Remove `design`; replace with 6 composable transform skills (analyze, hypothesize, define, ideate, prototype, test) |
 | GAP-2 | `writing` skill only does prose polishing; doesn't cover PRD, RFC, or code output types | Remove `writing`; replace with 4 load skills (prose, prd, rfc, code) |
 | GAP-3 | `skill-manager` name is clunky and doesn't reflect meta role | Rename `skill-manager` → `skillz` |
 | GAP-4 | No `collect` skill in extract category | Create `collect` skill |
-| GAP-5 | No transform skills exist (analyze, synthesize, define, ideate, prototype, test) | Create all 6 transform skills |
+| GAP-5 | No transform skills exist (analyze, hypothesize, define, ideate, prototype, test) | Create all 6 transform skills |
 | GAP-6 | Load skills only have prose (from writing); no prd, rfc, or code load skills | Create prd, rfc, code load skills (prose comes from writing replacement) |
 | GAP-7 | Existing skills (investigate, grill-me, review, plan, task, annotate, git-commit, step) need taxonomy alignment — descriptions and metadata updated to reflect new category model | Update all existing skill SKILL.md files with correct taxonomy category, descriptions, and push hints |
 | GAP-8 | No push-hint mechanism — skills don't suggest next steps to downstream consumers | Add `## Next Steps` push hints to new skills; update existing skills where relevant |
@@ -40,15 +40,16 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 
 ### ITEM-4: Create `analyze` skill (transform)
 **Closes:** GAP-5
-**Description:** Use `skillz` operation `create` to scaffold `analyze/SKILL.md` — finds patterns, contradictions, gaps in collected resources. Reads resource inventory from prompt (pipeline-style). Outputs structured analysis to prompt. If user specifies an output file, write to that path instead. Pushes next: synthesize, report, ideate. Category: `transform`.
+**Description:** Use `skillz` operation `create` to scaffold `analyze/SKILL.md` — finds patterns, contradictions, gaps in collected resources. Reads resource inventory from prompt (pipeline-style). Outputs structured analysis to prompt. If user specifies an output file, write to that path instead. Pushes next: hypothesize, report, ideate. Category: `transform`.
 **Deliverable:** `analyze/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
 **Status:** planned
 
-### ITEM-5: Create `synthesize` skill (transform)
+### ITEM-5: Create `hypothesize` skill (transform)
 **Closes:** GAP-5
-**Description:** Use `skillz` operation `create` to scaffold `synthesize/SKILL.md` — extracts meaning, forms hypotheses. Reads analysis from prompt (pipeline-style). Outputs synthesis to prompt. If user specifies an output file, write to that path instead. Pushes next: report, ideate. Category: `transform`.
-**Deliverable:** `synthesize/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
-**Status:** planned
+**Description:** Use `skillz` operation `create` to scaffold `hypothesize/SKILL.md` — extracts meaning, forms hypotheses. Reads analysis from prompt (pipeline-style). Outputs synthesis to prompt. If user specifies an output file, write to that path instead. Pushes next: ideate, define, collect. Category: `transform`.
+**Deliverable:** `hypothesize/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
+**Status:** done
+**Committed:** `feat(transform): create hypothesize skill`
 
 ### ITEM-6: Create `define` skill (transform)
 **Closes:** GAP-5
