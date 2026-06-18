@@ -1,13 +1,13 @@
 # Review Report: review/ skill package
 
 ## Sources
-- **Spec**: `skill-manager/assets/skill_template.md` (skill template)
-- **Spec**: `skill-manager/assets/router_checklist.md` (router checklist)
-- **Spec**: `skill-manager/assets/checklist.md` (classic checklist)
-- **Spec**: `skill-manager/assets/router_skill_template.md` (router template)
-- **Spec**: `skill-manager/references/workflow_classic_skill.md` (workflow requirements)
-- **Spec**: `skill-manager/references/workflow_router_skill.md` (workflow requirements)
-- **Spec**: `skill-manager/SKILL.md` (skill-manager skill itself — reference implementation)
+- **Spec**: `skillz/assets/skill_template.md` (skill template)
+- **Spec**: `skillz/assets/router_checklist.md` (router checklist)
+- **Spec**: `skillz/assets/checklist.md` (classic checklist)
+- **Spec**: `skillz/assets/router_skill_template.md` (router template)
+- **Spec**: `skillz/references/workflow_classic_skill.md` (workflow requirements)
+- **Spec**: `skillz/references/workflow_router_skill.md` (workflow requirements)
+- **Spec**: `skillz/SKILL.md` (skillz skill itself — reference implementation)
 
 ## Targets
 - `review/SKILL.md` (139 lines)
@@ -42,14 +42,14 @@ The review skill is a well-structured router skill with comprehensive review wor
     - `spec_prd.md` → `design/assets/user_story_template.md` (does not exist)
     - `spec_rfc.md` → `design/references/workflow_rfc.md` (does not exist)
     - `spec_rfc.md` → `design/assets/rfc_template.md` (does not exist)
-    - `spec_skill.md` → `skill-manager/references/workflow_review.md` (does not exist)
+    - `spec_skill.md` → `skillz/references/workflow_review.md` (does not exist)
     - `spec_prose.md` → `writing/references/readability_guidelines.md` (does not exist)
     - `spec_prose.md` → `writing/references/density_guidelines.md` (does not exist)
     - `spec_prose.md` → `writing/references/mode_review.md` (does not exist)
   - **Suggested fix**: Either create the referenced files, update references to point to existing paths, or remove the "Source References" section if the referenced files are unavailable.
 
 - **P2-3 — SKILL.md does not conform to router_skill_template.md structure**
-  - **Source**: `review/SKILL.md` vs `skill-manager/assets/router_skill_template.md`
+  - **Source**: `review/SKILL.md` vs `skillz/assets/router_skill_template.md`
   - **Issue**: The router template requires a specific section order:
     1. Frontmatter with `metadata.type: router`
     2. `# [Skill Name]`

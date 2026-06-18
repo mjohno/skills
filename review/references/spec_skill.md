@@ -3,10 +3,10 @@
 This spec defines criteria for reviewing skill packages.
 
 ## Source References
-- **Skill template**: `../../skill-manager/assets/skill_template.md`
-- **Router template**: `../../skill-manager/assets/router_skill_template.md`
-- **Classic checklist**: `../../skill-manager/assets/checklist.md`
-- **Router checklist**: `../../skill-manager/assets/router_checklist.md`
+- **Skill template**: `../../skillz/assets/skill_template.md`
+- **Router template**: `../../skillz/assets/router_skill_template.md`
+- **Classic checklist**: `../../skillz/assets/checklist.md`
+- **Router checklist**: `../../skillz/assets/router_checklist.md`
 
 ## Additional Criteria
 

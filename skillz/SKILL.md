@@ -1,11 +1,11 @@
 ---
-name: skill-manager
+name: skillz
 description: Generates spec-compliant AgentSkills.io skill packages. Use when you need to create a new skill, review an existing skill, or deploy a skill to a target directory.
 metadata:
   type: router
 ---
 
-# Skill Manager
+# skillz
 
 Goal: Generate, review, comply and deploy spec-compliant AgentSkills.io skill packages.
 Non-Goals: Managing non-skill resources, CI/CD pipelines, or version control operations.
@@ -92,7 +92,7 @@ Non-Goals: Managing non-skill resources, CI/CD pipelines, or version control ope
 ### Example 5: Deploy a skill
 
 **Prompt:**
-> Deploy the `investigate` skill to `C:\Users\matjo\.pi\agent\skills\`.
+> Deploy the `investigate` skill to `C:/Users/matjo/.pi/agent/skills/`.
 
 **Routing:**
 - Operation: deploy
