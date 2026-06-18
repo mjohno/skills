@@ -1,32 +1,34 @@
 ---
-name: [Skill Name]
-description: [Skill Description; a concise overview; has a use when clause]
+name: [skill-name]
+description: [concise overview with "Use when..." triggers]
 metadata:
-  type: skill
+  category: [discover|extract|transform|load|orchestrate|meta]
 ---
 
 # [Skill Name]
 
-Goal: [Mandatory; The goal of the skill]
-Non-Goals: [Optional; What the skill is not designed to do]
+Goal: [mandatory — what this skill achieves]
+Non-Goals: [optional — what this skill does not do]
+Use-When: [triggers for invoking this skill]
 
-Use When:
-- [Clause 1]
-- [Clause n]
+## 0. Prerequisites
+- [upstream skills or actions expected to have run]
 
-## Workflows
+## 1. Inputs
+- [information this skill reads or receives; reference input_*.md or keep inline]
 
-[Use progressive disclosure]
-[Include assets such as templates and checklists when they exist]
-[Include references to detailed documentation when it exist]
+## 2. Processes
+- [transformations this skill performs; reference process_*.md or keep inline]
 
-## Examples
+## 3. Outputs
+- [information this skill creates or writes; reference output_*.md or keep inline]
+
+## 4. Next Steps
+- [suggested follow-on actions or skills]
+
+## 5. Examples
 
 ### Example 1
 
-[Mandatory; An example of how to use the skill]
-Prompt: [The prompt used to invoke the skill]
-Decisions: [The decisions made by the agent when executing the skill]
-Outcome: [The outcome of executing the skill]
-
-[### Example n; optional additional examples]
+**Prompt:** [prompt used to invoke the skill]
+**Outcome:** [result of executing the skill]

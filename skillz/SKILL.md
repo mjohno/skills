@@ -2,99 +2,77 @@
 name: skillz
 description: Generates spec-compliant AgentSkills.io skill packages. Use when you need to create a new skill, review an existing skill, or deploy a skill to a target directory.
 metadata:
-  type: router
+  category: meta
 ---
 
 # skillz
 
 Goal: Generate, review, comply and deploy spec-compliant AgentSkills.io skill packages.
 Non-Goals: Managing non-skill resources, CI/CD pipelines, or version control operations.
+Use-When: Creating skills, reviewing skills against specifications, complying skills to meet requirements, or deploying skills.
 
-## Use When
-- Creating skills (classic or router-based)
-- Reviewing skills against their source specifications
-- Complying skills to meet spec requirements
-- Deploying skills to a target directory
+## 0. Prerequisites
+- User has a skill package directory or wants to create a new one
 
-## Inputs
-1. Operation type (create, comply, review, deploy)
-2. Subject skill name (for create, review, comply, deploy)
-3. Source specification (for create, review)
+## 1. Inputs
+- Operation type (create, review, comply, deploy)
+- Subject skill name or directory
+- Source specification (for create, review)
 
-## Workflow
-1. Gather Context
-2. Route the Request
-3. Execute the Workflow
+## 2. Processes
+1. Gather context: identify the requested operation and skill target
+2. Route to the appropriate workflow file:
+   - create → `references/workflow_classic_skill.md`
+   - comply → `references/workflow_comply.md`
+   - deploy → `references/workflow_deploy.md`
+   - review → delegate to the `review` skill (external)
+3. Execute the workflow steps
+4. Report results
 
-### Gather Context
-1. Collect Inputs
-2. Identify the requested operation (create, comply, review, deploy).
-3. Identify the skill which is the object of the operation.
+## 3. Outputs
+- See outputs in each workflow file
 
-### Route the Request
-- Create classic skill → `references/workflow_classic_skill.md`
-- Create router skill → `references/workflow_router_skill.md`
-- Review skill → delegate to review skill
-- Comply skill → `references/workflow_comply.md`
-- Deploy skill → `references/workflow_deploy.md`
-- Default → Gather more information and clarify the request.
+## 4. Next Steps
+- After creating a skill: review it with the `review` skill
+- After reviewing: fix violations and re-comply
+- After deploying: verify the target directory
 
-### Execute the Workflow
-- Read and follow the steps outlined in the routed workflow file to complete the requested operation.
-
-## Outputs
-- See outputs in each workflow.
-
-## Examples
+## 5. Examples
 
 ### Example 1: Create a skill
 
 **Prompt:**
 > Create a new skill called `code-review` that helps review code for quality and best practices.
 
-**Routing:**
+**Execution:**
 - Operation: create
-- Type: skill (classic standalone skill)
 - → Read and follow `references/workflow_classic_skill.md`
+- Category: `transform` (analyzing code)
 - See examples in `workflow_classic_skill.md` for results.
 
-### Example 2: Create a router skill
-
-**Prompt:**
-> Create a new router skill called `design-manager` that dispatches to design workflows.
-
-**Routing:**
-- Operation: create
-- Type: router
-- → Read and follow `references/workflow_router_skill.md`
-- See examples in `workflow_router_skill.md` for results.
-
-### Example 3: Review a skill
+### Example 2: Review a skill
 
 **Prompt:**
 > Review the `git-commit` skill for compliance and quality.
 
-**Routing:**
+**Execution:**
 - Operation: review
-- → Delegate to review skill with the skill package as target
-- See examples in the review skill for results.
+- → Delegate to the `review` skill with the skill package as target
 
-### Example 4: Comply (pass/fail test)
+### Example 3: Comply (pass/fail test)
 
 **Prompt:**
 > Run compliance checks on the `grill-me` skill.
 
-**Routing:**
+**Execution:**
 - Operation: comply
 - → Read and follow `references/workflow_comply.md`
-- See examples in `workflow_comply.md` for results.
 
-### Example 5: Deploy a skill
+### Example 4: Deploy a skill
 
 **Prompt:**
 > Deploy the `investigate` skill to `C:/Users/matjo/.pi/agent/skills/`.
 
-**Routing:**
+**Execution:**
 - Operation: deploy
 - → Read and follow `references/workflow_deploy.md`
-- See examples in `workflow_deploy.md` for results.

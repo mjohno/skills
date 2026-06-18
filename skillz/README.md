@@ -1,6 +1,6 @@
-# Skill Manager
+# skillz
 
-The Skill Manager system turns skill packages into composable, spec-compliant workflows that AI agents can discover, invoke, and compose with predictable structure and behavior.
+The `skillz` system manages spec-compliant AgentSkills.io skill packages. Skills are stateless transforms that operate on raw context data with optional file I/O, chained implicitly via soft coupling (prerequisites → next steps).
 
 ## System Model
 
@@ -10,39 +10,33 @@ The Skill Manager system turns skill packages into composable, spec-compliant wo
     └──────┬───────┘
            │
            ▼
-    ┌──────────────┐     type       ┌───────────────┐
-    │  Gather      │───────────────▶│   Router      │
-    │  Context     │   metadata.type│               │
-    └──────────────┘                └───────┬───────┘
-                                            │
-                    ┌───────────────────────┼──────────────────────┐
-                    ▼                       ▼                      ▼
-              ┌──────────┐          ┌──────────┐          ┌──────────┐
-              │ Create   │          │ Review   │          │ Deploy   │
-              │ Classic  │          │ Any      │          │ Any      │
-              └──────────┘          └──────────┘          └──────────┘
-              ┌──────────┐          │
-              │ Create   │          │
-              │ Router   │          │
-              └──────────┘          │
-                                    ▼
-                              ┌──────────┐
-                              │ Comply   │
-                              │ Any      │
-                              └──────────┘
-
-    Router ──selects──▶ Checklist (auto-detected) ──validates──▶ Pass/Fail
-    Router ──selects──▶ Template (by type) ────scaffolds───────▶ New SKILL.md
+    ┌──────────────┐
+    │  Gather      │──operation──▶ [workflow]
+    │  Context     │
+    └──────────────┘
+           │
+    ┌──────┴───────┐
+    ▼              ▼
+┌────────┐    ┌────────┐
+│ Create │    │ Comply │
+└────────┘    └────────┘
+┌────────┐    ┌────────┐
+│ Review │    │ Deploy │
+└────────┘    └────────┘
 ```
 
-## Types (State Definitions)
+## Categories (State Definitions)
 
-| Type | `metadata.type` | Structure | Validation |
-|------|-----------------|-----------|------------|
-| Classic | `skill` | SKILL.md + optional scripts/references/assets | 9-item checklist |
-| Router  | `router` | SKILL.md + references/workflow_*.md + optional templates | 13-item checklist |
+| Category | `metadata.category` | Description |
+|----------|---------------------|-------------|
+| discover | `discover` | Find, collect, or surface information |
+| extract | `extract` | Pull structured data from unstructured sources |
+| transform | `transform` | Restructure, analyze, or synthesize data |
+| load | `load` | Persist, store, or deliver data |
+| orchestrate | `orchestrate` | Coordinate multi-step workflows |
+| meta | `meta` | Manage, validate, or describe other skills |
 
-Types are not just labels — they determine which checklist runs, which template scaffolds, and which structural invariants apply.
+Category is the single source of truth for skill classification. It replaces the deprecated `metadata.type`.
 
 ## Workflows (State Transitions)
 
@@ -50,50 +44,43 @@ Each workflow is a **directed transformation**: it takes an input state, applies
 
 | Workflow | Input State | Output State | Checklist |
 |----------|-------------|--------------|-----------|
-| Create Classic | nothing | `skill/` with SKILL.md | `checklist.md` |
-| Create Router  | nothing | `skill/` with SKILL.md + workflows | `router_checklist.md` |
-| Review         | existing `skill/` | audit report (Critical vs Recommended) | auto-detected |
-| Comply         | existing `skill/` | pass/fail result | auto-detected |
-| Deploy         | local `skill/` | synchronized target | N/A |
+| Create | nothing | `skill/` with SKILL.md | `checklist.md` |
+| Review | existing `skill/` | audit report (Critical vs Recommended) | auto-detected |
+| Comply | existing `skill/` | pass/fail result | `checklist.md` |
+| Deploy | local `skill/` | synchronized target | N/A |
 
 Create workflows are **generative** (nothing → package). Review/Comply are **diagnostic** (package → assessment). Deploy is **translational** (local → target).
 
 ## System Invariants
 
-- `metadata.type` is the single source of truth — every workflow and checklist branches on it
-- 100-line SKILL.md cap applies uniformly across both types
+- `metadata.category` is the single source of truth — one of six valid categories
+- 100-line SKILL.md cap applies uniformly
 - Only `#` and `##` headings define the routing contract; deeper sections are implementation detail
 - Workflow files are self-contained — no cross-skill references
 - All `## Constraints` sections use numbered lists (no checkboxes)
+- No router skills — skills chain implicitly via soft coupling (prerequisites → next steps)
 
 ## Data Flow
 
 ```
-Prompt → Gather Context → Route → [Template | Checklist | Workflow] → Output
+Prompt → Gather Context → [Template | Checklist | Workflow] → Output
 ```
 
-- **Template path**: Router selects the correct template → scaffolds new SKILL.md
-- **Checklist path**: Router detects type → selects checklist → validates
-- **Workflow path**: Router dispatches to workflow file → executes constrained steps
+- **Template path**: Use `assets/skill_template.md` → scaffolds new SKILL.md
+- **Checklist path**: Use `assets/checklist.md` → validates
+- **Workflow path**: Dispatch to workflow file → executes constrained steps
 
-The router is the only component that makes routing decisions. Everything else is deterministic: given a type, the checklist, template, and workflow are fixed.
+## File Classification
 
-## Control Flow (Router Internal)
-
-```
-Operation ──┬── create ──┬── classic → workflow_classic_skill.md
-            │            └── router  → workflow_router_skill.md
-            ├── review ──┬── skill  → checklist.md
-            │            └── router → router_checklist.md
-            ├── comply ──┬── skill  → checklist.md
-            │            └── router → router_checklist.md
-            └── deploy ──────────────→ workflow_deploy.md
-```
-
-Review and Comply share the same routing logic (detect type → select checklist) but differ in output: Review produces a categorized report; Comply produces pass/fail.
+Files in `references/` and `assets/` can use an optional `type` field in their frontmatter:
+- `type: template` — .md templates
+- `type: input` — expected input formats
+- `type: output` — expected output formats
+- `type: process` — procedural reference docs
+- `type: spec` — specification documents
 
 ## Error Handling
 
-- Missing `metadata.type` → Critical failure in both Review and Comply
-- Default Route → Gather more information (router asks for clarification)
-- Non-`skill`/non-`router` type → Critical failure
+- Missing `metadata.category` → Critical failure in both Review and Comply
+- Default Route → Gather more information (ask for clarification)
+- Non-valid category → Critical failure

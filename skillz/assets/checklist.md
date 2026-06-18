@@ -1,9 +1,14 @@
-- [ ] Frontmatter has `metadata.type: skill`
-- [ ] Frontmatter description includes triggers ("Use when...")
+- [ ] `metadata.category` present (one of: discover, extract, transform, load, orchestrate, meta)
+- [ ] Description includes "Use when..." triggers
 - [ ] SKILL.md under 100 lines
-- [ ] Root level has a Goal and Use When clauses
+- [ ] Under `# [Name]`: Goal (mandatory), Non-Goals (optional), Use-When (mandatory)
+- [ ] Section 0: Prerequisites present (mandatory)
+- [ ] Section 1: Inputs present (inline OR references/input_*.md / assets/input_*.md)
+- [ ] Section 2: Processes present (inline OR references/process_*.md / assets/process_*.md)
+- [ ] Section 3: Outputs present (inline OR references/output_*.md / assets/output_*.md)
+- [ ] Section 4: Next Steps present (suggested downstream skills)
+- [ ] Section 5: Examples present (at least one)
 - [ ] Writing is information dense and concise
 - [ ] No time-sensitive info
 - [ ] Consistent terminology
-- [ ] Concrete examples included under ## Examples
 - [ ] References one level deep

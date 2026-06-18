@@ -15,16 +15,23 @@ Create a new classic standalone skill or update an existing skill package.
 2. **Name & Description**:
    - Use `kebab-case` for the `name` (must match the directory name).
    - Provide a concise `description` that includes "Use when..." triggers.
-3. **Component Identification**: Determine if the skill requires:
+3. **Determine Category**: Choose one of six categories:
+   - `discover` — find, collect, or surface information
+   - `extract` — pull structured data from unstructured sources
+   - `transform` — restructure, analyze, or synthesize data
+   - `load` — persist, store, or deliver data
+   - `orchestrate` — coordinate multi-step workflows
+   - `meta` — manage, validate, or describe other skills
+4. **Component Identification**: Determine if the skill requires:
    - `scripts/`: Executable logic.
    - `references/`: Detailed documentation or rules.
    - `assets/`: Templates or static resources.
-4. **Constraint Check**: Verify the `name` uses `kebab-case`.
+5. **Constraint Check**: Verify the `name` uses `kebab-case`.
 
 ### Phase 2: Scaffolding
 1. **Directory Creation**: Create the root directory `<name>/`.
 2. **Initialize SKILL.md**: Use the template in `assets/skill_template.md` to ensure structural compliance.
-   - Set `metadata.type: skill` in the frontmatter.
+   - Set `metadata.category` (one of: discover, extract, transform, load, orchestrate, meta).
 3. **Sub-directory Setup**: Create the `scripts/`, `references/`, and `assets/` directories as needed.
 
 ### Phase 3: Implementation & Refinement
@@ -32,7 +39,7 @@ Create a new classic standalone skill or update an existing skill package.
 - **Documentation**: Populate `references/` with technical details or procedural specifics.
 - **Resources**: Add necessary templates or data to `assets/`.
 - **Quality Control**: Review the completed `SKILL.md` against `assets/checklist.md`.
-   - Verify `metadata.type: skill` is set in frontmatter.
+   - Verify `metadata.category` is set in frontmatter.
 
 ### Phase 4: Final Compliance
 - Run `skills-ref validate <skill-dir>` to ensure the package is spec-compliant.
@@ -41,9 +48,20 @@ Create a new classic standalone skill or update an existing skill package.
 - **Naming**: kebab-case for skill names
 - **Structure**: SKILL.md + optional scripts/, references/, assets/
 - **Template**: Use `assets/skill_template.md` for SKILL.md scaffolding
+- **Referenced files**: For larger skills, externalize Inputs/Processes/Outputs into `references/input_*.md`, `references/process_*.md`, or `references/output_*.md`
+
+## File Classification
+Files in `references/` and `assets/` can use an optional `type` field in their frontmatter (if they have frontmatter) for classification:
+- `type: template` — .md templates (e.g., `skill_template.md`)
+- `type: input` — expected input formats
+- `type: output` — expected output formats
+- `type: process` — procedural reference docs
+- `type: spec` — specification documents
+
+If a file has no frontmatter, the filename prefix (`input_`, `process_`, `output_`) serves as the implicit type.
 
 ## Constraints
-1. Frontmatter has `metadata.type: skill`
+1. Frontmatter has `metadata.category` (not `type`)
 2. Description includes triggers ("Use when...")
 3. SKILL.md under 100 lines
 4. Name uses `kebab-case`
