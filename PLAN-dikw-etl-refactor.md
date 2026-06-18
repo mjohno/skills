@@ -55,7 +55,8 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 **Closes:** GAP-5
 **Description:** Use `skillz` operation `create` to scaffold `define/SKILL.md` — frames problem, defines requirements. Reads synthesis from prompt (pipeline-style). Outputs problem statement and requirements to prompt. If user specifies output files, write to those paths. Pushes next: ideate, prototype. Category: `transform`.
 **Deliverable:** `define/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
-**Status:** planned
+**Status:** done
+**Committed:** `feat(transform): create define skill`
 
 ### ITEM-7: Create `ideate` skill (transform)
 **Closes:** GAP-5
