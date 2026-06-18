@@ -90,7 +90,8 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 **Closes:** GAP-6
 **Description:** Use `skillz` operation `create` to scaffold `prd/SKILL.md` — formats information into PRD structure. Reads problem statement + requirements + solution concepts from prompt. Outputs structured PRD to prompt. If user specifies an output file, write to that path. Pushes next: review, rfc. Category: `load`.
 **Deliverable:** `prd/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: load`).
-**Status:** planned
+**Status:** done
+**Committed:** `feat(load): create prd skill`
 
 ### ITEM-12: Create `rfc` skill (load)
 **Closes:** GAP-6
