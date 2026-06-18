@@ -23,7 +23,8 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 **Closes:** GAP-1
 **Description:** Delete the `design/` directory (SKILL.md, assets/, references/, scripts/). The design skill's PRD/RFC routing is absorbed into the new transform and load skills.
 **Deliverable:** `design/` directory removed from repository.
-**Status:** planned
+**Status:** done
+**Committed:** `feat(meta): remove design skill directory`
 
 ### ITEM-2: Rename `skill-manager` → `skillz`
 **Closes:** GAP-3
@@ -36,13 +37,15 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 **Closes:** GAP-4
 **Description:** Use `skillz` operation `create` to scaffold `collect/SKILL.md` — gathers resources, landscape scan, competitive data. Outputs structured resource inventory to prompt (pipeline-style). If user specifies an output file, write to that path instead. Pushes next: analyze, ideate, define. Category: `extract`.
 **Deliverable:** `collect/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: extract`).
-**Status:** planned
+**Status:** done
+**Committed:** `feat(extract): create collect skill`
 
 ### ITEM-4: Create `analyze` skill (transform)
 **Closes:** GAP-5
 **Description:** Use `skillz` operation `create` to scaffold `analyze/SKILL.md` — finds patterns, contradictions, gaps in collected resources. Reads resource inventory from prompt (pipeline-style). Outputs structured analysis to prompt. If user specifies an output file, write to that path instead. Pushes next: hypothesize, report, ideate. Category: `transform`.
 **Deliverable:** `analyze/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
-**Status:** planned
+**Status:** done
+**Committed:** `feat(transform): create analyze skill`
 
 ### ITEM-5: Create `hypothesize` skill (transform)
 **Closes:** GAP-5
@@ -127,19 +130,20 @@ Each SKILL.md should conform to universal format (sections 0-5, `metadata.catego
 **Closes:** GAP-2
 **Description:** Delete the `writing/` directory. Its functionality is replaced by `prose` (load) and the review→edit loop.
 **Deliverable:** `writing/` directory removed from repository.
-**Status:** planned
+**Status:** done
+**Committed:** `feat(meta): remove writing skill directory`
 
 ### ITEM-16: Clean up orphaned design assets and references
 **Closes:** GAP-9
 **Description:** Review and remove artifacts from the deleted `design/` directory that are no longer needed:
-- `assets/prd_template.md` — replace with `prd/` skill's internal template or reference
-- `assets/rfc_template.md` — replace with `rfc/` skill's internal template or reference
-- `assets/user_story_template.md` — move to `define/` references if still needed
-- `references/workflow_prd.md`, `workflow_rfc.md`, `workflow_prd_validate.md`, `workflow_rfc_validate.md`, `workflow_validate.md` — absorbed into new skills
-- `references/smart_framework.md` — evaluate if needed elsewhere
-- `scripts/validate_prd.py` — evaluate if needed elsewhere
+- `assets/prd_template.md` — replaced with `prd/` skill's internal template
+- `assets/rfc_template.md` — replaced with `rfc/` skill's internal template
+- `references/workflow_prd.md`, `workflow_rfc.md` — absorbed into new skills
+- `references/smart_framework.md` — no longer needed
+- `scripts/validate_prd.py` — no longer needed
 **Deliverable:** Design directory fully cleaned up or removed.
-**Status:** planned
+**Status:** done
+**Committed:** `refactor(review): clean up orphaned design/writing references`
 
 ### ITEM-17: Update skillz for new taxonomy
 **Closes:** GAP-10
