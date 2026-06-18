@@ -1,11 +1,11 @@
 ---
-name: hypothesize
+name: synthesize
 description: Extracts meaning and forms hypotheses from analysis. Use when you need to distill patterns and contradictions into actionable insights and testable hypotheses.
 metadata:
   category: transform
 ---
 
-# hypothesize
+# synthesize
 
 Goal: Extract meaning, form hypotheses, and distill analysis into actionable insights.
 Non-Goals: Gathering new data, producing implementation plans, or making final decisions.

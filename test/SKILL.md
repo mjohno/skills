@@ -22,7 +22,7 @@ Use-When: You need to validate whether a solution meets its target criteria.
 ## 2. Processes
 1. Parse prototype to understand what was built and its scope
 2. Map prototype features against each requirement
-3. Evaluate against hypotheses from `hypothesize` (if available)
+3. Evaluate against hypotheses from `synthesize` (if available)
 4. For each requirement: test coverage, correctness, edge cases
 5. Score prototype against requirements (pass, partial, fail, not tested)
 6. Document failures, gaps, and risks with severity and impact

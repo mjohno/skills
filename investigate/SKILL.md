@@ -49,7 +49,7 @@ gaps:
 ## 4. Next Steps
 - `collect` — gather more data to resolve gaps
 - `analyze` — find patterns and contradictions in the evidence
-- `hypothesize` — form hypotheses from the evidence
+- `synthesize` — form hypotheses from the evidence
 - `synthesize` — combine findings into a coherent narrative
 
 ## 5. Examples

@@ -61,25 +61,3 @@ Refs: ABC-123
 **Outcome**: `refactor(auth)!: remove deprecated login method` with body and `BREAKING CHANGE` footer.
 
 **Constraints:** Follow the [Conventional Commits](git-commit/references/CONVENTIONAL_COMMITS.md) standard strictly. Header subject <= 50 characters. Breaking changes marked in both header (`!`) and footer. Do not commit if no changes are staged.
-
-### Example 1: Basic commit
-**Prompt**: "commit my changes"
-**Decisions**: Analyzed `git diff --cached` and identified the change as a `feat` type with no scope or breaking changes.
-**Outcome**:
-```
-feat: add user authentication logic
-```
-
-### Example 2: Basic commit with issue key
-**Prompt**: "commit my changes for ABC-123"
-**Decisions**: Identified the issue key `ABC-123` and applied it to the footer using the `Refs:` prefix.
-**Outcome**:
-```
-fix(ui): resolve button alignment in header
-Refs: ABC-123
-```
-
-### Example 3: Advanced commit (Breaking Change)
-**Prompt**: "commit my changes. I'm breaking the API by removing the old login method."
-**Decisions**: Detected a breaking change in the diff; appended `!` to the header and added a `BREAKING CHANGE` footer.
-**Outcome**: `refactor(auth)!: remove deprecated login method` with body and `BREAKING CHANGE` footer.

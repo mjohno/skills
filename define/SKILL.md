@@ -12,7 +12,7 @@ Non-Goals: Generating solutions, implementing features, or making final design d
 Use-When: You need to produce a clear problem statement and structured requirements from synthesized insights.
 
 ## 0. Prerequisites
-- Synthesis from `hypothesize` skill (themes, hypotheses, priorities)
+- Synthesis from `synthesize` skill (themes, hypotheses, priorities)
 
 ## 1. Inputs
 - Synthesis output from prompt (themes, hypotheses, data gaps)
@@ -32,8 +32,8 @@ Use-When: You need to produce a clear problem statement and structured requireme
 
 ## 4. Next Steps
 - `ideate` — generate solutions against defined requirements
+- `prototype` — make solution concepts tangible
 - `collect` — gather more data to resolve ambiguous requirements
-- `hypothesize` — revisit hypotheses if requirements reveal new gaps
 
 ## 5. Examples
 
