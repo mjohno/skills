@@ -34,67 +34,67 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 
 ### ITEM-3: Create `collect` skill (extract)
 **Closes:** GAP-4
-**Description:** Use `skillz` operation `create` to scaffold `collect/SKILL.md` — gathers resources, landscape scan, competitive data. Reads nothing (or user prompt), produces `resources.md`. Pushes next: analyze, ideate, define. Category: `extract`.
+**Description:** Use `skillz` operation `create` to scaffold `collect/SKILL.md` — gathers resources, landscape scan, competitive data. Outputs structured resource inventory to prompt (pipeline-style). If user specifies an output file, write to that path instead. Pushes next: analyze, ideate, define. Category: `extract`.
 **Deliverable:** `collect/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: extract`).
 **Status:** planned
 
 ### ITEM-4: Create `analyze` skill (transform)
 **Closes:** GAP-5
-**Description:** Use `skillz` operation `create` to scaffold `analyze/SKILL.md` — finds patterns, contradictions, gaps in collected resources. Reads `resources.md`, produces `analysis.md`. Pushes next: synthesize, report, ideate. Category: `transform`.
+**Description:** Use `skillz` operation `create` to scaffold `analyze/SKILL.md` — finds patterns, contradictions, gaps in collected resources. Reads resource inventory from prompt (pipeline-style). Outputs structured analysis to prompt. If user specifies an output file, write to that path instead. Pushes next: synthesize, report, ideate. Category: `transform`.
 **Deliverable:** `analyze/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
 **Status:** planned
 
 ### ITEM-5: Create `synthesize` skill (transform)
 **Closes:** GAP-5
-**Description:** Use `skillz` operation `create` to scaffold `synthesize/SKILL.md` — extracts meaning, forms hypotheses. Reads `analysis.md`, produces `synthesis.md`. Pushes next: report, ideate. Category: `transform`.
+**Description:** Use `skillz` operation `create` to scaffold `synthesize/SKILL.md` — extracts meaning, forms hypotheses. Reads analysis from prompt (pipeline-style). Outputs synthesis to prompt. If user specifies an output file, write to that path instead. Pushes next: report, ideate. Category: `transform`.
 **Deliverable:** `synthesize/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
 **Status:** planned
 
 ### ITEM-6: Create `define` skill (transform)
 **Closes:** GAP-5
-**Description:** Use `skillz` operation `create` to scaffold `define/SKILL.md` — frames problem, defines requirements. Reads `synthesis.md` (or `research_report.md`), produces `problem_statement.md` + `requirements.md`. Pushes next: ideate, prototype. Category: `transform`.
+**Description:** Use `skillz` operation `create` to scaffold `define/SKILL.md` — frames problem, defines requirements. Reads synthesis from prompt (pipeline-style). Outputs problem statement and requirements to prompt. If user specifies output files, write to those paths. Pushes next: ideate, prototype. Category: `transform`.
 **Deliverable:** `define/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
 **Status:** planned
 
 ### ITEM-7: Create `ideate` skill (transform)
 **Closes:** GAP-5
-**Description:** Use `skillz` operation `create` to scaffold `ideate/SKILL.md` — generates and narrows solutions. Reads `problem_statement.md` + `requirements.md`, produces `solution_concepts.md`. Pushes next: prototype, define (loop-back). Category: `transform`.
+**Description:** Use `skillz` operation `create` to scaffold `ideate/SKILL.md` — generates and narrows solutions. Reads problem statement + requirements from prompt (pipeline-style). Outputs solution concepts to prompt. If user specifies an output file, write to that path. Pushes next: prototype, define (loop-back). Category: `transform`.
 **Deliverable:** `ideate/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
 **Status:** planned
 
 ### ITEM-8: Create `prototype` skill (transform)
 **Closes:** GAP-5
-**Description:** Use `skillz` operation `create` to scaffold `prototype/SKILL.md` — makes concepts tangible. Reads `solution_concepts.md`, produces `prototype.md` + artifact files. Pushes next: test. Category: `transform`.
+**Description:** Use `skillz` operation `create` to scaffold `prototype/SKILL.md` — makes concepts tangible. Reads solution concepts from prompt (pipeline-style). Outputs prototype description to prompt. If user specifies output files, write to those paths. Category: `transform`.
 **Deliverable:** `prototype/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
 **Status:** planned
 
 ### ITEM-9: Create `test` skill (transform)
 **Closes:** GAP-5
-**Description:** Use `skillz` operation `create` to scaffold `test/SKILL.md` — evaluates against hypotheses + requirements. Reads `prototype.md` + `requirements.md` + `research_report.md`, produces `test_results.md`. Pushes next: ideate (fail), prototype (fix), define (re-frame), research (ambiguous). Category: `transform`.
+**Description:** Use `skillz` operation `create` to scaffold `test/SKILL.md` — evaluates against hypotheses + requirements. Reads prototype + requirements from prompt (pipeline-style). Outputs test results to prompt. If user specifies an output file, write to that path. Pushes next: ideate (fail), prototype (fix), define (re-frame), research (ambiguous). Category: `transform`.
 **Deliverable:** `test/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
 **Status:** planned
 
 ### ITEM-10: Create `prose` skill (load)
 **Closes:** GAP-6
-**Description:** Use `skillz` operation `create` to scaffold `prose/SKILL.md` — formats information into prose (articles, essays, narratives, blog posts). Reads raw information/context, produces polished prose output. Pushes next: review. Category: `load`.
+**Description:** Use `skillz` operation `create` to scaffold `prose/SKILL.md` — formats information into prose (articles, essays, narratives, blog posts). Reads raw information/context from prompt. Outputs polished prose to prompt. If user specifies an output file, write to that path. Pushes next: review. Category: `load`.
 **Deliverable:** `prose/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: load`).
 **Status:** planned
 
 ### ITEM-11: Create `prd` skill (load)
 **Closes:** GAP-6
-**Description:** Use `skillz` operation `create` to scaffold `prd/SKILL.md` — formats information into PRD structure. Reads problem statement + requirements + solution concepts, produces structured PRD. Pushes next: review, rfc. Category: `load`.
+**Description:** Use `skillz` operation `create` to scaffold `prd/SKILL.md` — formats information into PRD structure. Reads problem statement + requirements + solution concepts from prompt. Outputs structured PRD to prompt. If user specifies an output file, write to that path. Pushes next: review, rfc. Category: `load`.
 **Deliverable:** `prd/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: load`).
 **Status:** planned
 
 ### ITEM-12: Create `rfc` skill (load)
 **Closes:** GAP-6
-**Description:** Use `skillz` operation `create` to scaffold `rfc/SKILL.md` — formats information into RFC structure. Reads PRD + technical decisions, produces structured RFC. Pushes next: review, code. Category: `load`.
+**Description:** Use `skillz` operation `create` to scaffold `rfc/SKILL.md` — formats information into RFC structure. Reads PRD + technical decisions from prompt. Outputs structured RFC to prompt. If user specifies an output file, write to that path. Pushes next: review, code. Category: `load`.
 **Deliverable:** `rfc/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: load`).
 **Status:** planned
 
 ### ITEM-13: Create `code` skill (load)
 **Closes:** GAP-6
-**Description:** Use `skillz` operation `create` to scaffold `code/SKILL.md` — formats information into code structure. Reads specs/designs, produces code artifacts. Pushes next: review, git-commit. Category: `load`.
+**Description:** Use `skillz` operation `create` to scaffold `code/SKILL.md` — formats information into code structure. Reads specs/designs from prompt. Outputs code artifacts to prompt. If user specifies output files, write to those paths. Pushes next: review, git-commit. Category: `load`.
 **Deliverable:** `code/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: load`).
 **Status:** planned
 

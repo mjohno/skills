@@ -26,7 +26,8 @@ Use-When: You need to collect information from multiple sources into a structure
 4. Structure into resource inventory with metadata (title, source, type, summary, URL)
 
 ## 3. Outputs
-- `resources.md` — structured resource inventory with title, source, type, summary, URL
+- Structured resource inventory in the prompt (title, source, type, summary, URL per entry)
+- If user specifies an output file, write to that path instead
 
 ## 4. Next Steps
 - `analyze` — find patterns, contradictions, gaps in collected resources
@@ -39,10 +40,10 @@ Use-When: You need to collect information from multiple sources into a structure
 
 **Prompt:** Collect resources about zero-trust architecture for a mid-size SaaS company.
 
-**Outcome:** `resources.md` with 15+ entries covering NIST docs, vendor whitepapers, and case studies.
+**Outcome:** Prompt output with 15+ entries covering NIST docs, vendor whitepapers, and case studies.
 
 ### Example 2: Competitive data
 
-**Prompt:** Gather competitive intelligence on project management tools for remote teams.
+**Prompt:** Gather competitive intelligence on project management tools for remote teams and save to `competitive.md`.
 
-**Outcome:** `resources.md` with feature comparison data, pricing, and user reviews from 8 competitors.
+**Outcome:** `competitive.md` with feature comparison data, pricing, and user reviews from 8 competitors.
