@@ -24,7 +24,7 @@ Use-When: You need to produce a Python script from a natural language descriptio
 ## 2. Processes
 1. **Parse** the user's description to extract: purpose, inputs, outputs, side effects, and edge cases
 2. **Select** language conventions — defaults to Python; apply `references/python_conventions.md`
-3. **Apply** the standard script structure from `references/script_structure.md`
+3. **Apply** the standard script structure from `assets/script_template.py`
 4. **Generate** the script ensuring all quality criteria from `references/quality_checks.md` are met
 5. **Write** the script to the specified file path
 
