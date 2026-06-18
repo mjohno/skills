@@ -120,7 +120,8 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 - `step` — confirm category: `orchestrate`
 Each SKILL.md should conform to universal format (sections 0-5, `metadata.category`, push hints in Section 4).
 **Deliverable:** All 8 existing SKILL.md files updated and compliant.
-**Status:** planned
+**Status:** done
+**Committed:** `refactor(skillz): align 8 existing skills with universal format and taxonomy`
 
 ### ITEM-15: Remove `writing` skill directory
 **Closes:** GAP-2

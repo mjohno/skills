@@ -1,10 +1,9 @@
 # Spec: RFC
 
-This spec references the RFC workflow specification and templates to define what makes an RFC correct.
+This spec defines what makes an RFC correct.
 
 ## Source References
-- **Workflow spec**: `../../design/references/workflow_rfc.md`
-- **RFC template**: `../../design/assets/rfc_template.md`
+- **RFC skill**: `rfc/SKILL.md`
 
 ## Additional Criteria
 

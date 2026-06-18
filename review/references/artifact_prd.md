@@ -1,8 +1,7 @@
 # Artifact: PRD
 
 ## Source References
-- **PRD template**: `design/assets/prd_template.md`
-- **User story template**: `design/assets/user_story_template.md`
+- **PRD skill**: `prd/SKILL.md`
 
 ## Target Structure
 A PRD has these sections:

@@ -1,6 +1,6 @@
 # Lens: System Architect
 
-Migrated from `design/references/workflow_rfc_review.md`.
+System architecture-focused review criteria.
 
 ## Criteria
 

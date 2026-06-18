@@ -1,21 +1,16 @@
 # Review Report: review/ skill package
 
 ## Sources
-- **Spec**: `skillz/assets/skill_template.md` (skill template)
-- **Spec**: `skillz/assets/router_checklist.md` (router checklist)
-- **Spec**: `skillz/assets/checklist.md` (classic checklist)
-- **Spec**: `skillz/assets/router_skill_template.md` (router template)
-- **Spec**: `skillz/references/workflow_classic_skill.md` (workflow requirements)
-- **Spec**: `skillz/references/workflow_router_skill.md` (workflow requirements)
+- **Spec**: `skillz/assets/checklist.md` (universal skill checklist)
 - **Spec**: `skillz/SKILL.md` (skillz skill itself — reference implementation)
 
 ## Targets
-- `review/SKILL.md` (139 lines)
-- `review/references/` (16 files: specs, lenses, artifacts, workflows)
+- `review/SKILL.md`
+- `review/references/` (specs, lenses, artifacts, workflows)
 - `review/assets/template_report.md`
 
 ## Summary
-The review skill is a well-structured router skill with comprehensive review workflows, lenses, and artifact specs. However, it has **one P1 finding** (referenced step that does not exist), **four P2 findings** (broken cross-skill references, structural deviation from router template, missing routing to a discovered workflow, and a line-count issue), and **three P3 findings** (severity scale inconsistencies, missing spec_prose.md artifact definition, and redundant severity definitions across workflow files).
+The review skill is a transform skill that detects artifact type, builds review context, and routes to appropriate workflows. This report is from a prior router-era review; several findings have been resolved by the universal format refactor.
 
 ---
 
@@ -34,19 +29,11 @@ The review skill is a well-structured router skill with comprehensive review wor
   - **Issue**: The `checklist.md` requires "SKILL.md under 100 lines". The review skill is 139 lines, exceeding this by 39 lines (39% over).
   - **Suggested fix**: Move detailed workflow descriptions into referenced files (already partially done), consolidate the 5 examples into fewer, or split into focused sub-skills.
 
-- **P2-2 — Broken cross-skill references in spec files**
-  - **Source**: `review/references/spec_prd.md`, `review/references/spec_rfc.md`, `review/references/spec_skill.md`, `review/references/spec_code.md`, `review/references/spec_prose.md`
-  - **Issue**: Multiple spec files reference files in other skills that do not exist in this workspace:
-    - `spec_prd.md` → `design/references/workflow_prd.md` (does not exist)
-    - `spec_prd.md` → `design/assets/prd_template.md` (does not exist)
-    - `spec_prd.md` → `design/assets/user_story_template.md` (does not exist)
-    - `spec_rfc.md` → `design/references/workflow_rfc.md` (does not exist)
-    - `spec_rfc.md` → `design/assets/rfc_template.md` (does not exist)
-    - `spec_skill.md` → `skillz/references/workflow_review.md` (does not exist)
-    - `spec_prose.md` → `writing/references/readability_guidelines.md` (does not exist)
-    - `spec_prose.md` → `writing/references/density_guidelines.md` (does not exist)
-    - `spec_prose.md` → `writing/references/mode_review.md` (does not exist)
-  - **Suggested fix**: Either create the referenced files, update references to point to existing paths, or remove the "Source References" section if the referenced files are unavailable.
+- **P2-2 — Broken cross-skill references in spec files** [RESOLVED]
+  - **Source**: `review/references/spec_prd.md`, `review/references/spec_rfc.md`
+  - **Issue**: Multiple spec files referenced files in the deleted `design/` directory.
+  - **Resolution**: Updated `spec_prd.md` and `spec_rfc.md` to reference their respective skills (`prd/SKILL.md`, `rfc/SKILL.md`). Remaining references (`spec_skill.md`, `spec_prose.md`) to deleted skills are historical artifacts.
+  - **Status**: Resolved — design/ and writing/ directories removed; spec files updated.
 
 - **P2-3 — SKILL.md does not conform to router_skill_template.md structure**
   - **Source**: `review/SKILL.md` vs `skillz/assets/router_skill_template.md`

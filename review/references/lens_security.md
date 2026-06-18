@@ -1,6 +1,6 @@
 # Lens: Security
 
-Migrated from `design/references/persona_review_security.md`.
+Security-focused review criteria.
 
 ## Criteria
 

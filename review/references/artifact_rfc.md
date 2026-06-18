@@ -1,7 +1,7 @@
 # Artifact: RFC
 
 ## Source References
-- **RFC template**: `design/assets/rfc_template.md`
+- **RFC skill**: `rfc/SKILL.md`
 
 ## Target Structure
 An RFC has these sections:
