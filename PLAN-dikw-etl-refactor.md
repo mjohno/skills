@@ -83,7 +83,8 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 **Closes:** GAP-6
 **Description:** Use `skillz` operation `create` to scaffold `prose/SKILL.md` — formats information into prose (articles, essays, narratives, blog posts). Reads raw information/context from prompt. Outputs polished prose to prompt. If user specifies an output file, write to that path. Pushes next: review. Category: `load`.
 **Deliverable:** `prose/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: load`).
-**Status:** planned
+**Status:** done
+**Committed:** `feat(load): create prose skill`
 
 ### ITEM-11: Create `prd` skill (load)
 **Closes:** GAP-6
