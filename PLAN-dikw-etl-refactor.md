@@ -97,7 +97,8 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 **Closes:** GAP-6
 **Description:** Use `skillz` operation `create` to scaffold `rfc/SKILL.md` — formats information into RFC structure. Reads PRD + technical decisions from prompt. Outputs structured RFC to prompt. If user specifies an output file, write to that path. Pushes next: review, code. Category: `load`.
 **Deliverable:** `rfc/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: load`).
-**Status:** planned
+**Status:** done
+**Committed:** `feat(load): create rfc skill`
 
 ### ITEM-13: Create `code` skill (load)
 **Closes:** GAP-6
