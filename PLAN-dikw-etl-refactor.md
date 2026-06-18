@@ -76,7 +76,8 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 **Closes:** GAP-5
 **Description:** Use `skillz` operation `create` to scaffold `test/SKILL.md` — evaluates against hypotheses + requirements. Reads prototype + requirements from prompt (pipeline-style). Outputs test results to prompt. If user specifies an output file, write to that path. Pushes next: ideate (fail), prototype (fix), define (re-frame), research (ambiguous). Category: `transform`.
 **Deliverable:** `test/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: transform`).
-**Status:** planned
+**Status:** done
+**Committed:** `feat(transform): create test skill`
 
 ### ITEM-10: Create `prose` skill (load)
 **Closes:** GAP-6
