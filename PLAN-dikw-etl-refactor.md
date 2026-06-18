@@ -102,9 +102,10 @@ Goal: Restructure the skills repository from the old `design`-centric model into
 
 ### ITEM-13: Create `code` skill (load)
 **Closes:** GAP-6
-**Description:** Use `skillz` operation `create` to scaffold `code/SKILL.md` — formats information into code structure. Reads specs/designs from prompt. Outputs code artifacts to prompt. If user specifies output files, write to those paths. Pushes next: review, git-commit. Category: `load`.
+**Description:** Use `skillz` operation `create` to scaffold `code/SKILL.md` — formats information into code structure. Reads RFC/PRD/task/plan from prompt. Outputs code artifacts to prompt. If user specifies output files, write to those paths. Pushes next: review, git-commit. Category: `load`.
 **Deliverable:** `code/SKILL.md` conforming to universal format (sections 0-5, `metadata.category: load`).
-**Status:** planned
+**Status:** done
+**Committed:** `feat(load): create code skill`
 
 ### ITEM-14: Update existing skill SKILL.md files for taxonomy alignment
 **Closes:** GAP-7
