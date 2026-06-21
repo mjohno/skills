@@ -18,8 +18,9 @@ Synchronize a local skill directory to a `TARGET_DIRECTORY` for active use.
 ### Phase 2: Confirmation
 1. **Confirm Plan**: Explicitly state the source, target, and chosen method to the user.
 2. **Command Generation**: Provide the exact command line for the user to execute.
-   - *Example (Linux Symlink):* `ln -s "$(pwd)/skills" ${TARGET_DIRECTORY}`
-   - *Example (Windows Junction):* `mklink /J "%USERPROFILE%\%TARGET_DIRECTORY%" "%CD%\skills"`
+   - *Example (Linux Symlink):* `ln -s "$(pwd)/src" ${TARGET_DIRECTORY}`
+   - *Example (Windows Junction - CMD):* `mklink /J "%USERPROFILE%\%TARGET_DIRECTORY%" "%CD%\src"`
+   - *Example (Windows Jenction - PS):* `cmd /c mklink /J "%USERPROFILE%\%TARGET_DIRECTORY%" "%CD%\src"`
 3. **User Approval**: Wait for explicit user acceptance before providing any deployment commands.
 
 ### Phase 3: Execution

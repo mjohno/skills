@@ -2,6 +2,11 @@
 
 This directory is a managed ecosystem of skills. Use the operations defined below to manage your skill development lifecycle.
 
+## Structure
+
+- `src/`: Contains the source code for all skills.
+- `docs/`: Contains documentation, specifications, templates and checklists for skills management.
+
 ## Operations
 
 - `create`: Scaffolds a new skill. See [process_classic_skill.md](docs/process_classic_skill.md).
