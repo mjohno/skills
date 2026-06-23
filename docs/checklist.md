@@ -1,4 +1,6 @@
-- [ ] `metadata.category` present (one of: discover, extract, transform, load, orchestrate, meta)
+- [ ] `metadata.type` present and set to `skill`
+- [ ] `metadata.category` present (one of: interface, input, enrich, filter, normalize, output, map)
+- [ ] Category meaning matches `docs/taxonomy.md`
 - [ ] Description includes "Use when..." triggers
 - [ ] SKILL.md under 100 lines
 - [ ] Under `# [Name]`: Goal (mandatory), Non-Goals (optional), Use-When (mandatory)

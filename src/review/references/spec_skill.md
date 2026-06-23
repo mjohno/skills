@@ -12,9 +12,10 @@ This spec defines criteria for reviewing skill packages.
 
 ### Frontmatter
 1. Valid YAML frontmatter present
-2. `metadata.type` is `skill` or `router`
-3. `name` is present
-4. `description` includes "Use when..." triggers
+2. `metadata.type` is `skill`
+3. `metadata.category` is present and matches `docs/taxonomy.md`
+4. `name` is present
+5. `description` includes "Use when..." triggers
 
 ### Structure
 1. SKILL.md exists at root
@@ -28,6 +29,9 @@ This spec defines criteria for reviewing skill packages.
 5. Consistent terminology
 6. Concrete examples included under ## Examples
 7. References are one level deep only
+
+## Taxonomy
+Refer to `docs/taxonomy.md` for the canonical meaning of each category.
 
 ### Quality
 1. SKILL.md under 100 lines

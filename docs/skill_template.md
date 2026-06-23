@@ -2,8 +2,11 @@
 name: [skill-name]
 description: [concise overview with "Use when..." triggers]
 metadata:
-  category: [discover|extract|transform|load|orchestrate|meta]
+  type: skill
+  category: [interface|input|enrich|filter|normalize|output|map]
 ---
+
+See `docs/taxonomy.md` for category meanings.
 
 # [Skill Name]
 
