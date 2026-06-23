@@ -10,14 +10,9 @@ Set `disable-model-invocation: true` in the skill frontmatter:
 
 ```yaml
 ---
-name: knowledge-base-interface
-description: Use when a lookup or record skill needs the shared knowledge base interface contract. Reference-only; not normally invoked directly.
+...
 disable-model-invocation: true
-metadata:
-  type: skill
-  category: interface
-  capabilities:
-    - knowledge-base
+...
 ---
 ```
 

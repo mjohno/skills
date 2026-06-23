@@ -40,6 +40,16 @@ Workflow composition skills that orchestrate multiple steps.
 - Combines other skills and/or direct file operations
 - Owns end-to-end execution of a process
 
+### persona
+Skills that encode a consistent perspective, tradeoff-awareness, or output style
+across any pipeline stage. A persona skill is invocable and provides a reusable
+lens — e.g., `critical`, `explainer`, `skeptical`, `security`, `architect`,
+`concise`. Instead of creating separate skills for every angle, personas multiply
+a single skill's output without fragmenting the skill set.
+- Provides perspective, voice, or evaluation criteria independent of data flow
+- Composable with any other category (input, enrich, filter, etc.)
+- Reduces total skill count by making each skill work across multiple viewpoints
+
 ## Notes
 
 - Categories describe the skill’s primary role in the pipeline.

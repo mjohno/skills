@@ -1,5 +1,5 @@
 - [ ] `metadata.type` present and set to `skill`
-- [ ] `metadata.category` present (one of: interface, input, enrich, filter, normalize, output, map)
+- [ ] `metadata.category` present (one of: interface, input, enrich, filter, normalize, output, map, persona)
 - [ ] Category meaning matches `docs/taxonomy.md`
 - [ ] Description includes "Use when..." triggers
 - [ ] SKILL.md under 100 lines

@@ -6,7 +6,6 @@ This directory is a managed ecosystem of skills. Use the operations defined belo
 
 - `src/`: Contains the source code for all skills.
 - `docs/`: Contains documentation, specifications, templates and checklists for skills management.
-- `docs/taxonomy.md`: Canonical definitions for skill categories and usage roles.
 
 ## Operations
 
