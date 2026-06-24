@@ -1,35 +1,43 @@
 # AGENTS
 
-This directory is a managed ecosystem of skills. Use the operations defined below to manage your skill development lifecycle.
+This directory is a managed ecosystem of skills. Use the operations below to manage the full skill lifecycle.
 
 ## Structure
 
-- `src/`: Contains the source code for all skills.
-- `docs/`: Contains documentation, specifications, templates and checklists for skills management.
+- `src/`: Source code for all skills.
+- `docs/`: Specifications, templates, checklists, and process guides.
 
 ## Operations
 
-- `create`: Scaffolds a new skill. See [process_classic_skill.md](docs/process_classic_skill.md) and [taxonomy.md](docs/taxonomy.md). Shared contract/interface skills must follow [non_invocable_skills.md](docs/non_invocable_skills.md).
-- `comply`: Runs compliance checks. See [process_comply.md](docs/process_comply.md), [taxonomy.md](docs/taxonomy.md), and [non_invocable_skills.md](docs/non_invocable_skills.md). Shared contract/interface skills are also checked against [non_invocable_skills.md](docs/non_invocable_skills.md).
-- `deploy`: Synchronizes a skill to a target directory. See [process_deploy.md](docs/process_deploy.md).
-- `review`: Audits a skill for quality against the specs in `docs/*`. (Delegates to the `review` skill for implementation.)
+Use the pattern **"Run [operation] on [skill]"**.
 
-## Usage Patterns
+| Operation | What it does | Trigger | Exit Criteria |
+|-----------|-------------|---------|---------------|
+| `create` | Scaffolds a new skill using the template and taxonomy | New capability or gap identified | Skill directory exists with valid SKILL.md |
+| `comply` | Checks a skill against the checklist in `docs/checklist.md` | Before deploy, or after edits | All CRITICAL items pass |
+| `deploy` | Syncs a skill to a target directory (with compliance gate) | After compliance passes | Files verified at target |
+| `review` | Audits quality — delegates to the external review skill | When you need an outside perspective | Review report received |
 
-To perform an operation on a specific skill, use the pattern: **"Run [operation] on [skill]"**.
+## What Makes a Skill Beautiful
 
-### Examples
+A beautifully simple skill has these properties:
 
-**Scaffolding a new skill:**
-> "Create a new skill called `amazing`"
+1. **Single responsibility** — one clear goal, with explicit non-goals
+2. **Human-aligned design** — maps directly to an intuitive user mental model
+3. **Clear scope** — fewest non-overlapping options needed; no redundancy
+4. **Minimal default output** — essentials only; detail is opt-in
+5. **Graceful handoff** — suggests concrete next skills when it can't solve something
+6. **Structure matches purpose** — flows logically and reads like a contract
 
-**Checking compliance:**
-> "Check the `grill-me` skill for compliance"
+See [checklist.md](docs/checklist.md) for evaluation criteria.
 
-**Deploying a skill:**
-> "`deploy` the `investigate` skill to `C:/Users/matjo/.pi/agent/skills/`"
+## Usage Examples
 
-**Reviewing a skill:**
-> "/skill:review review the `investigate` skill against the docs/* as a specification"
+| Scenario | Command |
+|----------|---------|
+| Scaffolding | "Create a new skill called `amazing`" |
+| Checking compliance | "Check the `grill-me` skill for compliance" |
+| Deploying | "Deploy `investigate` to `C:/Users/matjo/.pi/agent/skills/`" |
+| Reviewing | "/skill:review review the `investigate` skill" |
 
-For taxonomy-aware work, consult `docs/taxonomy.md` first.
+For category selection, consult [taxonomy.md](docs/taxonomy.md).

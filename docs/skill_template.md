@@ -1,15 +1,15 @@
 ---
 name: [skill-name]
 description: [concise overview with "Use when..." triggers]
-disable-model-invocation: [true - or omit this if false]
+disable-model-invocation: [true for shared contracts/interfaces — omit otherwise]
 metadata:
-  category: [interface|input|enrich|filter|normalize|output|map]
+  category: [interface|input|enrich|filter|normalize|output|map|persona]
 ---
 
 # [Skill Name]
 
-Goal: [mandatory — what this skill achieves]
-Non-Goals: [optional — what this skill does not do]
+Goal: [one clear outcome the skill achieves]
+Non-Goals: [what this skill does NOT do — at least one]
 Use-When: [triggers for invoking this skill]
 
 ## 0. Prerequisites
