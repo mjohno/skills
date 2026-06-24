@@ -1,7 +1,8 @@
-- [ ] `metadata.type` present and set to `skill`
-- [ ] `metadata.category` present (one of: interface, input, enrich, filter, normalize, output, map, persona)
+- [ ] `metadata.category`  **required**;
+- [ ] `metadata.capabilities` **optional**; list only cross-cutting capabilities when they apply
 - [ ] Category meaning matches `docs/taxonomy.md`
 - [ ] Description includes "Use when..." triggers
+- [ ] Frontmatter `disable-model-invocation: true` for skills that do not invoke models directly. Absent if they do invoke models directly.
 - [ ] SKILL.md under 100 lines
 - [ ] Under `# [Name]`: Goal (mandatory), Non-Goals (optional), Use-When (mandatory)
 - [ ] Section 0: Prerequisites present (mandatory)

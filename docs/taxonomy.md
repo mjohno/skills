@@ -6,7 +6,7 @@ This repository uses a role-based skill taxonomy.
 
 ### interface
 Shared contracts, schemas, protocols, or conventions used by other skills.
-- Non-invocable by default
+- Non-invocable by default (`disable-model-invocation: true` in frontmatter)
 - Usually reference-only
 - Defines how other skills should behave
 
@@ -42,17 +42,14 @@ Workflow composition skills that orchestrate multiple steps.
 
 ### persona
 Skills that encode a consistent perspective, tradeoff-awareness, or output style
-across any pipeline stage. A persona skill is invocable and provides a reusable
-lens — e.g., `critical`, `explainer`, `skeptical`, `security`, `architect`,
-`concise`. Instead of creating separate skills for every angle, personas multiply
-a single skill's output without fragmenting the skill set.
+across any pipeline stage.
 - Provides perspective, voice, or evaluation criteria independent of data flow
 - Composable with any other category (input, enrich, filter, etc.)
 - Reduces total skill count by making each skill work across multiple viewpoints
 
 ## Notes
 
-- Categories describe the skill’s primary role in the pipeline.
+- Categories describe the skill's primary role in the pipeline.
 - Skills may touch adjacent concerns, but their category should reflect the dominant behavior.
 - `interface` skills define shared contracts and should not be auto-invoked.
-- Refer to `docs/skill_template.md` for frontmatter format and `docs/non_invocable_skills.md` for the interface-contract rule.
+- Refer to `docs/skill_template.md` for frontmatter format.

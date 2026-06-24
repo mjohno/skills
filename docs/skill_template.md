@@ -1,12 +1,10 @@
 ---
 name: [skill-name]
 description: [concise overview with "Use when..." triggers]
+disable-model-invocation: [true - or omit this if false]
 metadata:
-  type: skill
   category: [interface|input|enrich|filter|normalize|output|map]
 ---
-
-See `docs/taxonomy.md` for category meanings.
 
 # [Skill Name]
 
