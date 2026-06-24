@@ -55,6 +55,16 @@ Skills that encode a consistent perspective, tradeoff-awareness, or output style
 - Reduces total skill count by making each skill work across multiple viewpoints
 - **Do NOT use if** the skill's primary role is data retrieval, transformation, or persistence — it only modifies perspective
 
+## Composition Patterns
+
+Personas modify how information is evaluated at any pipeline stage. Practical patterns:
+
+- **Review + persona:security** — Run `/skill:review` and specify the security persona as the evaluation lens instead of (or in addition to) a generic perspective.
+- **Grill + persona:adversarial** — Run `grill-me` on a design, then re-evaluate its output through the adversarial persona to surface residual risks the interview missed.
+- **Collect + persona:security** — When collecting external resources, ask for security-relevant findings only (e.g., CVEs, exposure reports) rather than a general landscape scan.
+
+The pattern is: [data-flow skill] → pass artifacts → [persona] as evaluation lens. The persona does not replace the data-flow skill; it sharpens what that skill looks for and how it presents findings.
+
 ## Notes
 
 - Categories describe the skill's primary role. Skills may touch adjacent concerns, but their category reflects the dominant behavior.
