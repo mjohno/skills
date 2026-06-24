@@ -25,12 +25,13 @@ Use-When: You need to review any artifact against its specifications.
 | Diff refs | No | "main to HEAD" for diff review |
 
 ## 2. Processes
-Detect artifact type → load the matching spec → attach lenses → route:
+Single workflow path — detect artifact type, load spec and lenses, compare against criteria, report findings:
 
-| User intent | Route |
-|---|---|
-| Diff/PR request | `references/workflow_diff_review.md` |
-| Everything else | `references/workflow_generic.md` (with custom spec swapped in or annotations enriched into criteria) |
+1. Detect artifact type (auto-detect or use hint)
+2. Load matching spec (`spec_*.md`) or user-provided custom spec
+3. Attach lenses (`lens_generic.md` + domain hints from input)
+4. Compare target against combined spec+lens criteria
+5. Score findings P1–P5 and produce structured report
 
 ## 3. Outputs
 Review report via `assets/template_report.md` with findings at P1-P5 severity (`assets/severity.md`). Output to prompt by default; write to file when an output path is specified.
@@ -41,13 +42,12 @@ Review report via `assets/template_report.md` with findings at P1-P5 severity (`
 - `annotate` — add inline annotations for tracking findings and fixes
 - `plan` — create a plan to address findings
 
-Constraints (also enforced in `references/workflow_base.md`):
+### Constraints
 1. Cite exact source requirements for every finding
 2. Every finding suggests a concrete change
 3. Never introduce requirements beyond the loaded specs
 4. Report both missing AND incorrect elements
 5. No remediation — only comparison and reporting
-6. Context is built here; workflows execute comparison
 
 ## 5. Examples
 
@@ -56,5 +56,5 @@ Constraints (also enforced in `references/workflow_base.md`):
 → Detects `rfc` type → loads `spec_rfc.md` + `lens_security.md` → generic workflow → P1-P5 report.
 
 ### Example 2
-**Prompt:** Review the diff from main to HEAD with the adversarial lens.
-→ Diff review → collects `git diff main...HEAD` → loads `lens_adversarial.md` → diff workflow → P1-P5 report scoped to changed lines only.
+**Prompt:** Review diff from main to HEAD with the adversarial lens.
+→ Target = `git diff main...HEAD` output → loads `lens_adversarial.md` → generic workflow → scoped P1–P5 report on changed lines only.
