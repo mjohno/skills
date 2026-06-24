@@ -1,13 +1,8 @@
 ---
 name: provenance
-description: Use when a skill output or claim needs source tracing or provenance checking.
+description: Use when a claim needs source tracing or provenance checking.
 metadata:
-  type: skill
-  category: filter
-  capabilities:
-    - provenance
-    - knowledge-base
-    - memory
+  category: enrich
 ---
 # provenance
 
@@ -24,7 +19,7 @@ Use-When: The user asks where information came from or wants claim verification.
 - Local files, Markdown files, web URLs, tool output, user statements, memory, or KB entries
 
 ## 2. Processes
-1. Work with any skill output that makes factual claims.
+1. Work with any information that makes factual claims.
 2. Use only when asked to prove a fact or answer provenance questions.
 3. Support the best available provenance for the source type:
    - local file: path and line number where practical
@@ -34,7 +29,7 @@ Use-When: The user asks where information came from or wants claim verification.
    - user: user-provided statement or context
    - memory: memory file plus timestamp section or summary section
    - knowledge base: root plus file path and heading/line where practical
-4. Return source information only by default.
+4. Return information sources only by default.
 5. Provide excerpts or more detail only when the user asks.
 6. Categorize claims as `sourced`, `inferred`, `unsupported`, or `contradicted` when provenance is not plain.
 
@@ -43,12 +38,17 @@ Use-When: The user asks where information came from or wants claim verification.
 - Optional excerpts when explicitly requested
 
 ## 4. Next Steps
-- `input/lookup` and `input/remember` — retrieve the original material
-- `map/dream` — inspect memory claims during cleanup
+- Offer to provide an excerpt or more detail if the user wants it
+- Suggest to use `lookup` or `remember` if source information was not found
 
 ## 5. Examples
 
 ### Example 1
 
-**Prompt:** Trace the source for this claim.
-**Outcome:** Returns source location and claim status.
+**Prompt:** Prove where you got the claim that X is true.
+**Outcome:** The local file `data.txt` and line number 42 where X is true. Would you like an excerpt?
+
+### Example 2
+
+**Prompt:** Prove where you got the claim that Y is false.
+**Outcome:** I could not find any reference to support that claim. Should I attempt a `lookup` or try to `remember` it?
