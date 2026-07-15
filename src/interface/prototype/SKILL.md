@@ -1,8 +1,9 @@
 ---
 name: prototype
-description: Use when an idea needs a normalized cheap mock-up or validation method before investing in a fuller implementation.
+description: Use when output or map skills need the prototype artifact contract for cheap mock-ups or validation methods.
+disable-model-invocation: true
 metadata:
-  category: normalize
+  category: interface
   capabilities:
     - prototype_shape
     - validation_method_selection
@@ -10,9 +11,9 @@ metadata:
 
 # prototype
 
-Goal: Normalize an idea into a cheap prototype shape that clarifies what to mock, how to validate it, and what evidence would matter.
+Goal: Define the prototype artifact contract for what to mock, how to validate it, and what evidence matters.
 Non-Goals: Building the prototype, producing production implementation, running experiments, or polishing final deliverables.
-Use-When: You need to structure a proof-of-concept, mock-up, spike, simulation, wireframe, storyboard, fake-door test, or other low-cost validation artifact.
+Use-When: Another skill needs the `prototype` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
 - Idea, solution concept, requirement, risk, or assumption to validate
@@ -28,12 +29,12 @@ Use-When: You need to structure a proof-of-concept, mock-up, spike, simulation, 
 2. Select the cheapest adequate mock-up method for that assumption.
 3. Define scope, fidelity, inputs, steps, and deliberately omitted work.
 4. Specify observable validation signals and failure signals.
-5. Format the result as a compact prototype brief ready for `outline`, `draft`, or `modify`.
+5. Format the result as a compact prototype brief contract consumed by `output/outline`, `output/draft`, or `output/modify`.
 
 ## 3. Outputs
-- Normalized prototype brief with method, assumption, scope, validation signals, and next decision
+- Prototype brief contract with method, assumption, scope, validation signals, and next decision
 
-Canonical shape:
+Interface-defined shape:
 ```text
 PROTOTYPE:
 Decision:
@@ -48,14 +49,14 @@ Next Decision:
 ```
 
 ## 4. Next Steps
-- `outline` — create the mock-up structure or experiment outline
-- `draft` — produce first-pass prototype materials
-- `review` — stress-test the prototype design before spending effort
+- `output/outline` — create the mock-up structure or experiment outline using this contract
+- `output/draft` — produce first-pass prototype materials using this contract
+- `filter/review` — stress-test the prototype design before spending effort
 
 ## 5. Examples
 
 ### Example 1: Fake-door test
-**Prompt:** Normalize a prototype for validating whether admins want bulk invite templates.
+**Prompt:** Define a prototype for validating whether admins want bulk invite templates.
 **Outcome:** Produces a prototype brief using a fake-door UI or clickable mock-up, with validation and failure signals.
 
 ### Example 2: Technical spike

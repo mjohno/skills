@@ -1,8 +1,9 @@
 ---
 name: script
-description: Use when script requirements need a normalized structure, conventions, or implementation brief before outlining, drafting, or modifying a script.
+description: Use when output or map skills need the script artifact contract for structure, conventions, or implementation briefs.
+disable-model-invocation: true
 metadata:
-  category: normalize
+  category: interface
   capabilities:
     - script_shape
     - stdlib_python_conventions
@@ -10,9 +11,9 @@ metadata:
 
 # script
 
-Goal: Normalize script intent into a clear script brief with purpose, interface, behavior, safety expectations, and test hints.
+Goal: Define the script artifact contract for purpose, interface, behavior, safety expectations, and test hints.
 Non-Goals: Writing the full script, executing it, managing environments, or persisting generated files.
-Use-When: You need to shape raw notes, an outline, or an existing script request into a consistent script artifact before `outline`, `draft`, or `modify`.
+Use-When: Another skill needs the `script` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
 - Script purpose, user request, task packet, bug report, or existing script content
@@ -25,15 +26,15 @@ Use-When: You need to shape raw notes, an outline, or an existing script request
 
 ## 2. Processes
 1. Extract the script's purpose, trigger, users, and operating context.
-2. Normalize inputs, outputs, side effects, failure modes, and safety controls.
+2. Define inputs, outputs, side effects, failure modes, and safety controls.
 3. Identify CLI/API shape, dependencies, file layout, and test strategy.
 4. Use `assets/script_template.py` only as structural guidance, not as a drafting obligation.
 5. Mark unknowns and decisions needed before implementation.
 
 ## 3. Outputs
-- Canonical script brief ready for `outline`, `draft`, or `modify`
+- Interface-defined script brief contract consumed by `output/outline`, `output/draft`, or `output/modify`
 
-Canonical shape:
+Interface-defined shape:
 ```text
 SCRIPT:
 Purpose:
@@ -51,14 +52,14 @@ Open Questions:
 ```
 
 ## 4. Next Steps
-- `outline` — create a script skeleton or function layout
-- `draft` — produce a first-pass script from the brief
-- `modify` — update an existing script against the brief
+- `output/outline` — create a script skeleton or function layout using this contract
+- `output/draft` — produce a first-pass script from this contract
+- `output/modify` — update an existing script against this contract
 
 ## 5. Examples
 
 ### Example 1: File organizer
-**Prompt:** Normalize a script that organizes files by extension with dry-run support.
+**Prompt:** Define a script that organizes files by extension with dry-run support.
 **Outcome:** Produces a script brief with CLI args, filesystem side effects, logging, dry-run behavior, errors, and tests.
 
 ### Example 2: Existing script request

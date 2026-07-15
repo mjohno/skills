@@ -33,8 +33,8 @@ Use-When: You need to add TODOs, NOTEs, CHECKs, REVIEWs, or DONE marks directly 
 - If user specifies an output file, write the annotation to that path instead
 
 ## 4. Next Steps
-- `task` — extract a task packet from a TODO/CHECK/REVIEW annotation
-- `plan` — link annotation findings to a parent plan
+- `output/draft` with `interface/task` — extract a task packet from a TODO/CHECK/REVIEW annotation
+- `output/modify` with `interface/plan` — link annotation findings to a parent plan
 - `step` — execute the work indicated by an annotation
 - `annotate` — update or remove existing annotations
 

@@ -12,7 +12,7 @@ metadata:
 # step
 
 Goal: Map out tool operations for one step toward a high-level goal, execute them, verify the result, and report outcomes plus the next step.
-Non-Goals: Creating or breaking down plans at the plan level (that's `plan`), long-term state management, fully autonomous execution, or operating without human oversight. Step owns tool-operation composition and execution flow.
+Non-Goals: Creating or breaking down plans at the plan level (that belongs to `output/draft` or `output/modify` with `interface/plan`), long-term state management, fully autonomous execution, or operating without human oversight. Step owns tool-operation composition and execution flow.
 Use-When: You have a high-level goal and references to iterate on.
 
 ## 0. Prerequisites
@@ -36,8 +36,8 @@ Use-When: You have a high-level goal and references to iterate on.
 
 ## 4. Next Steps
 - `step` — continue with the next step
-- `plan` — update plan status for completed steps
-- `task` — extract a task packet for the next step
+- `output/modify` with `interface/plan` — update plan status for completed steps
+- `output/draft` with `interface/task` — extract a task packet for the next step
 - `investigate` — if the step failed with unknown root cause
 - `step` — if the step failed with a simple recovery
 

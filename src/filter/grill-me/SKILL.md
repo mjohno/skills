@@ -36,7 +36,7 @@ Use-When: You need to stress-test a plan or design by exploring all decision bra
 ## 4. Next Steps
 - `define` — if gaps reveal undefined requirements
 - `synthesize` — if risks suggest new hypotheses
-- `plan` — if the plan needs restructuring based on findings
+- `output/modify` with `interface/plan` — if the plan needs restructuring based on findings
 - `analyze` — if contradictions need deeper investigation
 
 ## 5. Examples

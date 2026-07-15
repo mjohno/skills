@@ -12,16 +12,16 @@ metadata:
 
 Goal: Apply requested changes to existing content while preserving intent, useful structure, and unrelated material.
 Non-Goals: Creating unrelated new artifacts, silently rewriting everything, persisting memory/KB records, or committing changes.
-Use-When: You need to modify, revise, fix, update, change, adapt, polish, expand, shorten, refactor, or reconcile content such as code, scripts, specs, plans, tasks, tests, prose, or normalized artifacts.
+Use-When: You need to modify, revise, fix, update, change, adapt, polish, expand, shorten, refactor, or reconcile content such as code, scripts, specs, plans, tasks, tests, prose, or interface-shaped artifacts.
 
 ## 0. Prerequisites
-- Existing content, file path, draft, or normalized artifact to modify
+- Existing content, file path, draft, or interface-shaped artifact to modify
 - Requested change, target outcome, or acceptance criteria
 
 ## 1. Inputs
 - Current content or target files
 - Change request, constraints, style preferences, and invariants to preserve
-- Optional normalized noun shape, diff context, tests, or verification commands
+- Optional interface contract, diff context, tests, or verification commands
 
 ## 2. Processes
 1. Identify the target artifact, requested delta, and content that must be preserved.

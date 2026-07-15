@@ -26,7 +26,7 @@ Use-When: You need to collect information from multiple sources into a structure
 ## 2. Processes
 1. Parse user prompt to extract topic, scope, and target sources
 2. Fetch content from each source (web, repos, docs)
-3. Deduplicate and normalize findings
+3. Deduplicate and structure findings
 4. Structure into resource inventory with metadata (title, source, type, summary, URL)
 
 ## 3. Outputs

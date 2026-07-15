@@ -36,7 +36,7 @@ Use-When: You need to produce a clear problem statement and structured requireme
 
 ## 4. Next Steps
 - `ideate` — generate solutions against defined requirements
-- `prototype` — make solution concepts tangible
+- `interface/prototype` — prototype contract for cheap validation methods for risky solution concepts
 - `collect` — gather more data to resolve ambiguous requirements
 
 ## 5. Examples

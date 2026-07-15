@@ -15,7 +15,7 @@ Use-When: The user explicitly asks to remember, inspect, or retrieve prior memor
 
 ## 0. Prerequisites
 - A resolved memory file
-- The `memory-interface` contract
+- The `interface/memory` contract
 
 ## 1. Inputs
 - User query text
@@ -23,7 +23,7 @@ Use-When: The user explicitly asks to remember, inspect, or retrieve prior memor
 - Optional topic, project, date, kind, or thread selectors
 
 ## 2. Processes
-1. Read and follow the `memory-interface` contract.
+1. Read and follow the `interface/memory` contract.
 2. Resolve the memory file from prompt path first, then `MEMORY_FILE`, then `.memory.md` in the current working directory.
 3. If the resolved memory file does not exist, report that it does not exist.
 4. Search `# Summary` first, then `# Memory Log`.
@@ -38,7 +38,7 @@ Use-When: The user explicitly asks to remember, inspect, or retrieve prior memor
 - Empty result only when nothing useful is found
 
 ## 4. Next Steps
-- `normalize/memory-entry` — shape retrieved memory into canonical form
+- `interface/memory` — shape retrieved memory into canonical form
 - `map/dream` — process memory into summary/log updates
 
 ## 5. Examples

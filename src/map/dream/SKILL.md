@@ -15,8 +15,8 @@ Use-When: The user wants memory summarized, compressed, or cleaned.
 
 ## 0. Prerequisites
 - A resolved memory file
-- The `memory-interface` contract
-- The `remember`, `envision`, `learn`, `memory-summary`, and `memorize` skills
+- The `interface/memory` contract
+- The `remember`, `envision`, `learn`, `interface/memory`, and `memorize` skills
 
 ## 1. Inputs
 - The full memory file
@@ -25,12 +25,12 @@ Use-When: The user wants memory summarized, compressed, or cleaned.
 - Approval context for destructive summary rewrites
 
 ## 2. Processes
-1. Read and follow the `memory-interface` contract.
+1. Read and follow the `interface/memory` contract.
 2. Process the entire memory file every time, not only entries since the last breadcrumb.
 3. Read memory via `remember`.
 4. Expand via `envision`.
 5. Reduce via `learn`.
-6. Normalize via `memory-summary`.
+6. Shape summary updates using the `interface/memory` summary contract.
 7. Write back summary/log updates to the memory file.
 8. Treat `# Summary` as the durable memory record.
 9. Require user approval for full `# Summary` rewrites, especially when deleting specific existing Summary items or resolving contradictions.
@@ -55,4 +55,4 @@ Use-When: The user wants memory summarized, compressed, or cleaned.
 ### Example 1
 
 **Prompt:** Clean up this memory file.
-**Outcome:** Expands, reduces, normalizes, and writes back updated memory.
+**Outcome:** Expands, reduces, shapes, and writes back updated memory.

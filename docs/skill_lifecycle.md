@@ -20,31 +20,35 @@ Create or update a skill package that is structurally valid and beautifully simp
    - Use `kebab-case` for the name (must match directory name).
    - Provide a concise description that includes "Use when..." triggers.
 3. **Determine Category**: Choose one category from [taxonomy.md](taxonomy.md):
-   - `interface` — shared contract or protocol
+   - `interface` — shared contract, schema, artifact shape, or protocol
    - `input` — retrieve or read source data
    - `enrich` — expand or elaborate context
    - `filter` — reduce, verify, rank, or select
-   - `normalize` — canonicalize structure
-   - `output` — persist, store, or deliver
+   - `output` — create, revise, persist, store, or deliver
    - `map` — compose multi-step workflows
    - `persona` — encode perspective that modifies information flow
-4. **Determine Non-Invocability**: If the skill is a shared contract/interface, set `disable-model-invocation: true` in SKILL.md frontmatter.
-5. **Component Identification**: Determine if the skill requires `scripts/`, `references/`, or `assets/`.
-6. **Constraint Check**: Verify the name uses `kebab-case`.
+4. **Determine Non-Invocability**: If the skill is an interface contract, set `disable-model-invocation: true` in SKILL.md frontmatter.
+5. **Place the Skill**:
+   - Interface nouns live under `src/interface/<name>/SKILL.md`.
+   - Invocable verb skills live under their data-flow category.
+   - Persona lenses live under `src/persona/<name>/SKILL.md`.
+6. **Component Identification**: Determine if the skill requires `scripts/`, `references/`, or `assets/`.
+7. **Constraint Check**: Verify the name uses `kebab-case`.
 
 ### Step 2 — Scaffolding
 
-1. Create root directory `<name>/`.
+1. Create root directory `<category>/<name>/`.
 2. Initialize SKILL.md:
-   - **Data-flow skills** (interface, input, enrich, filter, normalize, output, map): use [skill_template.md](skill_template.md)
+   - **Data-flow/interface skills** (interface, input, enrich, filter, output, map): use [skill_template.md](skill_template.md)
    - **Persona skills** (persona): use [persona_template.md](persona_template.md)
 3. Create sub-directories (`scripts/`, `references/`, `assets/`) as needed.
 
 ### Step 3 — Implementation & Refinement
 
-#### Data-flow skills
+#### Data-flow and interface skills
 
-- **Logic**: Develop self-contained, idempotent scripts in `scripts/`.
+- **Interface skills**: Define contracts only. They are non-invocable and should not perform retrieval, transformation, evaluation, persistence, or orchestration.
+- **Invocable skills**: Develop self-contained, idempotent behavior and scripts where needed.
 - **Documentation**: Populate `references/` with technical details or procedural specifics.
 - **Resources**: Add templates or data to `assets/`.
 - **Quality reminder**: Remember the six simplicity principles — single responsibility, clear scope, graceful handoff, etc.
@@ -57,17 +61,19 @@ Create or update a skill package that is structurally valid and beautifully simp
 
 #### Anti-patterns to Avoid
 
-- X Goals that say "help users understand X and Y and Z" — pick one (data-flow)
-- X Process steps numbered 1–20 — if it takes this many, consider breaking into sub-skills (data-flow)
-- X Non-goals that just repeat the goal in negative form ("We do not fail") (data-flow)
-- X Persona encodes a narrow opinion rather than an established evaluation lens — personas should represent recognizable roles or perspectives
-- X Persona overlaps with another persona's focus areas — e.g., `security` and `adversarial` should not duplicate the same checks; each should own distinct ground
-- X Persona becomes a full review rubric instead of a perspective — if it reads like a checklist, it's doing evaluation work, not providing viewpoint
+- X Goals that say "help users understand X and Y and Z" — pick one
+- X Process steps numbered 1–20 — if it takes this many, consider breaking into sub-skills
+- X Non-goals that just repeat the goal in negative form ("We do not fail")
+- X Interface skill that performs work instead of defining a contract
+- X Invocable skill that only defines an artifact schema instead of consuming an interface
+- X Persona encodes a narrow opinion rather than an established evaluation lens
+- X Persona overlaps with another persona's focus areas
+- X Persona becomes a full review rubric instead of a perspective
 
 ### Step 4 — Compliance Check
 
 Run [compliance](#phase-2---comply) against the appropriate checklist:
-- **Data-flow skills** → [skill_checklist.md](skill_checklist.md)
+- **Data-flow/interface skills** → [skill_checklist.md](skill_checklist.md)
 - **Persona skills** → [persona_checklist.md](persona_checklist.md)
 
 ## Phase 2 — Comply
@@ -78,9 +84,9 @@ Assert a pass/fail test over an existing skill package against the appropriate c
 
 1. **Read Frontmatter**: Extract `metadata.category` from SKILL.md.
    - Must match [taxonomy.md](taxonomy.md). Missing or invalid → Critical failure.
-2. **Check Non-Invocable Contracts**: If the skill is a shared contract/interface, verify `disable-model-invocation: true`.
+2. **Check Non-Invocable Contracts**: If the skill is an interface contract, verify `disable-model-invocation: true`.
 3. **Load Checklist**:
-   - Data-flow categories (interface, input, enrich, filter, normalize, output, map) → [skill_checklist.md](skill_checklist.md)
+   - Data-flow/interface categories (interface, input, enrich, filter, output, map) → [skill_checklist.md](skill_checklist.md)
    - Persona category → [persona_checklist.md](persona_checklist.md)
 4. **Run Checks**: Evaluate each item; record pass/fail with specific violations.
 5. **Report**:
@@ -112,7 +118,7 @@ Synchronize a local skill directory to a `TARGET_DIRECTORY` for active use.
 
 ## Constraints
 
-1. Must choose the correct checklist based on `metadata.category`: data-flow → skill_checklist, persona → persona_checklist
+1. Must choose the correct checklist based on `metadata.category`: data-flow/interface → skill_checklist, persona → persona_checklist
 2. Both checklists inherit shared rules from [base_checklist.md](base_checklist.md)
 3. Must read `metadata.category` from frontmatter — never assume
 4. Requires explicit user approval before deployment execution

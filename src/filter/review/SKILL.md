@@ -50,7 +50,7 @@ Structured review report using `assets/template_report.md` with findings categor
 - `check` — run a check on the artifact against requirements, checklists, acceptance or target criteria
 - `review` — re-review after fixes are applied
 - `annotate` — add inline annotations for tracking findings (NOTE) and fixes (TODO)
-- `plan` — create a plan to address findings
+- `output/draft` with `interface/plan` — create a plan to address findings
 
 ### Constraints
 1. Cite exact source requirements for every finding

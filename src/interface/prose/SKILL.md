@@ -1,8 +1,9 @@
 ---
 name: prose
-description: Use when prose intent needs a normalized content brief before outlining, drafting, or modifying articles, essays, summaries, or narrative text.
+description: Use when output or map skills need the prose artifact contract for articles, essays, summaries, or narrative text.
+disable-model-invocation: true
 metadata:
-  category: normalize
+  category: interface
   capabilities:
     - prose_shape
     - content_brief
@@ -10,9 +11,9 @@ metadata:
 
 # prose
 
-Goal: Normalize prose intent into a content brief with audience, purpose, message, structure, tone, and source constraints.
+Goal: Define the prose artifact contract for audience, purpose, message, structure, tone, and source constraints.
 Non-Goals: Drafting final prose, polishing language, fact-checking claims, or producing structured specs like PRDs/RFCs.
-Use-When: You need to shape notes, research, an idea, or existing text into a consistent prose artifact before `outline`, `draft`, or `modify`.
+Use-When: Another skill needs the `prose` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
 - Raw notes, research, idea, outline, existing prose, or communication goal
@@ -25,15 +26,15 @@ Use-When: You need to shape notes, research, an idea, or existing text into a co
 
 ## 2. Processes
 1. Identify the reader, purpose, message, and desired effect.
-2. Normalize format, tone, length, structure, and evidence expectations.
+2. Define format, tone, length, structure, and evidence expectations.
 3. Distinguish must-include points from optional supporting material.
 4. Flag claims that need provenance, examples, or user confirmation.
 5. Preserve voice and style constraints without drafting full paragraphs.
 
 ## 3. Outputs
-- Canonical prose brief ready for `outline`, `draft`, or `modify`
+- Interface-defined prose brief contract consumed by `output/outline`, `output/draft`, or `output/modify`
 
-Canonical shape:
+Interface-defined shape:
 ```text
 PROSE:
 Purpose:
@@ -50,14 +51,14 @@ Open Questions:
 ```
 
 ## 4. Next Steps
-- `outline` — create the prose structure or section plan
-- `draft` — produce first-pass prose
-- `modify` — revise, polish, shorten, expand, or adapt existing prose
+- `output/outline` — create the prose structure or section plan using this contract
+- `output/draft` — produce first-pass prose using this contract
+- `output/modify` — revise, polish, shorten, expand, or adapt existing prose
 
 ## 5. Examples
 
 ### Example 1: Blog post brief
-**Prompt:** Normalize these notes into a prose brief for a technical blog post.
+**Prompt:** Define these notes into a prose brief for a technical blog post.
 **Outcome:** Produces audience, core message, tone, key points, source needs, and open questions.
 
 ### Example 2: Executive summary brief

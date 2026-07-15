@@ -15,11 +15,11 @@ Non-Goals: Creating only a skeleton, final polish, durable persistence, or makin
 Use-When: You need to write, compose, generate, fill, or create an initial version of content such as a script, code, PRD, RFC, plan, task, test, prose, or prototype.
 
 ## 0. Prerequisites
-- Source material, outline, normalized artifact, or user request that states the desired artifact
-- Target artifact noun from the prompt or a normalize skill when structure matters
+- Source material, outline, interface-shaped artifact, or user request that states the desired artifact
+- Target artifact noun from the prompt or an interface skill when structure matters
 
 ## 1. Inputs
-- Raw notes, requirements, outline, normalized structure, existing content, or examples
+- Raw notes, requirements, outline, interface-defined structure, existing content, or examples
 - Target audience, constraints, conventions, and desired level of completeness
 - Optional output path or file layout
 

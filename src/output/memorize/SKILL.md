@@ -15,21 +15,21 @@ Use-When: The user explicitly asks to memorize something or a workflow step expl
 
 ## 0. Prerequisites
 - A resolved memory file
-- The `memory-interface` contract
-- Preferably a normalized `memory-entry`
+- The `interface/memory` contract
+- Preferably a `interface/memory` entry
 
 ## 1. Inputs
-- Normalized memory-entry content or raw source material
+- `interface/memory` entry content or raw source material
 - Optional memory file path or `MEMORY_FILE`
 - Optional actor/source context
 
 ## 2. Processes
-1. Read and follow the `memory-interface` contract.
+1. Read and follow the `interface/memory` contract.
 2. Resolve the memory file from prompt path first, then `MEMORY_FILE`, then `.memory.md` in the current working directory.
 3. If the resolved memory file does not exist and a write is explicitly requested, initialize the standard memory skeleton.
-4. Prefer normalized `memory-entry` input and infer missing fields where practical before writing.
+4. Prefer `interface/memory` entry input and infer missing fields where practical before writing.
 5. Append only to `# Memory Log`; do not update `# Summary`.
-6. Write lightly normalized, clear memory bullets rather than raw transcript text by default.
+6. Write contract-shaped, clear memory bullets rather than raw transcript text by default.
 7. Include actor/source labels when known, such as `User prefers`, `User chose`, `Agent observed`, or `Workflow completed`.
 8. Allow multiple bullets in one invocation under the same timestamp heading.
 9. Do not deduplicate against existing Summary or Memory Log content; `dream` handles deduplication later.
@@ -40,7 +40,7 @@ Use-When: The user explicitly asks to memorize something or a workflow step expl
 - Appended bullet content or initialization summary
 
 ## 4. Next Steps
-- `normalize/memory-entry` — canonicalize the incoming memory entry
+- `interface/memory` — canonicalize the incoming memory entry
 - `map/dream` — compact and rewrite memory later
 
 ## 5. Examples

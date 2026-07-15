@@ -15,18 +15,18 @@ Use-When: The user explicitly asks to record knowledge or a workflow step explic
 
 ## 0. Prerequisites
 - A selected knowledge base root
-- The `knowledge-base-interface` contract
-- Preferably a normalized `knowledge-entry`
+- The `interface/knowledge-base` contract
+- Preferably a `interface/knowledge-base` entry
 
 ## 1. Inputs
-- Normalized knowledge-entry content or raw source material
+- `interface/knowledge-base` entry content or raw source material
 - Target root and optional folder selector
 - Optional provenance/source references
 
 ## 2. Processes
-1. Read and follow the `knowledge-base-interface` contract.
+1. Read and follow the `interface/knowledge-base` contract.
 2. Require a target knowledge base root; ask when missing or ambiguous.
-3. Prefer normalized `knowledge-entry` input and check whether the entry is already normalized.
+3. Prefer `interface/knowledge-base` entry input and check whether it already follows the interface contract.
 4. If raw input is provided, infer missing required fields where practical before writing.
 5. Update an existing similar entry rather than creating a duplicate when appropriate.
 6. For new entries, write to the selected root/folder using a filename slug generated from the title.
@@ -39,7 +39,7 @@ Use-When: The user explicitly asks to record knowledge or a workflow step explic
 - A concise write summary
 
 ## 4. Next Steps
-- `normalize/knowledge-entry` — canonical KB entry format
+- `interface/knowledge-base` — canonical KB entry format
 - `input/lookup` — retrieve existing KB content before writing
 
 ## 5. Examples

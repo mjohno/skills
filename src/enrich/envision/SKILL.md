@@ -15,14 +15,14 @@ Use-When: Memory needs expansion into higher-level meaning before reduction.
 
 ## 0. Prerequisites
 - Raw memory context from `remember` or related workflow input
-- The `memory-interface` contract
+- The `interface/memory` contract
 
 ## 1. Inputs
 - Memory bullets, notes, or raw memory excerpts
 - Optional thread, project, or time context
 
 ## 2. Processes
-1. Read and follow the `memory-interface` contract.
+1. Read and follow the `interface/memory` contract.
 2. Expand messy memory into themes, associations, open questions, and implications.
 3. Identify possible summary candidates without committing to cleanup.
 4. Surface repeated signals, tensions, and context that might matter later.
@@ -34,7 +34,7 @@ Use-When: Memory needs expansion into higher-level meaning before reduction.
 
 ## 4. Next Steps
 - `filter/learn` — reduce the expanded memory into stable summary updates
-- `normalize/memory-summary` — format the summary material
+- `interface/memory` — format the summary material
 
 ## 5. Examples
 

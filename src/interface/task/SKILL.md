@@ -1,8 +1,9 @@
 ---
 name: task
-description: Normalizes portable task packets — creating, updating, extracting, summarizing, and linking implementation context without performing the work.
+description: Use when output or map skills need the task packet contract for portable implementation context.
+disable-model-invocation: true
 metadata:
-  category: normalize
+  category: interface
   capabilities:
     - packet_creation
     - packet_extraction
@@ -12,9 +13,9 @@ metadata:
 
 # task
 
-Goal: Normalize implementation context into portable, self-contained task packets that future implementers or agents can consume.
+Goal: Define the task packet contract for portable, self-contained implementation context.
 Non-Goals: Implementing tasks, verifying tasks, managing whole plans except by reference, or placing comments directly in files. Note: task is cross-cutting — it operates across pipeline stages rather than being anchored to a single phase.
-Use-When: You need to extract a task packet from a plan item, comment, PRD, RFC, or user instruction.
+Use-When: Another skill needs the `task` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
 - A source to extract from: plan item, comment, PRD, RFC, or user instruction
@@ -26,17 +27,17 @@ Use-When: You need to extract a task packet from a plan item, comment, PRD, RFC,
 ## 2. Processes
 1. **Create Task Packet**: Identify the smallest useful unit of work context. Assign or preserve a stable task ID. Capture goal, sources, targets, constraints, and verification hints when available. Keep the packet portable: it should make sense outside its original file.
 2. **Extract Task Packet**: Read the source plan item, comment, PRD, RFC, or instruction. Copy only context relevant to the task. Preserve source references rather than duplicating large documents. Leave unknown fields blank or mark them as unknown; do not invent false certainty.
-3. **Update or Normalize Task Packet**: Preserve the task ID. Keep fields concise and implementation-oriented. Do not mark the task verified or complete based on formatting alone.
+3. **Update or Define Task Packet**: Preserve the task ID. Keep fields concise and implementation-oriented. Do not mark the task verified or complete based on formatting alone.
 
 ## 3. Outputs
-- Task packet in the prompt with stable fields (TASK_ID, Status, Goal, Source, Targets, etc.)
-- If user specifies an output file, write to that path instead
+- Task packet field contract for output and map skills
+- Stable fields such as TASK_ID, Status, Goal, Source, Targets, Constraints, and Verification
 
 ## 4. Next Steps
-- `plan` — link task packets back to a parent plan
-- `step` — execute the task
-- `annotate` — add inline annotations related to the task
-- `task` — update or extract additional task packets
+- `output/modify` with `interface/plan` — link task packets back to a parent plan
+- `map/step` — execute the task
+- `enrich/annotate` — add inline annotations related to the task
+- `output/modify` or `output/draft` with `interface/task` — update or extract additional task packets
 
 ## 5. Examples
 

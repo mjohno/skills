@@ -1,8 +1,9 @@
 ---
 name: code
-description: Use when implementation intent needs a normalized code artifact brief before outlining, drafting, or modifying code.
+description: Use when output or map skills need the code artifact contract for implementation briefs.
+disable-model-invocation: true
 metadata:
-  category: normalize
+  category: interface
   capabilities:
     - code_shape
     - implementation_brief
@@ -10,9 +11,9 @@ metadata:
 
 # code
 
-Goal: Normalize implementation context into a code artifact brief with responsibilities, boundaries, files, interfaces, tests, and constraints.
+Goal: Define the code artifact contract for responsibilities, boundaries, files, interfaces, tests, and constraints.
 Non-Goals: Implementing code, choosing unrelated architecture, polishing documentation, deploying, or committing changes.
-Use-When: You need to turn a PRD, RFC, plan, task, bug report, or raw request into a consistent code shape before `outline`, `draft`, or `modify`.
+Use-When: Another skill needs the `code` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
 - Source request, task packet, PRD, RFC, issue, design note, or existing code context
@@ -25,18 +26,18 @@ Use-When: You need to turn a PRD, RFC, plan, task, bug report, or raw request in
 
 ## 2. Processes
 1. Identify the smallest coherent implementation unit and its responsibility.
-2. Normalize affected files, public interfaces, data flow, dependencies, and invariants.
+2. Define affected files, public interfaces, data flow, dependencies, and invariants.
 3. Capture behavior, edge cases, tests, and verification hints.
 4. Separate required changes from optional improvements and unknowns.
 5. Keep architecture references by link or summary instead of embedding large specs.
 
 ## 3. Outputs
-- Canonical code brief ready for `outline`, `draft`, or `modify`
+- Interface-defined code brief contract consumed by `output/outline`, `output/draft`, or `output/modify`
 
-Canonical shape:
+Interface-defined shape:
 ```text
 CODE:
-Goal:
+Goal: Define the code artifact contract for responsibilities, boundaries, files, interfaces, tests, and constraints.
 Sources:
 Targets:
 Interfaces:
@@ -51,14 +52,14 @@ Open Questions:
 ```
 
 ## 4. Next Steps
-- `outline` — create file layout, interfaces, or implementation skeleton
-- `draft` — produce first-pass implementation code
-- `modify` — change existing code with a bounded delta
+- `output/outline` — create file layout, interfaces, or implementation skeleton using this contract
+- `output/draft` — produce first-pass implementation code using this contract
+- `output/modify` — change existing code with a bounded delta
 
 ## 5. Examples
 
 ### Example 1: Code from RFC
-**Prompt:** Normalize the code work for the auth middleware from this RFC.
+**Prompt:** Define the code work for the auth middleware from this RFC.
 **Outcome:** Produces a code brief naming targets, interfaces, behavior, constraints, tests, and verification.
 
 ### Example 2: Bug fix brief

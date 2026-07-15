@@ -1,15 +1,22 @@
 # Skill Taxonomy
 
-This repository uses a role-based skill taxonomy. Each category defines the skill's primary role in the pipeline.
+This repository uses a role-based skill taxonomy. Each category defines the skill's primary role in the system.
+
+## Mental Model
+
+- **Nouns are interfaces** — artifact schemas, storage contracts, protocols, and canonical shapes.
+- **Verbs are invocable skills** — skills that retrieve, expand, reduce, produce, persist, or orchestrate work.
+- **Personas are lenses** — perspectives that modify how another skill evaluates or presents information.
 
 ## Categories
 
 ### interface
-Shared contracts, schemas, protocols, or conventions used by other skills.
+Shared contracts, schemas, protocols, artifact shapes, or conventions used by other skills.
 - Non-invocable by default (`disable-model-invocation: true` in frontmatter)
-- Usually reference-only
-- Defines how other skills should behave
-- **Do NOT use if** the skill performs data transformation, retrieval, or output — it only defines contracts
+- Lives as direct skill packages under `src/interface/<name>/SKILL.md`
+- Examples: `interface/prd`, `interface/rfc`, `interface/plan`, `interface/task`, `interface/code`, `interface/prose`, `interface/script`, `interface/prototype`, `interface/memory`, `interface/knowledge-base`
+- Defines how other skills should shape content or interact with storage
+- **Do NOT use if** the skill performs retrieval, transformation, evaluation, persistence, or orchestration — it only defines contracts
 
 ### input
 Retrieval skills that read or fetch source data.
@@ -29,17 +36,12 @@ Reduction skills that verify, rank, dedupe, select, or reject information.
 - Can trace claims, apply rules, or enforce selection
 - **Do NOT use if** the skill expands information, retrieves raw data, or writes final output — it only evaluates
 
-### normalize
-Canonicalization skills that reshape information into a standard form.
-- Standardizes fields, naming, ordering, or structure
-- Prepares content for storage or downstream use
-- **Do NOT use if** the skill retrieves external data, makes decisions, or produces final deliverables — it only reformats
-
 ### output
-Writing skills that persist, store, or deliver results outward.
-- Writes files, records, logs, or artifacts
-- Usually the final persistence step
-- **Do NOT use if** the skill analyzes information, composes workflows, or just formats data — it writes final results
+Verb-shaped production skills that create, revise, persist, store, or deliver results outward.
+- Performs production actions such as outline, draft, modify, record, memorize, or commit
+- Consumes interface-defined artifact nouns and storage contracts when structure matters
+- May write files, records, logs, or artifacts when requested
+- **Do NOT use if** the skill only defines an artifact schema or canonical form — use an interface skill for nouns
 
 ### map
 Workflow composition skills that orchestrate multiple steps.
@@ -50,20 +52,25 @@ Workflow composition skills that orchestrate multiple steps.
 ### persona
 Skills that encode a consistent perspective, tradeoff-awareness, or output style across any pipeline stage.
 - Provides perspective, voice, or evaluation criteria independent of data flow
-- **Modifies how information flows** through the system — a persona skill wraps or augments a data-flow category (e.g., input + persona produces filtered views; filter + persona applies review lens)
-- Composable with any data-flow category
+- **Modifies how information flows** through the system — a persona skill wraps or augments a data-flow category
+- Composable with any invocable skill
 - Reduces total skill count by making each skill work across multiple viewpoints
-- **Do NOT use if** the skill's primary role is data retrieval, transformation, or persistence — it only modifies perspective
+- **Do NOT use if** the skill's primary role is data retrieval, transformation, persistence, orchestration, or contract definition — it only modifies perspective
 
 ## Composition Patterns
 
-Personas modify how information is evaluated at any pipeline stage. Practical patterns:
+Interfaces define shapes that invocable skills consume:
 
-- **Review + persona:security** — Run `/skill:review` and specify the security persona as the evaluation lens instead of (or in addition to) a generic perspective.
-- **Grill + persona:adversarial** — Run `grill-me` on a design, then re-evaluate its output through the adversarial persona to surface residual risks the interview missed.
-- **Collect + persona:security** — When collecting external resources, ask for security-relevant findings only (e.g., CVEs, exposure reports) rather than a general landscape scan.
+- **interface/prd + output/draft** — Draft a PRD using the PRD contract.
+- **interface/code + output/modify** — Modify code while preserving code-brief boundaries and verification hints.
+- **interface/knowledge-base + output/record** — Record durable knowledge using the KB root and entry contract.
+- **interface/memory + output/memorize** — Append memory using the memory file and entry contract.
 
-The pattern is: [data-flow skill] → pass artifacts → [persona] as evaluation lens. The persona does not replace the data-flow skill; it sharpens what that skill looks for and how it presents findings.
+Personas modify how information is evaluated at any pipeline stage:
+
+- **review + persona/security** — Run `review` with the security persona as the evaluation lens.
+- **grill-me + persona/adversarial** — Stress-test a design, then re-evaluate residual risks through the adversarial persona.
+- **collect + persona/security** — Collect security-relevant findings only, such as CVEs or exposure reports.
 
 ## Notes
 

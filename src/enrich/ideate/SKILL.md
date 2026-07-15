@@ -34,7 +34,7 @@ Use-When: You need to brainstorm and evaluate potential approaches against defin
 - If user specifies an output file, write to that path instead
 
 ## 4. Next Steps
-- `prototype` — make top solution concepts tangible
+- `interface/prototype` — prototype contract for cheap validation methods for top solution concepts
 - `define` — revisit requirements if prototyping reveals gaps
 - `collect` — gather more data to resolve uncertainty
 

@@ -1,21 +1,22 @@
 ---
 name: rfc
-description: Normalizes a PRD and technical decisions into a structured RFC document.
+description: Use when output or map skills need the RFC artifact contract for technical proposals and decisions.
+disable-model-invocation: true
 metadata:
-  category: normalize
+  category: interface
   capabilities:
     - rfc_formatting
 ---
 
 # rfc
 
-Goal: Format information into a structured Request for Comments (RFC) document.
+Goal: Define the Request for Comments (RFC) contract.
 Non-Goals: Making final decisions, implementing the design, or managing the review process.
-Use-When: You need to produce a structured RFC from a PRD and technical decisions.
+Use-When: Another skill needs the `rfc` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
-- PRD from `prd` skill
-- Technical decisions and architecture details (from `analyze`, `ideate`, or `prototype`)
+- PRD content shaped by `interface/prd`
+- Technical decisions and architecture details (from `filter/analyze`, `enrich/ideate`, or `interface/prototype`)
 
 ## 1. Inputs
 - PRD content from prompt
@@ -30,14 +31,13 @@ Use-When: You need to produce a structured RFC from a PRD and technical decision
 6. Add a review checklist and decision criteria
 
 ## 3. Outputs
-- Structured RFC in the prompt
-- If user specifies an output file, write to that path instead
+- RFC section and field contract for output skills
 
 ## 4. Next Steps
-- `review` — have the `review` skill evaluate the RFC for completeness and clarity
-- `code` — normalize an implementation brief from the RFC decisions
-- `draft` — produce first-pass implementation artifacts from the code brief
-- `prd` — revisit requirements if the RFC reveals gaps
+- `filter/review` — evaluate the RFC for completeness and clarity
+- `interface/code` — code brief contract for RFC implementation decisions
+- `output/draft` — produce first-pass implementation artifacts from the code brief
+- `interface/prd` — PRD contract for revisiting requirements if the RFC reveals gaps
 
 ## 5. Examples
 

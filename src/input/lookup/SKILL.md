@@ -15,7 +15,7 @@ Use-When: The user explicitly asks to look up KB content or retrieve durable con
 
 ## 0. Prerequisites
 - A selected knowledge base root or explicit path
-- The `knowledge-base-interface` contract
+- The `interface/knowledge-base` contract
 
 ## 1. Inputs
 - User query text
@@ -23,7 +23,7 @@ Use-When: The user explicitly asks to look up KB content or retrieve durable con
 - Optional tags, type filters, or root names
 
 ## 2. Processes
-1. Read and follow the `knowledge-base-interface` contract.
+1. Read and follow the `interface/knowledge-base` contract.
 2. Parse the user query and identify the selected root(s).
 3. Search recursively inside the selected root by default.
 4. Treat folder/path matches and filename matches as the same first tier.
@@ -39,7 +39,7 @@ Use-When: The user explicitly asks to look up KB content or retrieve durable con
 - Empty result only when no useful knowledge exists
 
 ## 4. Next Steps
-- `normalize/knowledge-entry` — shape raw knowledge into canonical form
+- `interface/knowledge-base` — apply the KB entry contract before recording
 - `output/record` — save or update durable KB content
 
 ## 5. Examples

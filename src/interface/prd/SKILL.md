@@ -1,17 +1,18 @@
 ---
 name: prd
-description: Normalizes problem statements, requirements, and solution concepts into a structured PRD document.
+description: Use when output or map skills need the PRD artifact contract for problem statements, requirements, and solution concepts.
+disable-model-invocation: true
 metadata:
-  category: normalize
+  category: interface
   capabilities:
     - prd_formatting
 ---
 
 # prd
 
-Goal: Format information into a structured Product Requirements Document (PRD).
+Goal: Define the Product Requirements Document (PRD) contract.
 Non-Goals: Technical design decisions, implementation details, or code generation.
-Use-When: You need to produce a structured PRD from problem statements, requirements, and solution concepts.
+Use-When: Another skill needs the `prd` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
 - Problem statement and requirements from `define` skill
@@ -30,13 +31,12 @@ Use-When: You need to produce a structured PRD from problem statements, requirem
 6. Add metrics for success and open questions
 
 ## 3. Outputs
-- Structured PRD in the prompt
-- If user specifies an output file, write to that path instead
+- PRD section and field contract for output skills
 
 ## 4. Next Steps
-- `review` — have the `review` skill evaluate the PRD for completeness and clarity
-- `rfc` — produce an RFC for technical decisions related to the PRD
-- `define` — revisit requirements if the PRD reveals gaps
+- `filter/review` — evaluate the PRD for completeness and clarity
+- `output/draft` with `interface/rfc` — produce an RFC for technical decisions related to the PRD
+- `enrich/define` — revisit requirements if the PRD reveals gaps
 
 ## 5. Examples
 

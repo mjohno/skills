@@ -1,8 +1,9 @@
 ---
 name: plan
-description: Normalizes identified gaps into an ordered, actionable plan artifact for tracking progress.
+description: Use when output or map skills need the plan artifact contract for ordered gap-closing work.
+disable-model-invocation: true
 metadata:
-  category: normalize
+  category: interface
   capabilities:
     - gap_analysis
     - ordered_artifact_creation
@@ -10,9 +11,9 @@ metadata:
 
 # plan
 
-Goal: Normalize identified gaps into an ordered plan artifact that closes the gap between current and target states.
+Goal: Define the plan artifact contract for closing gaps between current and target states.
 Non-Goals: Do not implement plan items, verify completed work, manage inline comments directly, or require full task packet detail inside every item.
-Use-When: You need to turn a PRD, RFC, comment set, task set, or user request into an ordered work plan.
+Use-When: Another skill needs the `plan` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
 - A source artifact (PRD, RFC, comment set, task set, or user request) to convert into a plan
@@ -27,14 +28,13 @@ Use-When: You need to turn a PRD, RFC, comment set, task set, or user request in
 3. **Check Plan Shape**: Every gap should have at least one closing item. Every item should name the gap it closes or the source it serves. Plan items may reference task packets but should not embed full task packets by default.
 
 ## 3. Outputs
-- Structured plan in the prompt (PLAN_ID, gaps, items with status)
-- If user specifies an output file, write to that path instead
+- Plan section and field contract for output skills
 
 ## 4. Next Steps
-- `task` — extract task packets from plan items
-- `step` — execute plan items one step at a time
-- `annotate` — add inline annotations to track findings
-- `plan` — revisit and update the plan as items complete
+- `output/draft` with `interface/task` — extract task packets from plan items
+- `map/step` — execute plan items one step at a time
+- `enrich/annotate` — add inline annotations to track findings
+- `output/modify` with `interface/plan` — revisit and update the plan as items complete
 
 ## 5. Examples
 

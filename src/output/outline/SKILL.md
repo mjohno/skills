@@ -15,17 +15,17 @@ Non-Goals: Drafting complete content, polishing language, implementing code, or 
 Use-When: You need an outline, skeleton, scaffold, section plan, file layout, API/interface sketch, test matrix, or other structure-first artifact.
 
 ## 0. Prerequisites
-- A target artifact noun from the prompt or a normalize skill, such as script, prd, rfc, plan, task, test, prose, code, or prototype
+- A target artifact noun from the prompt or an interface skill, such as script, prd, rfc, plan, task, test, prose, code, or prototype
 - Source material, goal, audience, constraints, or acceptance criteria when available
 
 ## 1. Inputs
-- Raw request, notes, normalized artifact, or existing content
+- Raw request, notes, interface-shaped artifact, or existing content
 - Target artifact type and desired fidelity
 - Optional conventions, templates, examples, or file paths
 
 ## 2. Processes
 1. Identify the artifact noun and the purpose the structure must serve.
-2. Select or infer the appropriate canonical shape; use normalize skills when a known noun needs stricter form.
+2. Select or infer the appropriate canonical shape; use interface skills when a known noun needs stricter form.
 3. Create the smallest structure that makes the next drafting step clear.
 4. Mark unknowns, decisions, placeholders, and optional sections explicitly.
 5. Avoid filling sections beyond brief intent notes unless the user asks for more detail.

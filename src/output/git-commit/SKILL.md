@@ -35,7 +35,7 @@ Use-When: You need to commit staged changes with automated analysis.
 
 ## 4. Next Steps
 - `step` — continue with the next step after commit
-- `plan` — update plan status for committed items
+- `output/modify` with `interface/plan` — update plan status for committed items
 - `git-commit` — commit additional changes
 - `review` — review the committed changes
 
