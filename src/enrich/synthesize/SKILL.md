@@ -3,9 +3,6 @@ name: synthesize
 description: Enriches raw analysis by extracting meaning, forming hypotheses, and distilling patterns into actionable insights.
 metadata:
   category: enrich
-  capabilities:
-    - hypothesis_formation
-    - insight_distillation
 ---
 
 # synthesize

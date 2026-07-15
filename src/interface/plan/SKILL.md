@@ -33,7 +33,7 @@ Use-When: Another skill needs the `plan` interface contract before outlining, dr
 ## 4. Next Steps
 - `output/draft` with `interface/task` — extract task packets from plan items
 - `map/step` — execute plan items one step at a time
-- `enrich/annotate` — add inline annotations to track findings
+- `output/annotate` — add inline annotations to track findings
 - `output/modify` with `interface/plan` — revisit and update the plan as items complete
 
 ## 5. Examples

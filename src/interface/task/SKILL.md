@@ -36,7 +36,7 @@ Use-When: Another skill needs the `task` interface contract before outlining, dr
 ## 4. Next Steps
 - `output/modify` with `interface/plan` — link task packets back to a parent plan
 - `map/step` — execute the task
-- `enrich/annotate` — add inline annotations related to the task
+- `output/annotate` — add inline annotations related to the task
 - `output/modify` or `output/draft` with `interface/task` — update or extract additional task packets
 
 ## 5. Examples
