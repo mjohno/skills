@@ -1,17 +1,14 @@
 ---
 name: annotate
-description: Filters work items from source via inline task markers (TODO, NOTE, CHECK, REVIEW, DONE) embedded as structured annotations.
+description: Use when you need to add, update, remove, or normalize structured inline annotations in a file.
 metadata:
-  category: filter
-  capabilities:
-    - annotation_management
-    - inline_task_carriers
+  category: output
 ---
 
 # annotate
 
-Goal: Create structured, actionable annotations in files. Annotations are inline task carriers with embedded status — not passive notes.
-Non-Goals: Executing annotation work, managing task packet files, or modifying non-annotation content.
+Goal: Add, update, remove, or normalize structured inline annotations in existing files.
+Non-Goals: Executing the work described by annotations, managing external task packets, or modifying unrelated file content.
 Use-When: You need to add TODOs, NOTEs, CHECKs, REVIEWs, or DONE marks directly into source files.
 
 ## 0. Prerequisites
@@ -29,14 +26,14 @@ Use-When: You need to add TODOs, NOTEs, CHECKs, REVIEWs, or DONE marks directly 
 4. **Normalize Annotation**: Keep the message concise and implementation-oriented. Use a stable ID that can be referenced later. Preserve the kind when the purpose stays the same; change the kind when the purpose changes, but keep the ID stable. Include refs when the annotation links to source material.
 
 ## 3. Outputs
-- Annotation text in the prompt with the appropriate comment syntax
-- If user specifies an output file, write the annotation to that path instead
+- A structured annotation block using the target file's native comment syntax
+- If editing is requested, the target file updated only at the annotation location
 
 ## 4. Next Steps
-- `output/draft` with `interface/task` — extract a task packet from a TODO/CHECK/REVIEW annotation
-- `output/modify` with `interface/plan` — link annotation findings to a parent plan
-- `step` — execute the work indicated by an annotation
-- `annotate` — update or remove existing annotations
+- `step` — execute the work indicated by a TODO/CHECK/REVIEW annotation
+- `output/modify` — make the code or prose change described by an annotation
+- `output/draft` with `interface/task` — convert a pending annotation into a task packet
+- `annotate` — update, remove, or mark an existing annotation as DONE
 
 ## 5. Examples
 
