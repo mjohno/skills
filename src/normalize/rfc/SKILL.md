@@ -35,7 +35,8 @@ Use-When: You need to produce a structured RFC from a PRD and technical decision
 
 ## 4. Next Steps
 - `review` — have the `review` skill evaluate the RFC for completeness and clarity
-- `code` — produce code artifacts based on the RFC decisions
+- `code` — normalize an implementation brief from the RFC decisions
+- `draft` — produce first-pass implementation artifacts from the code brief
 - `prd` — revisit requirements if the RFC reveals gaps
 
 ## 5. Examples
