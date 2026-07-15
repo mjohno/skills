@@ -43,7 +43,7 @@ See [skill_checklist.md](docs/skill_checklist.md) (data-flow) or [persona_checkl
 | Deploying (persona) | "Deploy `security` to `C:/Users/matjo/.pi/agent/skills/`" |
 | Reviewing | "/skill:review review the `investigate` skill" |
 | Evaluating with a persona lens | "/skill:review review the auth module, using persona:security as the evaluation perspective" |
-| Chaining filter + persona | "Run grill-me on this design, then apply persona:adversarial to the findings" |
+| Chaining input + persona | "Run grill-me on this design, then apply persona:adversarial to the findings" |
 
 For category selection, consult [taxonomy.md](docs/taxonomy.md).
 For persona composition patterns, see [Composition Patterns](docs/taxonomy.md#composition-patterns) in taxonomy.md.

@@ -16,7 +16,7 @@ Use-When: Another skill needs the `rfc` interface contract before outlining, dra
 
 ## 0. Prerequisites
 - PRD content shaped by `interface/prd`
-- Technical decisions and architecture details (from `filter/analyze`, `enrich/ideate`, or `interface/prototype`)
+- Technical decisions and architecture details (from prompt, source context, or `interface/prototype`)
 
 ## 1. Inputs
 - PRD content from prompt
@@ -34,7 +34,7 @@ Use-When: Another skill needs the `rfc` interface contract before outlining, dra
 - RFC section and field contract for output skills
 
 ## 4. Next Steps
-- `filter/review` — evaluate the RFC for completeness and clarity
+- `transform/review` — evaluate the RFC for completeness and clarity
 - `interface/code` — code brief contract for RFC implementation decisions
 - `output/draft` — produce first-pass implementation artifacts from the code brief
 - `interface/prd` — PRD contract for revisiting requirements if the RFC reveals gaps

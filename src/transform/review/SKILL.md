@@ -2,13 +2,13 @@
 name: review
 description: Review any artifact against its specifications using one or more persona skills as evaluation perspectives.
 metadata:
-  category: filter
+  category: transform
 ---
 
 # review
 
 Goal: Compare a target artifact against pre-discovered specification sources and persona skills, then produce a structured severity-scored report.
-Non-Goals: Discover specs or personas (that is the orchestrator's job), remediate artifacts, manage tasks, or transform data.
+Non-Goals: Discover specs or personas (that is the orchestrator's job), remediate artifacts, manage tasks, or rewrite the target.
 Use-When: You need to review any artifact against its specifications using one or more evaluation perspectives.
 
 ## 0. Prerequisites
@@ -47,9 +47,9 @@ You may accept both from the same prompt or request them separately if missing.
 Structured review report using `assets/template_report.md` with findings categorized P1–P5 per `assets/severity.md`. Default: output to prompt. Write to file when an output path is provided.
 
 ## 4. Next Steps
-- `check` — run a check on the artifact against requirements, checklists, acceptance or target criteria
-- `review` — re-review after fixes are applied
-- `annotate` — add inline annotations for tracking findings (NOTE) and fixes (TODO)
+- `transform/check` — run a check on the artifact against requirements, checklists, acceptance or target criteria
+- `transform/review` — re-review after fixes are applied
+- `output/annotate` — add inline annotations for tracking findings (NOTE) and fixes (TODO)
 - `output/draft` with `interface/plan` — create a plan to address findings
 
 ### Constraints

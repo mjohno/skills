@@ -15,8 +15,8 @@ Non-Goals: Technical design decisions, implementation details, or code generatio
 Use-When: Another skill needs the `prd` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
-- Problem statement and requirements from `define` skill
-- Solution concepts from `ideate` skill (optional)
+- Problem statement and requirements from prompt or source context
+- Solution concepts from prompt or source context (optional)
 
 ## 1. Inputs
 - Problem statement, requirements, and solution concepts from prompt
@@ -34,9 +34,9 @@ Use-When: Another skill needs the `prd` interface contract before outlining, dra
 - PRD section and field contract for output skills
 
 ## 4. Next Steps
-- `filter/review` — evaluate the PRD for completeness and clarity
+- `transform/review` — evaluate the PRD for completeness and clarity
 - `output/draft` with `interface/rfc` — produce an RFC for technical decisions related to the PRD
-- `enrich/define` — revisit requirements if the PRD reveals gaps
+- `output/modify` — revisit requirements if the PRD reveals gaps
 
 ## 5. Examples
 

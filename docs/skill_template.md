@@ -3,7 +3,7 @@ name: [skill-name]
 description: [concise overview with "Use when..." triggers]
 disable-model-invocation: [true for interface contract skills — omit otherwise]
 metadata:
-  category: [interface|input|enrich|filter|output|map]
+  category: [interface|input|transform|output|map]
 ---
 
 # [Skill Name]

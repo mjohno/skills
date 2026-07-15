@@ -51,7 +51,7 @@ Next Decision:
 ## 4. Next Steps
 - `output/outline` — create the mock-up structure or experiment outline using this contract
 - `output/draft` — produce first-pass prototype materials using this contract
-- `filter/review` — stress-test the prototype design before spending effort
+- `transform/review` — stress-test the prototype design before spending effort
 
 ## 5. Examples
 

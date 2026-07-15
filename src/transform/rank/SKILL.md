@@ -2,7 +2,7 @@
 name: rank
 description: Use when a collection of information requires ranking and prioritization based upon user-defined scoring criteria.
 metadata:
-  category: filter
+  category: transform
 ---
 # rank
 

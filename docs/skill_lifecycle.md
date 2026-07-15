@@ -21,9 +21,8 @@ Create or update a skill package that is structurally valid and beautifully simp
    - Provide a concise description that includes "Use when..." triggers.
 3. **Determine Category**: Choose one category from [taxonomy.md](taxonomy.md):
    - `interface` — shared contract, schema, artifact shape, or protocol
-   - `input` — retrieve or read source data
-   - `enrich` — expand or elaborate context
-   - `filter` — reduce, verify, rank, or select
+   - `input` — retrieve, read, or elicit source data
+   - `transform` — derive, evaluate, restructure, prioritize, reduce, or convert existing context
    - `output` — create, revise, persist, store, or deliver
    - `map` — compose multi-step workflows
    - `persona` — encode perspective that modifies information flow
@@ -39,7 +38,7 @@ Create or update a skill package that is structurally valid and beautifully simp
 
 1. Create root directory `<category>/<name>/`.
 2. Initialize SKILL.md:
-   - **Data-flow/interface skills** (interface, input, enrich, filter, output, map): use [skill_template.md](skill_template.md)
+   - **Data-flow/interface skills** (interface, input, transform, output, map): use [skill_template.md](skill_template.md)
    - **Persona skills** (persona): use [persona_template.md](persona_template.md)
 3. Create sub-directories (`scripts/`, `references/`, `assets/`) as needed.
 
@@ -86,7 +85,7 @@ Assert a pass/fail test over an existing skill package against the appropriate c
    - Must match [taxonomy.md](taxonomy.md). Missing or invalid → Critical failure.
 2. **Check Non-Invocable Contracts**: If the skill is an interface contract, verify `disable-model-invocation: true`.
 3. **Load Checklist**:
-   - Data-flow/interface categories (interface, input, enrich, filter, output, map) → [skill_checklist.md](skill_checklist.md)
+   - Data-flow/interface categories (interface, input, transform, output, map) → [skill_checklist.md](skill_checklist.md)
    - Persona category → [persona_checklist.md](persona_checklist.md)
 4. **Run Checks**: Evaluate each item; record pass/fail with specific violations.
 5. **Report**:

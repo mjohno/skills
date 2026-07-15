@@ -2,7 +2,7 @@
 name: grill-me
 description: Filters assumptions and risks through adversarial questioning — interviewing the user to stress-test plans and designs.
 metadata:
-  category: filter
+  category: input
   capabilities:
     - adversarial_validation
     - stress_test_interview
@@ -34,10 +34,9 @@ Use-When: You need to stress-test a plan or design by exploring all decision bra
 - If user specifies an output file, write to that path instead
 
 ## 4. Next Steps
-- `define` — if gaps reveal undefined requirements
-- `synthesize` — if risks suggest new hypotheses
 - `output/modify` with `interface/plan` — if the plan needs restructuring based on findings
-- `analyze` — if contradictions need deeper investigation
+- `transform/review` — if findings need structured critique against specs or personas
+- `transform/check` — if decisions, claims, or assumptions need validation against criteria or evidence
 
 ## 5. Examples
 

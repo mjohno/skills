@@ -3,7 +3,7 @@ name: learn
 description: Use when memory needs reduction into stable summary updates or compression decisions.
 metadata:
   type: skill
-  category: filter
+  category: transform
   capabilities:
     - memory
 ---
@@ -14,7 +14,7 @@ Non-Goals: Knowledge-base promotion, raw expansion, or direct file writes.
 Use-When: A memory workflow needs deduplication, consolidation, or contradiction handling.
 
 ## 0. Prerequisites
-- Expanded memory context from `envision` or raw memory input
+- Retrieved or raw memory input
 - The `interface/memory` contract
 
 ## 1. Inputs

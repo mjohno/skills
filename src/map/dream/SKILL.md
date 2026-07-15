@@ -16,11 +16,11 @@ Use-When: The user wants memory summarized, compressed, or cleaned.
 ## 0. Prerequisites
 - A resolved memory file
 - The `interface/memory` contract
-- The `remember`, `envision`, `learn`, `interface/memory`, and `memorize` skills
+- The `remember`, `learn`, `interface/memory`, and `memorize` skills
 
 ## 1. Inputs
 - The full memory file
-- Expanded memory context
+- Retrieved memory context
 - Candidate summary updates
 - Approval context for destructive summary rewrites
 
@@ -28,18 +28,17 @@ Use-When: The user wants memory summarized, compressed, or cleaned.
 1. Read and follow the `interface/memory` contract.
 2. Process the entire memory file every time, not only entries since the last breadcrumb.
 3. Read memory via `remember`.
-4. Expand via `envision`.
-5. Reduce via `learn`.
-6. Shape summary updates using the `interface/memory` summary contract.
-7. Write back summary/log updates to the memory file.
-8. Treat `# Summary` as the durable memory record.
-9. Require user approval for full `# Summary` rewrites, especially when deleting specific existing Summary items or resolving contradictions.
-10. Present summary rewrite approvals as a git diff-style patch.
-11. Allow routine compression when it mostly appends and deduplicates Memory Log content into Summary.
-12. Delete fully processed log entries and leave a breadcrumb comment after compression.
-13. Leave new breadcrumbs for the current compression; later runs may remove old breadcrumbs when cleaning the file.
-14. Do not call `record`; memory and knowledge base remain uncoupled.
-15. Perform direct file edits when required to complete the chain.
+4. Reduce via `learn`.
+5. Shape summary updates using the `interface/memory` summary contract.
+6. Write back summary/log updates to the memory file.
+7. Treat `# Summary` as the durable memory record.
+8. Require user approval for full `# Summary` rewrites, especially when deleting specific existing Summary items or resolving contradictions.
+9. Present summary rewrite approvals as a git diff-style patch.
+10. Allow routine compression when it mostly appends and deduplicates Memory Log content into Summary.
+11. Delete fully processed log entries and leave a breadcrumb comment after compression.
+12. Leave new breadcrumbs for the current compression; later runs may remove old breadcrumbs when cleaning the file.
+13. Do not call `record`; memory and knowledge base remain uncoupled.
+14. Perform direct file edits when required to complete the chain.
 
 ## 3. Outputs
 - Updated memory file content
@@ -55,4 +54,4 @@ Use-When: The user wants memory summarized, compressed, or cleaned.
 ### Example 1
 
 **Prompt:** Clean up this memory file.
-**Outcome:** Expands, reduces, shapes, and writes back updated memory.
+**Outcome:** Retrieves, reduces, shapes, and writes back updated memory.
