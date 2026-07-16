@@ -1,14 +1,15 @@
 # Python Script Conventions
 
-1. Use standard library only unless a third-party package is essential.
-2. Follow PEP 8 for style, but prioritize readability and consistency over strict adherence.
-3. Use Type Hints for all functions, including return types.
-4. Catch and log exceptions only when necessary.
-5. Don't catch exceptions just to suppress them. It is OK to expose stack traces.
-6. Use the provided `log` object for all logging, and avoid print statements.
-7. Be specific and informative in log messages, including relevant variable values.
-8. Be specific about what failed and why in error messages, and suggest fixes when possible.
-9. Custom code goes at the top of the script in the `main` function.
-10. Custom tests go at the bottom of the script, in the test handler.
-11. the __main__ handler is at the very bottom of the script, after all functions and tests.
-12. Assume python 3.13 is the minimum version.
+1. Assume Python 3.13+ unless the user or project specifies otherwise.
+2. Use the standard library unless a third-party package is essential and justified.
+3. Follow PEP 8 for style, prioritizing readability and local consistency over strictness.
+4. Use type hints for function signatures, including return types.
+5. Use `argparse` for CLI argument parsing.
+6. Use `logging` through a module-level `log` object for diagnostics; logging must stream to stderr.
+7. Use `print()` only for intentional stdout output: IPC, shell pipelines, or user-requested CLI data.
+8. Catch exceptions only when adding context, cleanup, fallback behavior, or a clearer user-facing error.
+9. Do not suppress exceptions without adding value; stack traces are acceptable when useful.
+10. Be specific in log and error messages, including relevant values and suggested fixes when possible.
+11. `main()` owns orchestration and returns an integer exit code; reusable logic belongs in typed helper functions.
+12. When inline tests are used, place them near the bottom of the script before the `__main__` handler.
+13. The `__main__` handler is the final block and wires parsing, logging configuration, tests, and `main()` execution.

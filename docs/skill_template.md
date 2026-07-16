@@ -18,11 +18,13 @@ Use-When: [triggers for invoking this skill, or for referencing this interface]
 ## 1. Inputs
 - [information this skill reads or receives; reference input_*.md or keep inline]
 
-## 2. Processes
-- [transformations this skill performs, or contract rules this interface defines]
+## 2. Processes / Contract Rules
+- [for invocable skills: transformations or steps this skill performs]
+- [for interface skills: profile selection rules, desired-state rules, invariants, valid structure, or protocol rules]
 
-## 3. Outputs
-- [information this skill creates/writes, or guidance this interface provides]
+## 3. Outputs / Exposed Contract
+- [for invocable skills: information this skill creates/writes]
+- [for interface skills: contract data exposed to consuming skills, such as conventions, checks, templates, schemas, or protocol rules]
 
 ## 4. Next Steps
 - [suggested follow-on actions or skills]

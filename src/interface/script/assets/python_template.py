@@ -7,36 +7,55 @@ Examples:
     python <SCRIPT_NAME>.py --log-level DEBUG
     python <SCRIPT_NAME>.py --test
     python <SCRIPT_NAME>.py --help
+
+Stdout is reserved for intentional data output such as IPC, shell pipelines,
+or user-requested CLI results. Diagnostics and logs go to stderr.
 """
 
 import argparse
 import logging
 import sys
 
+log = logging.getLogger(__name__)
+
+
 # ---------------------------------------------------------------------------
 # Core Functionality
 # ---------------------------------------------------------------------------
 
 def main(args: argparse.Namespace) -> int:
-    """Main function that performs the script's primary logic. Returns an exit code."""
+    """Run the script's primary workflow and return an exit code."""
     log.info("Starting script with arguments: %s", args)
 
-    # <CORE LOGIC GOES HERE>
+    # <ORCHESTRATE CORE LOGIC HERE>
+    # Use print(...) only for intentional stdout data output.
 
     return 0
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+# def helper(...) -> ...:
+#     """Reusable, testable logic belongs in typed helper functions."""
+#     ...
 
 
 # ---------------------------------------------------------------------------
 # Boilerplate Setup
 # ---------------------------------------------------------------------------
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] [%(funcName)s]: %(message)s",
-    datefmt="%Y-%m-%dT%H:%M:%S",
-    stream=sys.stderr,
-)
-log = logging.getLogger(__name__)
+def configure_logging(log_level: str) -> None:
+    """Configure diagnostic logging to stderr."""
+    logging.basicConfig(
+        level=getattr(logging, log_level),
+        format="%(asctime)s [%(levelname)s] [%(funcName)s]: %(message)s",
+        datefmt="%Y-%m-%dT%H:%M:%S",
+        stream=sys.stderr,
+        force=True,
+    )
+
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     """Parse command-line arguments."""
@@ -61,16 +80,17 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     return parser.parse_args(argv)
 
+
 # ---------------------------------------------------------------------------
 # Test Harness
 # ---------------------------------------------------------------------------
 
 def run_tests() -> int:
-    """Run inline tests using unittest. Returns 0 if all pass, 1 if any fail."""
+    """Run inline tests using unittest. Return 0 if all pass, 1 if any fail."""
     import unittest
 
     class TestScript(unittest.TestCase):
-        def test_parse_args(self):
+        def test_parse_args(self) -> None:
             """Test that parse_args behaves as expected."""
             dry_run = parse_args(["--dry-run", "--log-level", "DEBUG"])
             self.assertTrue(dry_run.dry_run)
@@ -98,6 +118,7 @@ def run_tests() -> int:
 
 if __name__ == "__main__":
     args = parse_args(sys.argv[1:])
+    configure_logging(args.log_level)
 
     if args.test:
         sys.exit(run_tests())

@@ -46,10 +46,14 @@ Create or update a skill package that is structurally valid and beautifully simp
 
 #### Data-flow and interface skills
 
-- **Interface skills**: Define contracts only. They are non-invocable and should not perform retrieval, transformation, evaluation, persistence, or orchestration.
+- **Interface skills**: Define the desired state of a noun/domain and supply applicable conventions, checks, templates, schemas, or protocol rules. They are non-invocable and should not perform retrieval, transformation, evaluation, persistence, or orchestration.
+  - Artifact interfaces define what a good artifact looks like.
+  - Protocol interfaces define valid interaction shape.
+  - Storage interfaces define layout, invariants, and access expectations.
+  - Interfaces may select a profile from context, such as a language or backend, then expose that profile's contract data to consuming skills.
 - **Invocable skills**: Develop self-contained, idempotent behavior and scripts where needed.
-- **Documentation**: Populate `references/` with technical details or procedural specifics.
-- **Resources**: Add templates or data to `assets/`.
+- **Documentation**: Populate `references/` with technical details, contract rules, or procedural specifics. Use names such as `generic_conventions.md`, `<domain>_conventions.md`, and `<domain>_quality.md` for profiled interface materials.
+- **Resources**: Add templates or data to `assets/`. Use profile-specific names such as `<domain>_template.<ext>` when a template is not generic.
 - **Quality reminder**: Remember the six simplicity principles — single responsibility, clear scope, graceful handoff, etc.
 
 #### Persona skills
@@ -64,6 +68,7 @@ Create or update a skill package that is structurally valid and beautifully simp
 - X Process steps numbered 1–20 — if it takes this many, consider breaking into sub-skills
 - X Non-goals that just repeat the goal in negative form ("We do not fail")
 - X Interface skill that performs work instead of defining a contract
+- X Interface skill that produces a brief unless the noun itself is a brief
 - X Invocable skill that only defines an artifact schema instead of consuming an interface
 - X Persona encodes a narrow opinion rather than an established evaluation lens
 - X Persona overlaps with another persona's focus areas

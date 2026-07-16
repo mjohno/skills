@@ -1,67 +1,53 @@
 ---
 name: script
-description: Use when output or map skills need the script artifact contract for structure, conventions, or implementation briefs.
+description: Use when output, transform, or map skills need script-domain conventions, quality checks, and templates.
 disable-model-invocation: true
 metadata:
   category: interface
-  capabilities:
-    - script_shape
-    - stdlib_python_conventions
 ---
 
 # script
 
-Goal: Define the script artifact contract for purpose, interface, behavior, safety expectations, and test hints.
-Non-Goals: Writing the full script, executing it, managing environments, or persisting generated files.
-Use-When: Another skill needs the `script` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
+Goal: Define the script artifact contract and return the applicable conventions, quality checks, and templates for the selected script domain.
+Non-Goals: Writing, modifying, executing, testing, deploying, or persisting scripts.
+Use-When: Another skill needs the `script` interface before drafting, modifying, checking, reviewing, or orchestrating a script artifact.
 
 ## 0. Prerequisites
-- Script purpose, user request, task packet, bug report, or existing script content
-- Target runtime or language when known; default conventions may use Python stdlib guidance
+- Script purpose, user request, target file path, or existing script content
+- Target language/runtime when known; if missing, use Python by default
 
 ## 1. Inputs
-- Purpose, inputs, outputs, side effects, constraints, and target file path when available
-- Safety requirements such as dry-run, logging, validation, idempotency, and error handling
-- Optional conventions from `references/python_conventions.md` and `references/quality_checks.md`
+- Purpose, invocation context, inputs, outputs, side effects, constraints, and target path when available
+- Existing file extension, shebang, imports, runtime notes, or user-stated language for domain selection
+- Safety requirements such as dry-run, validation, idempotency, logging, and error handling
 
 ## 2. Processes
-1. Extract the script's purpose, trigger, users, and operating context.
-2. Define inputs, outputs, side effects, failure modes, and safety controls.
-3. Identify CLI/API shape, dependencies, file layout, and test strategy.
-4. Use `assets/script_template.py` only as structural guidance, not as a drafting obligation.
-5. Mark unknowns and decisions needed before implementation.
+1. Select the script domain from explicit language, file extension, shebang, runtime clues, or default to Python.
+2. Always include generic script conventions from `references/generic_conventions.md`.
+3. For Python, include `references/python_conventions.md`, `references/python_quality.md`, and `assets/python_template.py`.
+4. Treat templates as canonical shapes or starting points for consuming verb skills, not as mandatory output.
+5. Mark domain assumptions only when selection is ambiguous or materially affects the artifact contract.
 
 ## 3. Outputs
-- Interface-defined script brief contract consumed by `output/outline`, `output/draft`, or `output/modify`
-
-Interface-defined shape:
-```text
-SCRIPT:
-Purpose:
-Runtime:
-Interface:
-Inputs:
-Outputs:
-Side Effects:
-Safety:
-Errors:
-Tests:
-Dependencies:
-Target Files:
-Open Questions:
-```
+- Script interface data for consuming skills:
+  - selected domain/language and assumptions
+  - generic conventions
+  - domain-specific conventions
+  - domain-specific quality checks
+  - applicable template paths
 
 ## 4. Next Steps
-- `output/outline` — create a script skeleton or function layout using this contract
-- `output/draft` — produce a first-pass script from this contract
-- `output/modify` — update an existing script against this contract
+- `output/outline` — create a script skeleton or function layout using this interface data
+- `output/draft` — produce a first-pass script using this interface data
+- `output/modify` — update an existing script against this interface data
+- `transform/check` — verify a script against this interface data
 
 ## 5. Examples
 
-### Example 1: File organizer
-**Prompt:** Define a script that organizes files by extension with dry-run support.
-**Outcome:** Produces a script brief with CLI args, filesystem side effects, logging, dry-run behavior, errors, and tests.
+### Example 1: Python default
+**Prompt:** "Create a script that organizes files by extension with dry-run support."
+**Outcome:** Selects Python by default and supplies generic conventions, Python conventions, Python quality checks, and `assets/python_template.py`.
 
-### Example 2: Existing script request
-**Prompt:** Shape this bug report into a script update brief.
-**Outcome:** Produces the target behavior, invariants to preserve, failure cases, and verification hints.
+### Example 2: Existing shell script
+**Prompt:** "Review `cleanup.sh` against the script interface."
+**Outcome:** Selects the shell-script domain from the extension; supplies generic conventions and marks shell-specific references as needed if unavailable.

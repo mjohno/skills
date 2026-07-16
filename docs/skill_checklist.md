@@ -24,6 +24,17 @@ Inherits all items from [base_checklist.md](base_checklist.md). Apply base items
 - [ ] **QUALITY** **Graceful handoff** — When it can't solve something, does it suggest specific downstream skills (e.g., lookup, remember)?
 - [ ] **QUALITY** **Structure matches purpose** — Sections flow logically (prerequisites → inputs → processes → outputs → next steps) and read like a contract
 
+## Interface-Specific QUALITY
+
+Apply these when `metadata.category: interface`.
+
+- [ ] **QUALITY** Interface defines a noun/domain desired state, not production behavior.
+- [ ] **QUALITY** Interface exposes conventions, quality checks, templates, schemas, or protocol rules for consumers.
+- [ ] **QUALITY** Interface does not claim to create, modify, evaluate, persist, retrieve, or orchestrate artifacts.
+- [ ] **QUALITY** Generic rules are separated from language/platform-specific profiles when profiles exist.
+- [ ] **QUALITY** Profile-specific assets are clearly named.
+- [ ] **QUALITY** Templates are examples or canonical shapes consumed by verb skills, not mandatory generation behavior unless explicitly stated.
+
 ## Definition of Done
 
 A skill passes compliance if all base CRITICAL items and all skill-specific CRITICAL items pass. A beautifully simple skill also passes all QUALITY items.
