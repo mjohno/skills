@@ -16,7 +16,7 @@ const mesh = new SidecarMesh();
 
 ```python
 # NOTE(AUTH-ARCH-2): Database connections use connection pooling with max 50 connections
-# refs: [config/db.py:22, PRD-SYS.md#PERF-1]
+# refs: [config/db.py:22, SPEC-SYS.md#QUA-CON-1]
 DB_POOL_SIZE = 50
 ```
 
@@ -54,7 +54,7 @@ services:
 
 ```sql
 -- TODO(AUTH-ARCH-6): Add unique constraint on (user_id, service_name) to prevent duplicate registrations
--- refs: [db/migrations/005_create_registrations.sql:12, PRD-SYS.md#DATA-3]
+-- refs: [db/migrations/005_create_registrations.sql:12, SPEC-SYS.md#FUT-3]
 CREATE TABLE registrations (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
@@ -105,8 +105,8 @@ class ConnectionPool { ... }
 ### Markdown
 
 ```markdown
-<!-- REVIEW(AUTH-ARCH-11): ADR-004 sidecar pattern conflicts with cost constraint in PRD-SYS#COST-1 -->
-<!-- refs: [arch/decisions/ADR-004.md, PRD-SYS.md#COST-1] -->
+<!-- REVIEW(AUTH-ARCH-11): ADR-004 sidecar pattern conflicts with cost constraint in SPEC-SYS#QUA-CON-1 -->
+<!-- refs: [arch/decisions/ADR-004.md, SPEC-SYS.md#QUA-CON-1] -->
 
 ## Architecture Decisions
 
@@ -145,7 +145,7 @@ circuit_breaker:
 
 ```markdown
 <!-- DONE(AUTH-ARCH-11): ADR-004 updated to include cost-optimized sidecar option -->
-<!-- refs: [arch/decisions/ADR-004.md, PRD-SYS.md#COST-1] -->
+<!-- refs: [arch/decisions/ADR-004.md, SPEC-SYS.md#QUA-CON-1] -->
 
 ## Architecture Decisions
 
@@ -165,14 +165,14 @@ circuit_breaker:
 
 ```ts
 // REVIEW(AUTH-ARCH-14): Connection pool size may need tuning based on load test results
-// refs: [config/db.py:22, tests/db/load_test.py, PRD-SYS.md#PERF-1]
+// refs: [config/db.py:22, tests/db/load_test.py, SPEC-SYS.md#QUA-CON-1]
 ```
 
 ### Mixed reference types
 
 ```ts
 // TODO(AUTH-ARCH-15): Document connection pool configuration for ops team
-// refs: [config/db.py:22, https://docs.example.com/ops/pool-config#monitoring, PRD-SYS.md#OPS-2]
+// refs: [config/db.py:22, https://docs.example.com/ops/pool-config#monitoring, SPEC-SYS.md#EXP-2]
 ```
 
 ### Reference with anchor

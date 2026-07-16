@@ -24,8 +24,8 @@ You may accept both from the same prompt or request them separately if missing.
 ## 1. Inputs
 | Input | Required | Example |
 |---|---|---|
-| Target artifact | Yes | `PRD-001.md` or pasted content |
-| Spec source(s) | Yes | "The PRD skill's SKILL.md defines correctness" or a file path |
+| Target artifact | Yes | `SPEC-001.md` or pasted content |
+| Spec source(s) | Yes | "The spec skill's checklist defines correctness" or a file path |
 | Persona skill(s) | No | `security`, `adversarial`, `system_architect` (discovered and resolved by orchestrator) |
 | Diff refs | No | "main to HEAD" for diff review |
 
@@ -70,5 +70,5 @@ Structured review report using `assets/template_report.md` with findings categor
 → Orchestrator provides persona skills, target is the diff content → review runs base criteria + adversarial + system_architect evaluation → scoped P1-P5 report.
 
 ### Example 3: Missing prerequisites
-**Prompt:** "Review PRD-012.md."
+**Prompt:** "Review SPEC-012.md."
 → No spec provided, no persona provided → SKILL.md asks user to supply them before proceeding.

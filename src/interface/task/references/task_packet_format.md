@@ -9,7 +9,7 @@ TASK_ID: <ID>
 Status: todo
 Goal: <one clear task goal>
 Source:
-- <PRD/RFC/plan/comment/user source>
+- <spec/RFC/plan/comment/user source>
 Targets:
 - <file, module, section, or unknown>
 Constraints:
@@ -23,7 +23,7 @@ Verification:
 - `TASK_ID`: stable identifier.
 - `Status`: lightweight task state, usually `todo`, `blocked`, or `done`.
 - `Goal`: concise description of the desired change or investigation.
-- `Source`: links to plan items, comments, PRDs, RFCs, or direct prompts.
+- `Source`: links to plan items, comments, specs, RFCs, or direct prompts.
 - `Targets`: likely files, modules, sections, or domains.
 - `Constraints`: compatibility, design, style, non-goals, or safety limits.
 - `Verification`: test commands, checks, or evidence hints when known.

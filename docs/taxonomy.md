@@ -14,7 +14,7 @@ This repository uses a role-based skill taxonomy. Each category defines the skil
 Noun/domain contracts that supply conventions, quality checks, templates, schemas, protocols, artifact shapes, or storage rules used by verb skills.
 - Non-invocable by default (`disable-model-invocation: true` in frontmatter)
 - Lives as direct skill packages under `src/interface/<name>/SKILL.md`
-- Examples: `interface/prd`, `interface/rfc`, `interface/plan`, `interface/task`, `interface/code`, `interface/prose`, `interface/script`, `interface/prototype`, `interface/memory`, `interface/knowledge-base`
+- Examples: `interface/spec`, `interface/rfc`, `interface/plan`, `interface/task`, `interface/code`, `interface/prose`, `interface/script`, `interface/prototype`, `interface/memory`, `interface/knowledge-base`
 - Defines the desired state of a noun-like artifact, protocol, or domain
 - May select an applicable profile from context, such as a script language or storage backend, and expose the relevant contract data to consuming skills
 - Profile-specific materials should be clearly named, e.g. `python_template.py`, `python_quality.md`, or `github_protocol.md`
@@ -61,7 +61,8 @@ Skills that encode a consistent perspective, tradeoff-awareness, or output style
 
 Interfaces define contract data that invocable skills consume:
 
-- **interface/prd + output/draft** — Draft a PRD using the PRD contract.
+- **interface/spec + output/outline** — Outline a traceable future-state spec using the spec template.
+- **interface/spec + output/draft** — Draft a generic future-state spec using the spec contract.
 - **interface/code + output/modify** — Modify code while preserving code-brief boundaries and verification hints.
 - **interface/knowledge-base + output/record** — Record durable knowledge using the KB root and entry contract.
 - **interface/memory + output/memorize** — Append memory using the memory file and entry contract.

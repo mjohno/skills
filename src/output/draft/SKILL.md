@@ -12,7 +12,7 @@ metadata:
 
 Goal: Produce first-pass artifact content from source material, optimized for completeness and editability over perfection.
 Non-Goals: Creating only a skeleton, final polish, durable persistence, or making unstated product/technical decisions with false certainty.
-Use-When: You need to write, compose, generate, fill, or create an initial version of content such as a script, code, PRD, RFC, plan, task, test, prose, or prototype.
+Use-When: You need to write, compose, generate, fill, or create an initial version of content such as a spec, script, code, RFC, plan, task, test, prose, or prototype.
 
 ## 0. Prerequisites
 - Source material, outline, interface-shaped artifact, or user request that states the desired artifact
@@ -46,6 +46,6 @@ Use-When: You need to write, compose, generate, fill, or create an initial versi
 **Prompt:** Draft a Python script from this outline.
 **Outcome:** Produces a runnable first-pass script with clear TODOs for unresolved edge cases.
 
-### Example 2: Draft a PRD
-**Prompt:** Draft the PRD from these requirements.
-**Outcome:** Produces a complete-enough PRD with goals, non-goals, requirements, metrics, risks, and open questions.
+### Example 2: Draft a spec
+**Prompt:** Draft the spec from these requirements.
+**Outcome:** Produces a complete-enough future-state spec with purpose, current state, future state, scope, requirements, acceptance, quality, expectations, uncertainties, decisions, and traceable IDs.

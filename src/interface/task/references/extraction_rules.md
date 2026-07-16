@@ -16,11 +16,11 @@ Use these rules when creating task packets from other artifacts.
 - Include the file path and nearby symbol/section as `Targets` when known.
 - Do not remove or edit the annotation; that belongs to the `annotate` skill.
 
-## From a PRD or RFC
+## From a spec or RFC
 
-- Preserve artifact IDs such as acceptance criteria, decisions, or sections.
+- Preserve artifact IDs such as requirements, acceptance criteria, decisions, or sections.
 - Extract the smallest actionable slice.
-- Keep product intent and technical constraints separate when possible.
+- Keep future-state intent and technical constraints separate when possible.
 
 ## From direct instruction
 

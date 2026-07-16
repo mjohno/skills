@@ -35,9 +35,9 @@ Status is encoded in the kind itself:
 
 ```text
 refs: [auth/middleware.ts:42]          # file:line
-refs: [PRD-AUTH.md#AC-3]              # file#anchor
+refs: [SPEC-AUTH.md#ACC-3]              # file#anchor
 refs: [https://example.com/spec#D-2]  # url#anchor
-refs: [PRD-AUTH.md#AC-3, RFC-AUTH#D-2]  # multiple refs
+refs: [SPEC-AUTH.md#ACC-3, RFC-AUTH#D-2]  # multiple refs
 ```
 
 Rules:
@@ -45,5 +45,5 @@ Rules:
 - Use `file#anchor` for document sections (headings, acceptance criteria, etc.)
 - Use `url#anchor` for external references
 - Multiple refs are allowed; keep them concise
-- Do not couple refs to specific domains (PRD, RFC, etc.) — use whatever naming convention the source material uses
+- Do not couple refs to specific domains (spec, RFC, etc.) — use whatever naming convention the source material uses
 

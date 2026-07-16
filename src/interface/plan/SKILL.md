@@ -16,14 +16,14 @@ Non-Goals: Do not implement plan items, verify completed work, manage inline com
 Use-When: Another skill needs the `plan` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
-- A source artifact (PRD, RFC, comment set, task set, or user request) to convert into a plan
+- A source artifact (spec, RFC, comment set, task set, or user request) to convert into a plan
 
 ## 1. Inputs
-- Source artifact from prompt (PRD, RFC, comment set, task set, or user request)
+- Source artifact from prompt (spec, RFC, comment set, task set, or user request)
 - Target outcome or goal (optional)
 
 ## 2. Processes
-1. **Create Plan**: Identify the source artifact and target outcome. Write a Gap Map: gap ID, current problem, target state. Write plan items that each close one or more gaps. Add dependencies, deliverables, and done criteria only when they reduce ambiguity.
+1. **Create Plan**: Identify the source artifact and target outcome. Write a Gap Map: gap ID, current problem, target state. Trace plan items to relevant spec IDs when the source is shaped by `interface/spec`. Write plan items that each close one or more gaps. Add dependencies, deliverables, and done criteria only when they reduce ambiguity.
 2. **Update Plan**: Preserve existing plan IDs unless explicitly asked to rename them. Add, split, merge, or reorder items to improve gap closure. Keep plan status as planning metadata, not execution evidence.
 3. **Check Plan Shape**: Every gap should have at least one closing item. Every item should name the gap it closes or the source it serves. Plan items may reference task packets but should not embed full task packets by default.
 

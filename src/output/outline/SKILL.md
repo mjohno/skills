@@ -15,7 +15,7 @@ Non-Goals: Drafting complete content, polishing language, implementing code, or 
 Use-When: You need an outline, skeleton, scaffold, section plan, file layout, API/interface sketch, test matrix, or other structure-first artifact.
 
 ## 0. Prerequisites
-- A target artifact noun from the prompt or an interface skill, such as script, prd, rfc, plan, task, test, prose, code, or prototype
+- A target artifact noun from the prompt or an interface skill, such as spec, script, rfc, plan, task, test, prose, code, or prototype
 - Source material, goal, audience, constraints, or acceptance criteria when available
 
 ## 1. Inputs
@@ -45,6 +45,6 @@ Use-When: You need an outline, skeleton, scaffold, section plan, file layout, AP
 **Prompt:** Outline a script that organizes files by extension.
 **Outcome:** Produces a script skeleton with purpose, CLI arguments, main functions, error cases, dry-run behavior, and test placeholders.
 
-### Example 2: PRD outline
-**Prompt:** Outline a PRD for team workspace permissions.
-**Outcome:** Produces PRD headings, requirement placeholders, success metrics, risks, and open questions without drafting full prose.
+### Example 2: Spec outline
+**Prompt:** Outline a spec for team workspace permissions.
+**Outcome:** Produces spec headings, traceable ID placeholders, future-state targets, scope boundaries, requirements, acceptance criteria, quality priorities, uncertainties, and decisions without drafting full prose.

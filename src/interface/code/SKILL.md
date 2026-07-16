@@ -16,7 +16,7 @@ Non-Goals: Implementing code, choosing unrelated architecture, polishing documen
 Use-When: Another skill needs the `code` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
-- Source request, task packet, PRD, RFC, issue, design note, or existing code context
+- Source request, task packet, spec, RFC, issue, design note, or existing code context
 - Target language, framework, repository conventions, or affected files when known
 
 ## 1. Inputs
