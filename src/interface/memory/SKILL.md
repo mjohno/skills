@@ -1,7 +1,6 @@
 ---
 name: memory
 description: Use when remember, memorize, learn, or dream needs the shared memory file and content contract.
-disable-model-invocation: true
 metadata:
   type: skill
   category: interface

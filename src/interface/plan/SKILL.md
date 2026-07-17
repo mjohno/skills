@@ -1,7 +1,6 @@
 ---
 name: plan
 description: Use when output or map skills need the plan artifact contract for ordered gap-closing work.
-disable-model-invocation: true
 metadata:
   category: interface
   capabilities:

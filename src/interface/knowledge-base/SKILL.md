@@ -1,7 +1,6 @@
 ---
 name: knowledge-base
 description: Use when lookup or record needs the shared knowledge base root, search, storage, and entry contract.
-disable-model-invocation: true
 metadata:
   type: skill
   category: interface

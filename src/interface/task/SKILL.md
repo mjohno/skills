@@ -1,7 +1,6 @@
 ---
 name: task
 description: Use when output or map skills need the task packet contract for portable implementation context.
-disable-model-invocation: true
 metadata:
   category: interface
   capabilities:

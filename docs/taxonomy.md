@@ -12,7 +12,7 @@ This repository uses a role-based skill taxonomy. Each category defines the skil
 
 ### interface
 Noun/domain contracts that supply conventions, quality checks, templates, schemas, protocols, artifact shapes, or storage rules used by verb skills.
-- Non-invocable by default (`disable-model-invocation: true` in frontmatter)
+- Discoverable contract skills that the model may invoke or reference when another skill needs artifact shape, schema, protocol, conventions, or quality criteria
 - Lives as direct skill packages under `src/interface/<name>/SKILL.md`
 - Examples: `interface/spec`, `interface/rfc`, `interface/plan`, `interface/task`, `interface/code`, `interface/prose`, `interface/script`, `interface/prototype`, `interface/memory`, `interface/knowledge-base`
 - Defines the desired state of a noun-like artifact, protocol, or domain
@@ -76,6 +76,6 @@ Personas modify how information is evaluated at any pipeline stage:
 ## Notes
 
 - Categories describe the skill's primary role. Skills may touch adjacent concerns, but their category reflects the dominant behavior.
-- `interface` skills define shared contracts and should not be auto-invoked. They may return applicable conventions, checks, templates, schemas, or protocol rules, but they do not operate on the artifact themselves.
+- `interface` skills define shared contracts and are discoverable for model use. They may return applicable conventions, checks, templates, schemas, or protocol rules, but they do not operate on the artifact themselves.
 - `transform` intentionally covers both evaluation and derivation; split it only if future usage shows a concrete need.
 - Refer to [skill_template.md](skill_template.md) for frontmatter format.

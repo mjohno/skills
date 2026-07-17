@@ -1,7 +1,6 @@
 ---
 name: spec
 description: Use when output or map skills need a future-state specification.
-disable-model-invocation: true
 metadata:
   category: interface
 ---

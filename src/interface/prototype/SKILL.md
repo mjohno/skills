@@ -1,7 +1,6 @@
 ---
 name: prototype
 description: Use when output or map skills need the prototype artifact contract for cheap mock-ups or validation methods.
-disable-model-invocation: true
 metadata:
   category: interface
   capabilities:

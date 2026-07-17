@@ -1,7 +1,6 @@
 ---
 name: script
 description: Use when output, transform, or map skills need script-domain conventions, quality checks, and templates.
-disable-model-invocation: true
 metadata:
   category: interface
 ---

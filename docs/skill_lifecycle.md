@@ -26,7 +26,7 @@ Create or update a skill package that is structurally valid and beautifully simp
    - `output` — create, revise, persist, store, or deliver
    - `map` — compose multi-step workflows
    - `persona` — encode perspective that modifies information flow
-4. **Determine Non-Invocability**: If the skill is an interface contract, set `disable-model-invocation: true` in SKILL.md frontmatter.
+4. **Determine Interface Role**: If the skill is an interface contract, ensure it is a discoverable contract provider that defines artifact shape, schema, protocol, conventions, or quality criteria without performing work.
 5. **Place the Skill**:
    - Interface nouns live under `src/interface/<name>/SKILL.md`.
    - Invocable verb skills live under their data-flow category.
@@ -46,7 +46,7 @@ Create or update a skill package that is structurally valid and beautifully simp
 
 #### Data-flow and interface skills
 
-- **Interface skills**: Define the desired state of a noun/domain and supply applicable conventions, checks, templates, schemas, or protocol rules. They are non-invocable and should not perform retrieval, transformation, evaluation, persistence, or orchestration.
+- **Interface skills**: Define the desired state of a noun/domain and supply applicable conventions, checks, templates, schemas, or protocol rules. They are discoverable, contract-only reference skills and should not perform retrieval, transformation, evaluation, persistence, or orchestration.
   - Artifact interfaces define what a good artifact looks like.
   - Protocol interfaces define valid interaction shape.
   - Storage interfaces define layout, invariants, and access expectations.
@@ -88,7 +88,7 @@ Assert a pass/fail test over an existing skill package against the appropriate c
 
 1. **Read Frontmatter**: Extract `metadata.category` from SKILL.md.
    - Must match [taxonomy.md](taxonomy.md). Missing or invalid → Critical failure.
-2. **Check Non-Invocable Contracts**: If the skill is an interface contract, verify `disable-model-invocation: true`.
+2. **Check Interface Contracts**: If the skill is an interface contract, verify it exposes contract data only and does not describe retrieval, transformation, evaluation, persistence, or orchestration behavior.
 3. **Load Checklist**:
    - Data-flow/interface categories (interface, input, transform, output, map) → [skill_checklist.md](skill_checklist.md)
    - Persona category → [persona_checklist.md](persona_checklist.md)

@@ -6,7 +6,7 @@ Shared compliance items for all skills — personas and data-flow skills alike. 
 
 - [ ] **CRITICAL** `metadata.category` is present and matches a category in `docs/taxonomy.md`
 - [ ] **CRITICAL** Description includes "Use when..." triggers
-- [ ] **CRITICAL** Frontmatter: `disable-model-invocation: true` for shared contract/interface skills; absent otherwise
+- [ ] **CRITICAL** Interface skills define contract data only and do not perform retrieval, transformation, evaluation, persistence, or orchestration
 - [ ] **CRITICAL** SKILL.md is under 100 lines
 
 ## QUALITY
