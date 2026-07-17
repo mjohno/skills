@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UI Mockup Prototype: &lt;Name&gt;</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color: #1f2937; background: #f9fafb; }
+    body { margin: 0; padding: 2rem; }
+    .prototype { max-width: 960px; margin: 0 auto; background: white; border: 1px solid #d1d5db; border-radius: 12px; overflow: hidden; }
+    header, main, aside, footer { padding: 1rem 1.25rem; }
+    header { border-bottom: 1px solid #e5e7eb; }
+    .meta { background: #f3f4f6; border-bottom: 1px solid #e5e7eb; font-size: 0.9rem; }
+    .layout { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; }
+    .card { border: 1px solid #e5e7eb; border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
+    button, .button { border: 0; border-radius: 8px; padding: 0.7rem 1rem; background: #2563eb; color: white; font-weight: 650; cursor: default; }
+    .secondary { background: #e5e7eb; color: #111827; }
+    .muted { color: #6b7280; }
+    .note { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 0.75rem; }
+    @media (max-width: 760px) { .layout { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <section class="prototype">
+    <div class="meta">
+      <strong>Decision:</strong> &lt;What decision will this mockup inform?&gt;<br />
+      <strong>Assumption:</strong> &lt;What UI/task/comprehension assumption is being tested?&gt;<br />
+      <strong>Audience / Context:</strong> &lt;Target user and situation&gt;<br />
+      <strong>Omitted:</strong> &lt;Backend behavior, full navigation, accessibility audit, production styling, etc.&gt;
+    </div>
+
+    <header>
+      <h1>&lt;Screen or Flow Name&gt;</h1>
+      <p class="muted">&lt;One-sentence user goal or page purpose&gt;</p>
+    </header>
+
+    <main class="layout">
+      <section>
+        <div class="card">
+          <h2>&lt;Primary Task Area&gt;</h2>
+          <p>&lt;Realistic content that helps users understand the task&gt;</p>
+          <button>&lt;Primary Action&gt;</button>
+          <button class="secondary">&lt;Secondary Action&gt;</button>
+        </div>
+
+        <div class="card">
+          <h2>&lt;Important State / Information&gt;</h2>
+          <p>&lt;Show status, feedback, error, empty state, or next step&gt;</p>
+        </div>
+      </section>
+
+      <aside>
+        <div class="card">
+          <h2>Observe</h2>
+          <ul>
+            <li>Can the user explain what this page is for?</li>
+            <li>Can the user identify the next action?</li>
+            <li>What does the user expect each control to do?</li>
+          </ul>
+        </div>
+        <div class="note">
+          <strong>Prototype note:</strong> Controls are non-functional unless explicitly wired for testing.
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <h2>Validation Signals</h2>
+      <ul>
+        <li>&lt;Signal&gt;</li>
+      </ul>
+      <h2>Failure Signals</h2>
+      <ul>
+        <li>&lt;Signal&gt;</li>
+      </ul>
+      <h2>Next Decision</h2>
+      <p>&lt;Decision after testing&gt;</p>
+    </footer>
+  </section>
+</body>
+</html>

@@ -1,0 +1,101 @@
+openapi: 3.1.0
+info:
+  title: "<API Contract Stub Prototype>"
+  version: "0.1.0-prototype"
+  description: |
+    Decision: <What decision will this contract inform?>
+    Assumption: <What integration or API semantics assumption is being tested?>
+    Audience/Context: <Consumer/provider teams and environment>
+    Scope: <Endpoints and behavior included>
+    Omitted: <Production concerns intentionally excluded>
+    Validation Signals: <Signals that consumers/providers can align on this contract>
+    Failure Signals: <Signals that the contract is unusable or misleading>
+    Next Decision: <Decision after review>
+servers:
+  - url: https://prototype.example.invalid
+    description: Prototype-only placeholder server
+paths:
+  /example-resource:
+    post:
+      summary: "<Create or submit example resource>"
+      description: "<What consumer intent this endpoint represents>"
+      operationId: createExampleResource
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExampleRequest"
+            examples:
+              default:
+                value:
+                  name: "Example Name"
+                  externalId: "ext_12345"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExampleResponse"
+              examples:
+                default:
+                  value:
+                    id: "res_12345"
+                    status: "created"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Missing or invalid credentials
+        "409":
+          description: Conflict or duplicate request
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ExampleRequest:
+      type: object
+      required:
+        - name
+        - externalId
+      properties:
+        name:
+          type: string
+          description: "<Human-readable name supplied by the consumer>"
+        externalId:
+          type: string
+          description: "<Consumer-side stable identifier for idempotency or reconciliation>"
+    ExampleResponse:
+      type: object
+      required:
+        - id
+        - status
+      properties:
+        id:
+          type: string
+          description: "<Provider-generated identifier>"
+        status:
+          type: string
+          enum: [created, pending, rejected]
+          description: "<Current lifecycle state>"
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: "<Stable machine-readable error code>"
+        message:
+          type: string
+          description: "<Human-readable explanation>"
