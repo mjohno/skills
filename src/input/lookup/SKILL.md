@@ -1,50 +1,53 @@
 ---
 name: lookup
-description: Use when the user explicitly asks for a knowledge base or KB lookup.
+description: Use when the user explicitly asks for an MKF knowledge lookup.
 metadata:
   type: skill
   category: input
   capabilities:
-    - knowledge-base
+    - knowledge
+    - mkf
 ---
 # lookup
 
-Goal: Retrieve structured knowledge base matches without synthesizing a final answer.
-Non-Goals: Writing entries, cleaning entries, or turning matches into advice.
-Use-When: The user explicitly asks to look up KB content or retrieve durable contextual knowledge.
+Goal: Retrieve best MKF metadata matches so selected concept files can be loaded as context.
+Non-Goals: Do not write concepts, rebuild indexes, validate writes, or synthesize final advice from matches.
+Use-When: The user explicitly asks to look up durable knowledge or retrieve MKF context.
 
 ## 0. Prerequisites
-- A selected knowledge base root or explicit path
-- The `interface/knowledge-base` contract
+- User query text
+- Bundle selector(s), all-bundle request, or explicit bundle path
+- Shared contract: `../../interface/knowledge/SKILL.md`
+- Bundle discovery: `../../interface/knowledge/references/bundle_discovery.md`
+- MKF contract: `../../interface/knowledge/references/mkf_contract.md`
+- Lookup process: `references/lookup_process.md`
 
 ## 1. Inputs
-- User query text
-- Root selector(s), file selectors, or path selectors
-- Optional tags, type filters, or root names
+- Query text
+- Optional bundle names or filesystem bundle paths
+- Optional type/tag filters
+- Optional result limit
 
 ## 2. Processes
-1. Read and follow the `interface/knowledge-base` contract.
-2. Parse the user query and identify the selected root(s).
-3. Search recursively inside the selected root by default.
-4. Treat folder/path matches and filename matches as the same first tier.
-5. Use tiered lexical search in this order: filename/path, then YAML frontmatter, then Markdown body.
-6. Stop at the first tier that returns matches; if filename/path matches exist, return only those, otherwise check frontmatter, otherwise body.
-7. If nothing matches across all tiers, try light query expansion such as singular/plural, hyphen/space variants, and obvious query-context synonyms.
-8. Return the top 10 results by default; return all results only when explicitly requested.
-9. Group results by root when multiple roots are selected.
-10. Return structured raw context only.
+1. Read the shared `knowledge` references only as needed.
+2. Resolve selected bundle roots using the shared bundle discovery contract.
+3. Use `scripts/search_mkf.py` for MKF search instead of ad hoc grep.
+4. Search in deterministic order: resolved bundle path order, directory/file/concept-name matches, frontmatter metadata, then body content.
+5. Return best metadata matches grouped by bundle.
+6. Load full concept files only after the user or workflow selects matches that need full context.
+7. Return structured raw context only.
 
 ## 3. Outputs
-- Match records with path, root, matching field, and relevant excerpt or structured fields
-- Empty result only when no useful knowledge exists
+- Metadata match records with bundle, path, concept ID, type, title, description, tags, match tier, score, and excerpt when useful
+- Empty result only when no useful MKF matches exist
 
 ## 4. Next Steps
-- `interface/knowledge-base` — apply the KB entry contract before recording
-- `output/record` — save or update durable KB content
+- `../../output/record/SKILL.md` — create or update durable MKF concepts
+- `../../interface/knowledge/references/mkf_contract.md` — interpret selected concept structure
 
 ## 5. Examples
 
 ### Example 1
 
-**Prompt:** Look up the KB decision about folder semantics.
-**Outcome:** Returns matching KB entries from the selected root.
+**Prompt:** Look up checklist concepts in general.
+**Outcome:** Runs `scripts/search_mkf.py`, returns matching concept metadata from the resolved `GENERAL` bundle, and does not synthesize advice.

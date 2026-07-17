@@ -1,50 +1,53 @@
 ---
 name: record
-description: Use when durable knowledge base content needs to be saved or updated.
+description: Use when durable MKF knowledge content needs to be created or updated.
 metadata:
   type: skill
   category: output
   capabilities:
-    - knowledge-base
+    - knowledge
+    - mkf
 ---
 # record
 
-Goal: Save or update durable knowledge base entries explicitly.
-Non-Goals: Opportunistic recording, memory writes, or answer synthesis.
-Use-When: The user explicitly asks to record knowledge or a workflow step explicitly triggers KB recording.
+Goal: Safely create or update one MKF concept and rebuild generated indexes.
+Non-Goals: Do not opportunistically record, perform broad lookup, synthesize final advice, or write memory.
+Use-When: The user explicitly asks to record durable knowledge or a workflow explicitly triggers MKF recording.
 
 ## 0. Prerequisites
-- A selected knowledge base root
-- The `interface/knowledge-base` contract
-- Preferably a `interface/knowledge-base` entry
+- One unambiguous target bundle name or explicit bundle path
+- Shared contract: `../../interface/knowledge/SKILL.md`
+- Bundle discovery: `../../interface/knowledge/references/bundle_discovery.md`
+- MKF contract: `../../interface/knowledge/references/mkf_contract.md`
+- Record process: `references/record_process.md`
 
 ## 1. Inputs
-- `interface/knowledge-base` entry content or raw source material
-- Target root and optional folder selector
+- MKF concept content or raw source material
+- Target bundle and optional folder/concept path
 - Optional provenance/source references
+- Optional concept type: `undefined`, `index`, `checklist`, `template`, or another type
 
 ## 2. Processes
-1. Read and follow the `interface/knowledge-base` contract.
-2. Require a target knowledge base root; ask when missing or ambiguous.
-3. Prefer `interface/knowledge-base` entry input and check whether it already follows the interface contract.
-4. If raw input is provided, infer missing required fields where practical before writing.
-5. Update an existing similar entry rather than creating a duplicate when appropriate.
-6. For new entries, write to the selected root/folder using a filename slug generated from the title.
-7. If no folder is specified, write to `uncategorized/` under the selected root.
-8. Ask the user how to proceed on filename collisions instead of auto-choosing a variant.
-9. Preserve source references and avoid duplicate entries when possible.
+1. Read the shared `knowledge` references only as needed.
+2. Resolve exactly one target bundle or explicit bundle path; ask when missing or ambiguous.
+3. Determine concept path/ID, check collisions by path/title/resource, and ask before overwrite or substantial replacement.
+4. Draft or update the concept using local templates when useful, preserving unknown frontmatter keys and citations.
+5. Run `scripts/validate_frontmatter.py` before finalizing written concepts.
+6. After successful writes/updates, run `scripts/rebuild_indexes.py` for the affected bundle and report changed paths.
 
 ## 3. Outputs
-- A created or updated KB file path
-- A concise write summary
+- Created or updated MKF concept path
+- Validation result
+- Index rebuild result
+- Concise write summary
 
 ## 4. Next Steps
-- `interface/knowledge-base` — canonical KB entry format
-- `input/lookup` — retrieve existing KB content before writing
+- `../../input/lookup/SKILL.md` — retrieve existing MKF concepts before writing or to verify discoverability
+- `../../interface/knowledge/references/mkf_contract.md` — interpret concept requirements
 
 ## 5. Examples
 
 ### Example 1
 
-**Prompt:** Persist this KB decision.
-**Outcome:** Writes or updates a KB markdown entry.
+**Prompt:** Record this as a checklist in the general bundle.
+**Outcome:** Writes one MKF concept with valid frontmatter, validates it, rebuilds generated indexes for the bundle, and reports the changed files.
