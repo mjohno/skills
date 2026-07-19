@@ -9,20 +9,20 @@ metadata:
 # plan
 
 Goal: Define the plan artifact contract for closing gaps between current and target states.
-Non-Goals: Do not implement plan items, verify completed work, manage inline comments directly, or require full task packet detail inside every item.
+Non-Goals: Do not implement plan items, create task packets, verify completed work, manage inline comments directly, or embed full task packets.
 Use-When: Another skill needs the `plan` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
-- A source artifact (spec, comment set, task set, or user request) to convert into a plan
+- A source artifact or context (spec, prompt, comment set, review findings, task set, investigation, or user request) to convert into a plan
 
 ## 1. Inputs
-- Source artifact from prompt (spec, comment set, task set, or user request)
+- Source artifact or context from prompt (spec, prompt, comment set, review findings, task set, investigation, or user request)
 - Target outcome or goal (optional)
 
 ## 2. Process
-1. **Create Plan**: Identify the source artifact and target outcome. Write a Gap Map: gap ID, current problem, target state. Trace plan items to relevant spec IDs when the source is shaped by `interface/spec`. Write plan items that each close one or more gaps. Add dependencies, deliverables, and done criteria only when they reduce ambiguity.
-2. **Update Plan**: Preserve existing plan IDs unless explicitly asked to rename them. Add, split, merge, or reorder items to improve gap closure. Keep plan status as planning metadata, not execution evidence.
-3. **Check Plan Shape**: Every gap should have at least one closing item. Every item should name the gap it closes or the source it serves. Plan items may reference task packets but should not embed full task packets by default.
+1. **Create Plan**: Identify the source artifact or context and target outcome. Write a Source Summary that embeds the source details needed to understand and review the plan without re-reading the full source. Write a Gap Map: gap ID, source summary, current problem, target state. Write plan items that each close one or more gaps and reference relevant source IDs or topics when available. Add dependencies, deliverables, and done criteria only when they reduce ambiguity.
+2. **Update Plan**: Preserve existing plan IDs unless explicitly asked to rename them. Add, split, merge, or reorder items to improve gap closure. Use standard lifecycle statuses: `todo`, `doing`, `verifying`, `reviewing`, `done`. Keep plan status as planning metadata, not execution evidence.
+3. **Check Plan Shape**: Every gap should have at least one closing item. Every item should name the gap it closes or the source it serves. The plan should make sense without tasks and be readable end to end for review. Plans may embed task summaries, but the plan skill does not create tasks. Full task packets should be external; do not embed tasks.
 
 ## 3. Outputs
 - Minimal default output: selected plan contract, assumptions, selected package-local paths, and loaded selected contents only.
@@ -32,8 +32,8 @@ Use-When: Another skill needs the `plan` interface contract before outlining, dr
   - `src/interface/plan/assets/plan_template.md`
 
 ## 4. Next Steps
-- `output/draft` with `interface/task` — extract task packets from plan items
-- `map/step` — execute plan items one step at a time
+- `output/draft` with `interface/task` — create external task packets when a plan item needs portable execution context
+- `map/step` — execute a task packet or a small plan item when no separate task is needed
 - `output/annotate` — add inline annotations to track findings
 - `output/modify` with `interface/plan` — revisit and update the plan as items complete
 

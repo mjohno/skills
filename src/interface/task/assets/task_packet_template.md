@@ -9,5 +9,7 @@ Constraints:
 - <constraint or unknown>
 Verification:
 - <verification hint or unknown>
+next_tasks:
+- <candidate next task ID or none>
 Log:
 <!-- List(str) concise evidence, comments, and handoff notes -->

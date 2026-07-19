@@ -4,18 +4,23 @@ PLAN_ID: <ID>
 Source: <source artifact or prompt>
 Purpose: <target outcome>
 
+## Source Summary
+
+- <source ref or topic>: <short embedded summary needed to understand this plan>
+
 ## Gap Map
 
-| Gap ID | Current Problem | Target State |
-| --- | --- | --- |
-| GAP-1 | <problem> | <target> |
+| Gap ID | Source Summary | Current Problem | Target State |
+| --- | --- | --- | --- |
+| GAP-1 | <source ref/topic plus short summary> | <problem> | <target> |
 
 ## Work Plan
 
-### <ID>-1 — <item title>
+### <PLAN_ID>-1 — <item title>
 
 Closes: GAP-1  
-Status: planned  
+Source refs: <source refs/topics or none>  
+Status: todo  
 Depends on: none  
 Outcome: <expected artifact, decision, or state>
 

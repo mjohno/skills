@@ -28,10 +28,10 @@ Use-When: You have a high-level goal and references to iterate on.
 1. **Execute**: Carry out the step using available tools (shell, file ops, git, subagents, etc.).
 2. **Verify**: Check that the step succeeded. Run tests, inspect outputs, confirm artifacts exist.
 3. **Report**: Return the high-level goal, what happened (success/failure/partial), and evidence of what was done.
-4. **Propose next step**: If the refs indicate more work, suggest the next step. If the goal appears achieved, signal completion. If the step failed, decide whether to suggest recovery directly or delegate to a sub-skill.
+4. **Propose next step**: If executing from a task packet, inspect `next_tasks` and report all candidate follow-up task IDs so branches are not missed. If other refs indicate more work, suggest the next step. If the goal appears achieved, signal completion. If the step failed, decide whether to suggest recovery directly or delegate to a sub-skill.
 
 ## 3. Outputs
-- Structured report in the prompt with: Goal, Step executed, Result (Success/Failure/Partial), Next step, Notes
+- Structured report in the prompt with: Goal, Step executed, Result (Success/Failure/Partial), Next step, Candidate next tasks, Notes
 - If user specifies an output file, write to that path instead
 
 ## 4. Next Steps

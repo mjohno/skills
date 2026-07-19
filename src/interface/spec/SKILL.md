@@ -45,7 +45,6 @@ Use-When: Another skill needs the `spec` interface contract before outlining, dr
 - `output/modify` — revise an existing spec while preserving stable IDs unless renaming is requested
 - `transform/review` — check the spec against the generic checklist
 - `interface/plan` — create traceable gap-closing work from spec IDs
-- `interface/rfc` — record technical proposal details when the spec requires technical decisions
 
 ## 5. Examples
 
