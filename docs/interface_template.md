@@ -6,60 +6,41 @@ metadata:
   category: interface
 ---
 
-# [Interface Name]
+# [interface-name]
 
-Goal: [one clear contract this interface exposes]
-Non-Goals: [work this interface does NOT perform — at least one]
+Goal: [one clear noun/domain contract this interface exposes]
+Non-Goals: [work this interface does not perform]
 Use-When: [triggers for loading this interface as passive contract context]
 
-## 0. Prerequisites
-- [context needed to select the applicable domain, references, or assets]
+## Selection
 
-## 1. Inputs
-- [selection clues such as artifact type, path, extension, backend, domain, or constraints]
+Default: return only the minimal contract reference needed for common use.
 
-## 2. Process
-1. [select the default/generic domain when no specific domain is known]
-2. [select domain-specific references/assets from explicit context when available]
-3. [return only package-local references/assets needed to define the selected contract]
-4. [mark missing domains or materially uncertain selections as assumptions]
+Also select:
+- `[optional_reference].md` when [explicit caller intent/domain condition].
+- `[optional_asset]` when [explicit caller intent/domain condition].
 
-## 3. Outputs
-- Selected domain and assumptions
-- Required reference file paths
-- Required asset file paths
-- Loaded reference contents in fenced code blocks
-- Loaded asset/template contents in fenced code blocks
+## Return
 
-Output shape for each selected file:
+Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
-file_path: src/interface/[interface-name]/references/[file].md
-```markdown
-[loaded contents of the selected reference file]
-```
+Default path:
+- `src/interface/[interface-name]/references/[minimal_contract].md`
 
-file_path: src/interface/[interface-name]/assets/[file]
-```text
-[loaded contents of the selected asset file]
-```
+Optional paths:
+- `src/interface/[interface-name]/references/[optional_reference].md`
+- `src/interface/[interface-name]/assets/[optional_asset]`
 
-## 4. Next Steps
+## Next Steps
+
 - [downstream skill] — [how it consumes this interface]
 
-## 5. Examples
+## Minimal Example
 
-### Example 1: Return contract path and contents
+Prompt: "Use the `[interface-name]` interface for `[artifact/context]`."
+Return:
 
-**Prompt:** Use the `[interface-name]` interface for `[artifact/context]`.
-**Decision:** Select `[domain]`; return `src/interface/[interface-name]/references/[file].md` and `src/interface/[interface-name]/assets/[file]`.
-**Outcome:** The caller receives each selected file path followed by loaded contents:
-
-file_path: src/interface/[interface-name]/references/[file].md
+file_path: src/interface/[interface-name]/references/[minimal_contract].md
 ```markdown
-[Reference contract contents returned here.]
-```
-
-file_path: src/interface/[interface-name]/assets/[file]
-```text
-[Asset or template contents returned here.]
+[loaded minimal contract contents]
 ```

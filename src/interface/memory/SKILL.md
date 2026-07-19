@@ -9,71 +9,37 @@ metadata:
 ---
 # memory
 
-Goal: Define the shared contract for memory file selection, sections, entry shape, summary shape, append/update safety, and compression rules.
-Non-Goals: Retrieving, writing, synthesizing, or cleaning memory directly.
-Use-When: Another skill needs to resolve a memory file or follow memory structure, write, or cleanup conventions.
+Goal: Define the shared memory artifact contract for file selection, sections, entry shape, summary shape, and safety rules.
+Non-Goals: Do not retrieve, write, synthesize, clean, compress, or persist memory directly.
+Use-When: Another skill needs the `memory` interface contract before remembering, memorizing, learning from, or cleaning memory.
 
-## 0. Prerequisites
-- A prompt-provided memory file path or `MEMORY_FILE` environment variable when available
+## Selection
 
-## 1. Inputs
-- Prompt-provided memory file path
-- `MEMORY_FILE` environment variable
-- Optional task-specific file names such as `.memory.md` or `skill-memories.md`
-- Raw memory entries or reduced summary material when content shape matters
+Default: return only the compact memory contract.
 
-## 2. Process
-1. Resolve the memory file from prompt-provided path first, then `MEMORY_FILE`, then `.memory.md` in the current working directory.
-2. Do not introduce `MEMORY_ROOT`, named memory locations, or project/global config files yet.
-3. Treat the file as Markdown with a `# Summary` section at the top and a `# Memory Log` section below.
-4. Treat `# Summary` as the durable memory record; destructive summary rewrites require user approval.
-5. Use UTC ISO-8601 timestamps with `Z` for log headings; append under an existing same-second heading.
-6. If the file is missing and a write is explicitly requested, initialize the standard skeleton.
-7. Keep entry payloads lightweight: preserve `content`; optionally include `id`, `date`, `kind`, `source`, `confidence`, `expires`, `tags`, `promote_to_kb`.
-8. Render memory entries as clear bullets under timestamp headings, not raw transcripts.
-9. Convert durable summary material into concise prose or bullets; mark contradictions or replacement candidates when approval is required.
-10. Routine compression may happen later, but destructive summary rewrites require user approval.
+If caller intent is unclear, assume default contract only and state the assumption.
+If requested memory needs fall outside this interface, state the unsupported need and hand off to the appropriate skill.
 
-## 3. Outputs
-- Minimal default output: selected memory contract, assumptions, selected package-local paths, and loaded selected contents only.
-- Always return selected file paths followed by loaded contents in fenced code blocks.
-- Memory selection returns `src/interface/memory/SKILL.md` because this interface has no separate references/assets.
+## Return
 
-Canonical memory-entry shape:
-```yaml
-content:
-id:
-date:
-kind: preference | fact | decision | reminder | thread | temporary | project-context
-source:
-confidence:
-expires:
-tags:
-promote_to_kb:
-```
+Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
-Canonical summary output:
-```text
-# Summary
+Default path:
+- `src/interface/memory/references/memory_contract.md`
 
-- <durable fact, decision, preference, or project context>
-```
+## Next Steps
 
-## 4. Next Steps
-- `input/remember` — retrieve structured memory context
-- `output/memorize` — append memory log entries
-- `map/dream` — compact and rewrite memory summary/log
+- `input/remember` — retrieve structured memory context.
+- `output/memorize` — append memory log entries.
+- `transform/learn` — reduce memory into stable summary updates.
+- `map/dream` — compact and rewrite memory summary/log with approval where required.
 
-## 5. Examples
+## Minimal Example
 
-### Example 1: Shared memory contract
+Prompt: "Use the memory interface to define shared memory rules."
+Return:
 
-**Prompt:** "Use the memory interface to define shared memory file rules."
-**Decision:** Select the inline memory contract from this interface.
-**Outcome:** Return selected path and loaded contents:
-
-file_path: src/interface/memory/SKILL.md
+file_path: src/interface/memory/references/memory_contract.md
 ```markdown
-# memory
-[loaded memory file resolution, entry shape, summary shape, and write safety contract]
+[loaded compact memory contract]
 ```

@@ -7,72 +7,50 @@ metadata:
   capabilities:
     - knowledge
     - mkf
-disable_model_invocation: true
 ---
 # knowledge
 
-Goal: Define the shared Matt's Knowledge Format (MKF) bundle and concept contract for operational skills.
-Non-Goals: Do not perform lookup, write concepts, rebuild indexes, rank matches, or synthesize answers directly.
-Use-When: `input/lookup` or `output/record` needs the shared MKF contract before reading or writing knowledge.
+Goal: Define the passive MKF concept, bundle, and manual discovery contract for knowledge consumers.
+Non-Goals: Do not perform lookup, resolve bundles operationally, write concepts, rebuild indexes, rank matches, or synthesize answers.
+Use-When: `input/lookup`, `output/record`, or another skill needs the shared MKF contract before reading, checking, reviewing, or writing knowledge.
 
-## 0. Prerequisites
-- An MKF bundle selector, explicit bundle path, or concept document to interpret
+## Selection
 
-## 1. Inputs
-- Bundle names from `MKF_BUNDLES` or prompt selectors
-- Explicit filesystem paths that should be treated as bundle roots
-- MKF concept Markdown files when validating shared structure
+Default: return only the compact knowledge contract.
 
-## 2. Process
-1. Apply bundle discovery from `references/bundle_discovery.md`.
-2. Apply concept structure and frontmatter rules from `references/mkf_contract.md`.
-3. Treat `index.md` as an MKF concept with `type: index`.
-4. Give `log.md` no special MKF semantics.
-5. Preserve unknown frontmatter keys when operational skills update existing concepts.
-6. Keep lookup-specific search/ranking behavior in `../../input/lookup/`.
-7. Keep record-specific write, validation, template, and index-rebuild behavior in `../../output/record/`.
+Also select:
+- `concept_frontmatter_template.md` when the caller asks to record or draft a concept.
+- `knowledge_checklist.md` when the caller asks to check MKF conformance.
+- `knowledge_quality.md` when the caller asks to review MKF quality.
 
-## 3. Outputs
-- Minimal default output: selected MKF domain, assumptions, selected package-local paths, and loaded selected contents only.
-- Always return selected file paths followed by loaded contents in fenced code blocks.
-- MKF selection returns:
-  - `src/interface/knowledge/references/mkf_contract.md`
-  - `src/interface/knowledge/references/bundle_discovery.md`
-  - `src/interface/knowledge/assets/concept_frontmatter_template.md`
+If caller intent is unclear, assume default contract only and state the assumption.
+If requested knowledge needs fall outside this interface, state the unsupported need and hand off to `input/lookup` or `output/record`.
 
-## 4. Next Steps
-- `../../input/lookup/SKILL.md` — retrieve MKF metadata matches and load selected concepts
-- `../../output/record/SKILL.md` — create or update MKF concepts safely
+## Return
 
-## 5. Examples
+Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
-### Example 1: Shared contract use
+Default path:
+- `src/interface/knowledge/references/knowledge_contract.md`
 
-**Prompt:** "Use the knowledge interface to resolve `general`."
-**Decision:** Select MKF bundle discovery and MKF concept contract.
-**Outcome:** Return selected paths and loaded contents:
+Optional paths:
+- `src/interface/knowledge/assets/concept_frontmatter_template.md`
+- `src/interface/knowledge/references/knowledge_checklist.md`
+- `src/interface/knowledge/references/knowledge_quality.md`
 
-file_path: src/interface/knowledge/references/bundle_discovery.md
+## Next Steps
+
+- `input/lookup` — resolve bundles operationally, search MKF metadata, and load selected concepts.
+- `output/record` — create or update MKF concepts and rebuild generated indexes.
+- `transform/check` — check MKF conformance with `knowledge_checklist.md`.
+- `transform/review` — review MKF quality with `knowledge_quality.md`.
+
+## Minimal Example
+
+Prompt: "Use the knowledge interface before recording a new concept."
+Return:
+
+file_path: src/interface/knowledge/references/knowledge_contract.md
 ```markdown
-# Bundle Discovery
-[loaded bundle discovery contract]
-```
-
-file_path: src/interface/knowledge/references/mkf_contract.md
-```markdown
-# MKF Contract
-[loaded MKF contract]
-```
-
-### Example 2: Concept contract use
-
-**Prompt:** "Use the knowledge interface before recording a new concept."
-**Decision:** Select MKF concept contract and frontmatter template.
-**Outcome:** Return selected paths and loaded contents:
-
-file_path: src/interface/knowledge/assets/concept_frontmatter_template.md
-```markdown
----
-[loaded concept frontmatter template]
----
+[loaded compact knowledge contract]
 ```

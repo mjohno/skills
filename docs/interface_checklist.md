@@ -9,26 +9,24 @@ Inherits all items from [base_checklist.md](base_checklist.md). Apply base items
 - [ ] **CRITICAL** `metadata.type: interface`
 - [ ] **CRITICAL** `metadata.category: interface`
 - [ ] **CRITICAL** Under `# [Name]`: Goal (mandatory), Non-Goals (mandatory), Use-When (mandatory)
-- [ ] **CRITICAL** Section 0: Prerequisites present
-- [ ] **CRITICAL** Section 1: Inputs present
-- [ ] **CRITICAL** Section 2: Process present
-- [ ] **CRITICAL** Section 3: Outputs present
-- [ ] **CRITICAL** Section 4: Next Steps present
-- [ ] **CRITICAL** Section 5: Examples present, including a prompt and returned file path/content blocks
-- [ ] **CRITICAL** Outputs identify selected reference and asset paths when package-local references/assets are required
-- [ ] **CRITICAL** Outputs require loaded reference/asset contents to be returned in fenced code blocks
-- [ ] **CRITICAL** Interface defines contract data only and does not create, modify, evaluate, persist, retrieve external data, or orchestrate work
+- [ ] **CRITICAL** Selection rules identify the default minimal contract reference(s)/asset(s).
+- [ ] **CRITICAL** Optional references/assets are selected only from explicit caller intent, domain, or constraints.
+- [ ] **CRITICAL** Return instructions identify selected package-local paths.
+- [ ] **CRITICAL** Return instructions require loaded reference/asset contents in fenced code blocks.
+- [ ] **CRITICAL** Includes one minimal example with a prompt and returned file path/content block.
+- [ ] **CRITICAL** Interface defines contract data only and does not create, modify, evaluate, persist, retrieve external data, or orchestrate work.
 
 ## Interface-Specific QUALITY
 
 - [ ] **QUALITY** Interface defines a noun/domain desired state, not production behavior.
 - [ ] **QUALITY** Interface exposes conventions, quality checks, templates, schemas, protocol rules, artifact shapes, or storage rules for consumers.
-- [ ] **QUALITY** Generic rules are separated from language/platform-specific domains when domains exist.
-- [ ] **QUALITY** Domain-specific assets are clearly named.
+- [ ] **QUALITY** Default selection loads exactly one compact contract file when possible.
+- [ ] **QUALITY** Generic rules are separated from language/platform-specific or intent-specific details when domains exist.
+- [ ] **QUALITY** Optional references/assets are clearly named by use, e.g. `[domain]_contract.md`, `[artifact]_checklist.md`, or `[artifact]_quality.md`.
 - [ ] **QUALITY** Templates are examples or canonical shapes consumed by verb skills, not mandatory generation behavior unless explicitly stated.
-- [ ] **QUALITY** Minimal default output includes only selected domain, assumptions, paths, and loaded selected contents.
+- [ ] **QUALITY** Minimal default output includes only selected assumptions, selected paths, and loaded selected contents.
 - [ ] **QUALITY** Missing or unsupported domains are stated as assumptions/unknowns with a concrete handoff.
-- [ ] **QUALITY** Examples show both the returned path block and the returned file-content block.
+- [ ] **QUALITY** The minimal example is short and does not duplicate the full contract.
 
 ## Definition of Done
 

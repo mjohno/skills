@@ -33,8 +33,8 @@ Passive noun/domain contract packages that supply conventions, quality checks, t
 - Examples: `interface/spec`, `interface/rfc`, `interface/plan`, `interface/task`, `interface/code`, `interface/prose`, `interface/script`, `interface/prototype`, `interface/memory`, `interface/knowledge-base`
 - Defines the desired state of a noun-like artifact, protocol, or domain
 - May select an applicable domain from context, such as a script language or storage backend
-- Returns the selected reference/asset file paths and exposes their loaded contents to consuming skills
-- Domain-specific materials should be clearly named, e.g. `python_template.py`, `python_quality.md`, or `github_protocol.md`
+- Returns the minimal selected reference/asset file paths and exposes their loaded contents to consuming skills
+- Domain- or intent-specific materials should be clearly named, e.g. `python_template.py`, `plan_quality.md`, `plan_checklist.md`, or `github_protocol.md`
 - **Do NOT use if** the package performs artifact production, external retrieval, transformation, evaluation, persistence, or orchestration — it only supplies contract data for other skills to apply
 
 ### input

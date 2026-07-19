@@ -18,8 +18,8 @@ Use-When: The user explicitly asks to look up durable knowledge or retrieve MKF 
 - User query text
 - Bundle selector(s), all-bundle request, or explicit bundle path
 - Shared contract: `../../interface/knowledge/SKILL.md`
-- Bundle discovery: `../../interface/knowledge/references/bundle_discovery.md`
-- MKF contract: `../../interface/knowledge/references/mkf_contract.md`
+- Knowledge contract: `../../interface/knowledge/references/knowledge_contract.md`
+- Bundle discovery: `references/bundle_discovery.md`
 - Lookup process: `references/lookup_process.md`
 
 ## 1. Inputs
@@ -29,8 +29,8 @@ Use-When: The user explicitly asks to look up durable knowledge or retrieve MKF 
 - Optional result limit
 
 ## 2. Processes
-1. Read the shared `knowledge` references only as needed.
-2. Resolve selected bundle roots using the shared bundle discovery contract.
+1. Read the shared `knowledge` contract only as needed for MKF concept shape.
+2. Resolve selected bundle roots using lookup-owned `references/bundle_discovery.md`.
 3. Use `scripts/search_mkf.py` for MKF search instead of ad hoc grep.
 4. Search in deterministic order: resolved bundle path order, directory/file/concept-name matches, frontmatter metadata, then body content.
 5. Return best metadata matches grouped by bundle.
@@ -43,11 +43,11 @@ Use-When: The user explicitly asks to look up durable knowledge or retrieve MKF 
 
 ## 4. Next Steps
 - `../../output/record/SKILL.md` — create or update durable MKF concepts
-- `../../interface/knowledge/references/mkf_contract.md` — interpret selected concept structure
+- `../../interface/knowledge/references/knowledge_contract.md` — interpret selected concept structure
 
 ## 5. Examples
 
 ### Example 1
 
 **Prompt:** Look up checklist concepts in general.
-**Outcome:** Runs `scripts/search_mkf.py`, returns matching concept metadata from the resolved `GENERAL` bundle, and does not synthesize advice.
+**Outcome:** Runs `scripts/search_mkf.py`, resolves bundles via lookup-owned discovery rules, returns matching concept metadata, and does not synthesize advice.

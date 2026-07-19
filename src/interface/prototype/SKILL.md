@@ -8,79 +8,51 @@ metadata:
 
 # prototype
 
-Goal: Define prototype artifact contracts for cheap validation methods: what to mock, what template to use, how to check quality, and what evidence matters.
-Non-Goals: Building the prototype, running validation sessions, producing production implementation, or polishing final deliverables.
-Use-When: Another skill needs the `prototype` interface contract before outlining, drafting, modifying, reviewing, or orchestrating a validation artifact.
+Goal: Define the minimal prototype contract and best-fit validation profile for cheap learning.
+Non-Goals: Do not build prototypes, run validation sessions, produce production implementations, or polish final deliverables.
+Use-When: Another skill needs the `prototype` interface before outlining, drafting, modifying, checking, reviewing, or orchestrating a validation artifact.
 
-## 0. Prerequisites
-- Idea, solution concept, requirement, risk, or assumption to validate
-- Target audience, environment, system boundary, or decision to inform when available
+## Selection
 
-## 1. Inputs
-- Concept summary and riskiest assumption
-- Prototype type or uncertainty to test
-- Constraints such as time, fidelity, tools, audience, data, and safety limits
-- Optional success criteria, failure criteria, and follow-up decision
+Default: return the compact prototype contract, choose the best-fit profile when possible, and list other profiles as course-correction options.
 
-## 2. Process
-1. Identify the decision the prototype must inform and the assumption being tested.
-2. Select the cheapest adequate profile from this table.
+Also select:
+- The selected profile template when the caller asks to outline or draft a prototype.
+- The selected profile quality checklist when the caller asks to check/review a prototype or validate before spending effort.
 
-| Profile | Use When | Template | Quality Checklist |
-|---------|----------|----------|-------------------|
-| `tabletop-roleplay` | Validate human coordination, service interactions, incident response, support flows, policy, or operational readiness. | `assets/tabletop_roleplay_template.md` | `references/tabletop_roleplay_quality_checklist.md` |
-| `ui-mockup` | Validate UI comprehension, task flow, information architecture, visual hierarchy, or interaction expectations. | `assets/ui_mockup_template.html` | `references/ui_mockup_quality_checklist.md` |
-| `process-scenario` | Validate process logic, handoffs, states, run-through scenarios, system boundaries, or operational sequence. | `assets/process_scenario_template.md` | `references/process_scenario_quality_checklist.md` |
-| `api-contract-stub` | Validate integration shape, request/response semantics, error behavior, auth expectations, or consumer/provider alignment. | `assets/api_contract_stub_template.yaml` | `references/api_contract_stub_quality_checklist.md` |
-| `data-layout-structure` | Validate data shape, fields, relationships, constraints, examples, imports/exports, or downstream usability. | `assets/data_layout_structure_template.md` | `references/data_layout_structure_quality_checklist.md` |
+Profiles:
+- `tabletop-roleplay`
+- `ui-mockup`
+- `process-scenario`
+- `api-contract-stub`
+- `data-layout-structure`
 
-3. Provide the selected template and quality checklist to the consuming skill.
-4. Provide the validation framing to include in the artifact: decision, assumption, audience/context, scope, omitted work, validation signals, failure signals, and next decision.
-5. Keep fidelity intentionally low.
+If caller intent is unclear, assume default contract only and state the assumption.
+If requested prototype needs fall outside this interface, state the unsupported need and hand off to the appropriate skill.
 
-## 3. Outputs
-- Minimal default output: selected prototype profile, assumptions, selected package-local paths, and loaded selected contents only.
-- Always return selected file paths followed by loaded contents in fenced code blocks.
-- Selected profile returns its matching template path and quality checklist path from the table above.
+## Return
 
-## 4. Next Steps
+Always return selected package-local paths followed by loaded contents in fenced code blocks.
+
+Default path:
+- `src/interface/prototype/references/prototype_contract.md`
+
+Optional paths are listed in the selected contract's profile table.
+
+## Next Steps
+
 - `output/outline` — create the prototype skeleton from the selected template.
 - `output/draft` — fill the selected template with first-pass content.
-- `output/modify` — revise an existing prototype while preserving the selected quality checklist.
-- `transform/review` — check the prototype before spending validation effort.
+- `output/modify` — revise an existing prototype while preserving selected quality criteria.
+- `transform/check` — check prototype conformance against selected criteria.
+- `transform/review` — review prototype quality before validation effort.
 
-## 5. Examples
+## Minimal Example
 
-### Example 1: Tabletop/roleplay
-**Prompt:** "Use the prototype interface to validate account recovery escalation support."
-**Decision:** Select `tabletop-roleplay`.
-**Outcome:** Return selected paths and loaded contents:
+Prompt: "Use the prototype interface to validate account recovery escalation support."
+Return:
 
-file_path: src/interface/prototype/assets/tabletop_roleplay_template.md
+file_path: src/interface/prototype/references/prototype_contract.md
 ```markdown
-# Tabletop Roleplay Prototype
-[loaded tabletop template]
-```
-
-file_path: src/interface/prototype/references/tabletop_roleplay_quality_checklist.md
-```markdown
-# Tabletop Roleplay Quality Checklist
-[loaded tabletop quality checklist]
-```
-
-### Example 2: API contract stub
-**Prompt:** "Use the prototype interface to validate partner invite API integration."
-**Decision:** Select `api-contract-stub`.
-**Outcome:** Return selected paths and loaded contents:
-
-file_path: src/interface/prototype/assets/api_contract_stub_template.yaml
-```yaml
-# API Contract Stub
-[loaded API contract stub template]
-```
-
-file_path: src/interface/prototype/references/api_contract_stub_quality_checklist.md
-```markdown
-# API Contract Stub Quality Checklist
-[loaded API quality checklist]
+[loaded compact prototype contract with selected profile and alternate profiles]
 ```

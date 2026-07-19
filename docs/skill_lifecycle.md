@@ -27,7 +27,7 @@ Create or update a skill package that is structurally valid and beautifully simp
    - `interface` type → `interface` category
    - `skill` type → `input`, `transform`, `output`, or `map`
    - `persona` type → `persona` category
-5. **Determine Interface Role**: If the package is an interface, ensure it defines artifact shape, schema, protocol, conventions, or quality criteria without performing operational work. It must select required references/assets, return their paths, and expose loaded contents as context.
+5. **Determine Interface Role**: If the package is an interface, ensure it defines artifact shape, schema, protocol, conventions, or quality criteria without performing operational work. It must select a minimal default contract reference, select optional references/assets only from explicit caller intent or domain clues, return selected paths, and expose loaded contents as context.
 6. **Place the Package**:
    - Interface nouns live under `src/interface/<name>/SKILL.md`.
    - Invocable verb skills live under their data-flow category.
@@ -50,10 +50,11 @@ Create or update a skill package that is structurally valid and beautifully simp
 
 - Define the desired state of a noun/domain and supply applicable conventions, checks, templates, schemas, or protocol rules.
 - Stay passive: do not perform artifact production, external retrieval, transformation, evaluation, persistence, or orchestration.
-- Select applicable references/assets from context, such as a language or backend domain.
+- Default to one compact contract reference when possible.
+- Select optional references/assets only from explicit context, such as check/review intent, language, backend, domain, or constraints.
 - Return selected file paths and expose loaded file contents in fenced code blocks.
-- Populate `references/` with technical details, contract rules, or procedural specifics. Use names such as `generic_conventions.md`, `<domain>_conventions.md`, and `<domain>_quality.md`.
-- Add templates or data to `assets/`. Use domain-specific names such as `<domain>_template.<ext>` when a template is not generic.
+- Populate `references/` with compact contract rules and optional intent-specific details. Use names such as `<artifact>_contract.md`, `<artifact>_checklist.md`, `<artifact>_quality.md`, or `<domain>_contract.md`.
+- Add templates or data to `assets/` only when they should not live inside the compact contract. Use domain-specific names such as `<domain>_template.<ext>` when a template is not generic.
 
 #### Invocable skills
 
@@ -73,6 +74,8 @@ Create or update a skill package that is structurally valid and beautifully simp
 - X Process steps numbered 1–20 — if it takes this many, consider breaking into sub-skills
 - X Non-goals that just repeat the goal in negative form ("We do not fail")
 - X Interface skill that performs work instead of defining a contract
+- X Interface skill that duplicates long contract details already present in selected references/assets
+- X Interface skill that loads optional checklists, quality criteria, or templates by default without caller intent
 - X Interface skill that produces a brief unless the noun itself is a brief
 - X Invocable skill that only defines an artifact schema instead of consuming an interface
 - X Persona encodes a narrow opinion rather than an established evaluation lens
@@ -95,7 +98,7 @@ Assert a pass/fail test over an existing skill package against the appropriate c
 1. **Read Frontmatter**: Extract `metadata.type` and `metadata.category` from SKILL.md.
    - Both are required. Missing or invalid → Critical failure.
    - Valid pairs: `interface/interface`, `skill/input`, `skill/transform`, `skill/output`, `skill/map`, `persona/persona`.
-2. **Check Interface Contracts**: If `metadata.type: interface`, verify it exposes contract data only, selects required references/assets, returns their paths, and requires loaded contents in fenced code blocks.
+2. **Check Interface Contracts**: If `metadata.type: interface`, verify it exposes contract data only, selects a minimal default contract plus optional references/assets only when intent/domain requires them, returns selected paths, and requires loaded contents in fenced code blocks.
 3. **Load Checklist**:
    - `metadata.type: interface` → [interface_checklist.md](interface_checklist.md)
    - `metadata.type: skill` → [skill_checklist.md](skill_checklist.md)

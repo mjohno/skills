@@ -17,8 +17,7 @@ Use-When: The user explicitly asks to record durable knowledge or a workflow exp
 ## 0. Prerequisites
 - One unambiguous target bundle name or explicit bundle path
 - Shared contract: `../../interface/knowledge/SKILL.md`
-- Bundle discovery: `../../interface/knowledge/references/bundle_discovery.md`
-- MKF contract: `../../interface/knowledge/references/mkf_contract.md`
+- Knowledge contract: `../../interface/knowledge/references/knowledge_contract.md`
 - Record process: `references/record_process.md`
 
 ## 1. Inputs
@@ -43,7 +42,7 @@ Use-When: The user explicitly asks to record durable knowledge or a workflow exp
 
 ## 4. Next Steps
 - `../../input/lookup/SKILL.md` — retrieve existing MKF concepts before writing or to verify discoverability
-- `../../interface/knowledge/references/mkf_contract.md` — interpret concept requirements
+- `../../interface/knowledge/references/knowledge_contract.md` — interpret concept requirements
 
 ## 5. Examples
 

@@ -8,69 +8,51 @@ metadata:
 
 # script
 
-Goal: Define the script artifact contract and return the applicable conventions, quality checks, and templates for the selected script domain.
-Non-Goals: Writing, modifying, executing, testing, deploying, or persisting scripts.
+Goal: Define the minimal script artifact contract and optional domain-specific conventions, checks, and templates.
+Non-Goals: Do not write, modify, execute, test, deploy, or persist scripts.
 Use-When: Another skill needs the `script` interface before drafting, modifying, checking, reviewing, or orchestrating a script artifact.
 
-## 0. Prerequisites
-- Script purpose, user request, target file path, or existing script content
-- Target language/runtime when known; if missing, use Python by default
+## Selection
 
-## 1. Inputs
-- Purpose, invocation context, inputs, outputs, side effects, constraints, and target path when available
-- Existing file extension, shebang, imports, runtime notes, or user-stated language for domain selection
-- Safety requirements such as dry-run, validation, idempotency, logging, and error handling
+Default: return only the compact script contract.
 
-## 2. Process
-1. Select the script domain from explicit language, file extension, shebang, runtime clues, or default to Python.
-2. Always include generic script conventions from `references/generic_conventions.md`.
-3. For Python, include `references/python_conventions.md`, `references/python_quality.md`, and `assets/python_template.py`.
-4. For unsupported domains, return generic conventions only, mark domain-specific contracts as unavailable, and suggest `output/modify` to add a domain reference.
-5. Treat templates as canonical shapes or starting points for consuming verb skills, not as mandatory output.
-6. Mark domain assumptions only when selection is ambiguous or materially affects the artifact contract.
+Also select:
+- `python_contract.md` when Python is selected from language, file extension, shebang, runtime clues, or unspecified language default.
+- `python_template.py` when the caller asks to outline or draft a Python script.
+- `script_checklist.md` when the caller asks to check script conformance.
+- `script_quality.md` when the caller asks to review script quality.
 
-## 3. Outputs
-- Minimal default output: selected domain/language, assumptions, selected package-local paths, and loaded selected contents only.
-- Always return selected file paths followed by loaded contents in fenced code blocks.
-- Python selection returns:
-  - `src/interface/script/references/generic_conventions.md`
-  - `src/interface/script/references/python_conventions.md`
-  - `src/interface/script/references/python_quality.md`
-  - `src/interface/script/assets/python_template.py`
-- Unsupported domain selection returns `src/interface/script/references/generic_conventions.md` and an assumption noting domain-specific references/assets are unavailable.
+If caller intent is unclear, assume default contract only and state the assumption.
+If the script domain is unsupported, return the generic contract, state unavailable domain-specific refs/assets, and hand off to `output/modify` to add a domain reference.
 
-## 4. Next Steps
-- `output/outline` — create a script skeleton or function layout using this interface data
-- `output/draft` — produce a first-pass script using this interface data
-- `output/modify` — update an existing script against this interface data
-- `transform/check` — verify a script against this interface data
+## Return
 
-## 5. Examples
+Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
-### Example 1: Python default
-**Prompt:** "Use the script interface for a file organizer script with dry-run support."
-**Decision:** Select Python by default; return generic conventions, Python conventions, Python quality checks, and Python template.
-**Outcome:** The caller receives selected paths and loaded contents:
+Default path:
+- `src/interface/script/references/script_contract.md`
 
-file_path: src/interface/script/references/generic_conventions.md
+Optional paths:
+- `src/interface/script/references/python_contract.md`
+- `src/interface/script/assets/python_template.py`
+- `src/interface/script/references/script_checklist.md`
+- `src/interface/script/references/script_quality.md`
+
+## Next Steps
+
+- `output/outline` — create a script skeleton using applicable template data.
+- `output/draft` — produce a first-pass script.
+- `output/modify` — update an existing script against the contract.
+- `transform/check` — check script conformance with `script_checklist.md`.
+- `transform/review` — review script quality with `script_quality.md`.
+- `map/step` — run a bounded implementation or verification step.
+
+## Minimal Example
+
+Prompt: "Use the script interface for a file organizer script with dry-run support."
+Return:
+
+file_path: src/interface/script/references/script_contract.md
 ```markdown
-# Generic Script Conventions
-[loaded generic conventions]
-```
-
-file_path: src/interface/script/assets/python_template.py
-```python
-#!/usr/bin/env python3
-[loaded Python template]
-```
-
-### Example 2: Existing shell script
-**Prompt:** "Use the script interface for `cleanup.sh`."
-**Decision:** Select shell from the extension; shell-specific contract is unavailable.
-**Outcome:** Return generic conventions only and note `assumption: shell-specific references/assets are unavailable`.
-
-file_path: src/interface/script/references/generic_conventions.md
-```markdown
-# Generic Script Conventions
-[loaded generic conventions]
+[loaded compact script contract]
 ```
