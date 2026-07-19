@@ -2,6 +2,7 @@
 name: spec
 description: Use when output or map skills need a future-state specification.
 metadata:
+  type: interface
   category: interface
 ---
 
@@ -23,7 +24,7 @@ Use-When: Another skill needs the `spec` interface contract before outlining, dr
 - Generic markdown template: `assets/generic_template.md`
 - Generic quality checklist: `references/generic_checklist.md`
 
-## 2. Processes
+## 2. Process
 1. Select the generic spec contract unless an explicit domain profile is provided.
 2. Use `assets/generic_template.md` as the canonical section shape for new specs or major rewrites.
 3. Require stable IDs for all referenceable claims, not every sentence, so downstream plans can trace to specific spec data points.
@@ -31,9 +32,11 @@ Use-When: Another skill needs the `spec` interface contract before outlining, dr
 5. Use `references/generic_checklist.md` to evaluate completeness, section quality, and traceability.
 
 ## 3. Outputs
-- Spec interface contract for consuming skills
-- Canonical generic markdown template at `assets/generic_template.md`
-- Generic spec quality checklist at `references/generic_checklist.md`
+- Minimal default output: selected spec contract, assumptions, selected package-local paths, and loaded selected contents only.
+- Always return selected file paths followed by loaded contents in fenced code blocks.
+- Generic spec selection returns:
+  - `src/interface/spec/assets/generic_template.md`
+  - `src/interface/spec/references/generic_checklist.md`
 
 ## 4. Next Steps
 - `input/investigate` — gather current-state facts and uncertainty evidence for the spec
@@ -47,11 +50,29 @@ Use-When: Another skill needs the `spec` interface contract before outlining, dr
 ## 5. Examples
 
 ### Example 1: Coding project spec outline
-**Prompt:** Outline a spec for replacing the authentication module.
-**Decisions:** Read `assets/generic_template.md`; create IDs for referenceable purpose, current-state, future-state, requirement, acceptance, quality, uncertainty, and decision claims.
-**Outcome:** The outline skill produces a generic spec outline with sections for current state, future state, scope, requirements, acceptance, quality, expectations, uncertainties, and decisions as produced by the spec skill's generic template.
+**Prompt:** "Use the spec interface for replacing the authentication module."
+**Decision:** Select the generic spec template and checklist.
+**Outcome:** Return selected paths and loaded contents:
+
+file_path: src/interface/spec/assets/generic_template.md
+```markdown
+# Spec
+[loaded generic spec template]
+```
+
+file_path: src/interface/spec/references/generic_checklist.md
+```markdown
+# Generic Spec Checklist
+[loaded generic checklist]
+```
 
 ### Example 2: Review a spec
-**Prompt:** Review `SPEC-auth-refresh.md` against the generic spec contract.
-**Decisions:** Use `references/generic_checklist.md` as the evaluation checklist.
-**Outcome:** The review skill reports CRITICAL failures and QUALITY issues, including missing sections, weak acceptance, untraced claims, or unclear uncertainties based upon the spec skill's `references/generic_checklist.md`.
+**Prompt:** "Use the spec interface to review `SPEC-auth-refresh.md`."
+**Decision:** Select the generic spec checklist.
+**Outcome:** Return selected path and loaded contents:
+
+file_path: src/interface/spec/references/generic_checklist.md
+```markdown
+# Generic Spec Checklist
+[loaded generic checklist]
+```

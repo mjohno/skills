@@ -2,6 +2,7 @@
 name: prototype
 description: Use when output or map skills need the prototype artifact contract for cheap mock-ups or validation methods.
 metadata:
+  type: interface
   category: interface
 ---
 
@@ -21,7 +22,7 @@ Use-When: Another skill needs the `prototype` interface contract before outlinin
 - Constraints such as time, fidelity, tools, audience, data, and safety limits
 - Optional success criteria, failure criteria, and follow-up decision
 
-## 2. Processes
+## 2. Process
 1. Identify the decision the prototype must inform and the assumption being tested.
 2. Select the cheapest adequate profile from this table.
 
@@ -38,10 +39,9 @@ Use-When: Another skill needs the `prototype` interface contract before outlinin
 5. Keep fidelity intentionally low.
 
 ## 3. Outputs
-- Selected profile
-- Template path
-- Quality checklist path
-- Validation framing for the prototype artifact
+- Minimal default output: selected prototype profile, assumptions, selected package-local paths, and loaded selected contents only.
+- Always return selected file paths followed by loaded contents in fenced code blocks.
+- Selected profile returns its matching template path and quality checklist path from the table above.
 
 ## 4. Next Steps
 - `output/outline` — create the prototype skeleton from the selected template.
@@ -52,9 +52,35 @@ Use-When: Another skill needs the `prototype` interface contract before outlinin
 ## 5. Examples
 
 ### Example 1: Tabletop/roleplay
-**Prompt:** Define a prototype for validating whether support can handle account recovery escalations.
-**Outcome:** Selects `tabletop-roleplay`, points to the Markdown template and checklist, and frames scenario roles, prompts, validation signals, and failure signals.
+**Prompt:** "Use the prototype interface to validate account recovery escalation support."
+**Decision:** Select `tabletop-roleplay`.
+**Outcome:** Return selected paths and loaded contents:
+
+file_path: src/interface/prototype/assets/tabletop_roleplay_template.md
+```markdown
+# Tabletop Roleplay Prototype
+[loaded tabletop template]
+```
+
+file_path: src/interface/prototype/references/tabletop_roleplay_quality_checklist.md
+```markdown
+# Tabletop Roleplay Quality Checklist
+[loaded tabletop quality checklist]
+```
 
 ### Example 2: API contract stub
-**Prompt:** Shape a prototype for validating whether partner systems can integrate with our invite API.
-**Outcome:** Selects `api-contract-stub`, points to the YAML template and checklist, and frames endpoint semantics, sample payloads, error cases, and next integration decision.
+**Prompt:** "Use the prototype interface to validate partner invite API integration."
+**Decision:** Select `api-contract-stub`.
+**Outcome:** Return selected paths and loaded contents:
+
+file_path: src/interface/prototype/assets/api_contract_stub_template.yaml
+```yaml
+# API Contract Stub
+[loaded API contract stub template]
+```
+
+file_path: src/interface/prototype/references/api_contract_stub_quality_checklist.md
+```markdown
+# API Contract Stub Quality Checklist
+[loaded API quality checklist]
+```

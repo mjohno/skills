@@ -2,7 +2,7 @@
 name: knowledge
 description: Use when lookup or record needs the passive MKF contract.
 metadata:
-  type: skill
+  type: interface
   category: interface
   capabilities:
     - knowledge
@@ -23,7 +23,7 @@ Use-When: `input/lookup` or `output/record` needs the shared MKF contract before
 - Explicit filesystem paths that should be treated as bundle roots
 - MKF concept Markdown files when validating shared structure
 
-## 2. Processes
+## 2. Process
 1. Apply bundle discovery from `references/bundle_discovery.md`.
 2. Apply concept structure and frontmatter rules from `references/mkf_contract.md`.
 3. Treat `index.md` as an MKF concept with `type: index`.
@@ -33,15 +33,12 @@ Use-When: `input/lookup` or `output/record` needs the shared MKF contract before
 7. Keep record-specific write, validation, template, and index-rebuild behavior in `../../output/record/`.
 
 ## 3. Outputs
-- Shared MKF contract guidance for operational skills
-- Relative links to shared references/assets
-
-Shared references:
-- `references/mkf_contract.md`
-- `references/bundle_discovery.md`
-
-Shared assets:
-- `assets/concept_frontmatter_template.md`
+- Minimal default output: selected MKF domain, assumptions, selected package-local paths, and loaded selected contents only.
+- Always return selected file paths followed by loaded contents in fenced code blocks.
+- MKF selection returns:
+  - `src/interface/knowledge/references/mkf_contract.md`
+  - `src/interface/knowledge/references/bundle_discovery.md`
+  - `src/interface/knowledge/assets/concept_frontmatter_template.md`
 
 ## 4. Next Steps
 - `../../input/lookup/SKILL.md` — retrieve MKF metadata matches and load selected concepts
@@ -51,10 +48,31 @@ Shared assets:
 
 ### Example 1: Shared contract use
 
-**Prompt:** Lookup needs to resolve `general`.
-**Decision:** Use `references/bundle_discovery.md`; normalize `general` to `GENERAL`, then resolve `MKF_GENERAL_BUNDLE`.
+**Prompt:** "Use the knowledge interface to resolve `general`."
+**Decision:** Select MKF bundle discovery and MKF concept contract.
+**Outcome:** Return selected paths and loaded contents:
+
+file_path: src/interface/knowledge/references/bundle_discovery.md
+```markdown
+# Bundle Discovery
+[loaded bundle discovery contract]
+```
+
+file_path: src/interface/knowledge/references/mkf_contract.md
+```markdown
+# MKF Contract
+[loaded MKF contract]
+```
 
 ### Example 2: Concept contract use
 
-**Prompt:** Record needs to write a new concept.
-**Decision:** Use `references/mkf_contract.md`; require `type`, `title`, `description`, and `tags`, and do not add `timestamp`.
+**Prompt:** "Use the knowledge interface before recording a new concept."
+**Decision:** Select MKF concept contract and frontmatter template.
+**Outcome:** Return selected paths and loaded contents:
+
+file_path: src/interface/knowledge/assets/concept_frontmatter_template.md
+```markdown
+---
+[loaded concept frontmatter template]
+---
+```

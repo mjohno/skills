@@ -2,7 +2,7 @@
 name: memory
 description: Use when remember, memorize, learn, or dream needs the shared memory file and content contract.
 metadata:
-  type: skill
+  type: interface
   category: interface
   capabilities:
     - memory
@@ -22,7 +22,7 @@ Use-When: Another skill needs to resolve a memory file or follow memory structur
 - Optional task-specific file names such as `.memory.md` or `skill-memories.md`
 - Raw memory entries or reduced summary material when content shape matters
 
-## 2. Processes
+## 2. Process
 1. Resolve the memory file from prompt-provided path first, then `MEMORY_FILE`, then `.memory.md` in the current working directory.
 2. Do not introduce `MEMORY_ROOT`, named memory locations, or project/global config files yet.
 3. Treat the file as Markdown with a `# Summary` section at the top and a `# Memory Log` section below.
@@ -35,10 +35,9 @@ Use-When: Another skill needs to resolve a memory file or follow memory structur
 10. Routine compression may happen later, but destructive summary rewrites require user approval.
 
 ## 3. Outputs
-- Memory file resolution rules
-- Memory log entry contract
-- Durable summary section contract
-- Append/update and compression safety rules
+- Minimal default output: selected memory contract, assumptions, selected package-local paths, and loaded selected contents only.
+- Always return selected file paths followed by loaded contents in fenced code blocks.
+- Memory selection returns `src/interface/memory/SKILL.md` because this interface has no separate references/assets.
 
 Canonical memory-entry shape:
 ```yaml
@@ -67,7 +66,14 @@ Canonical summary output:
 
 ## 5. Examples
 
-### Example 1
+### Example 1: Shared memory contract
 
-**Prompt:** Define shared memory file rules.
-**Outcome:** Contract documents file resolution, entry shape, summary shape, and write safety.
+**Prompt:** "Use the memory interface to define shared memory file rules."
+**Decision:** Select the inline memory contract from this interface.
+**Outcome:** Return selected path and loaded contents:
+
+file_path: src/interface/memory/SKILL.md
+```markdown
+# memory
+[loaded memory file resolution, entry shape, summary shape, and write safety contract]
+```
