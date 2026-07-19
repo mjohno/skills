@@ -4,9 +4,6 @@ description: Use when output or map skills need the plan artifact contract for o
 metadata:
   type: interface
   category: interface
-  capabilities:
-    - gap_analysis
-    - ordered_artifact_creation
 ---
 
 # plan
@@ -16,10 +13,10 @@ Non-Goals: Do not implement plan items, verify completed work, manage inline com
 Use-When: Another skill needs the `plan` interface contract before outlining, drafting, modifying, reviewing, or orchestrating this artifact.
 
 ## 0. Prerequisites
-- A source artifact (spec, RFC, comment set, task set, or user request) to convert into a plan
+- A source artifact (spec, comment set, task set, or user request) to convert into a plan
 
 ## 1. Inputs
-- Source artifact from prompt (spec, RFC, comment set, task set, or user request)
+- Source artifact from prompt (spec, comment set, task set, or user request)
 - Target outcome or goal (optional)
 
 ## 2. Process
@@ -33,7 +30,6 @@ Use-When: Another skill needs the `plan` interface contract before outlining, dr
 - Plan selection returns:
   - `src/interface/plan/references/plan_format.md`
   - `src/interface/plan/assets/plan_template.md`
-- Migration requests may also return `src/interface/plan/references/migration_from_todo.md`.
 
 ## 4. Next Steps
 - `output/draft` with `interface/task` — extract task packets from plan items
@@ -58,15 +54,4 @@ file_path: src/interface/plan/assets/plan_template.md
 ```markdown
 # Plan
 [loaded plan template]
-```
-
-### Example 2: Migration from todo
-**Prompt:** "Use the plan interface to migrate an old todo artifact."
-**Decision:** Select the standard plan contract plus migration reference.
-**Outcome:** Return selected paths and loaded contents, including:
-
-file_path: src/interface/plan/references/migration_from_todo.md
-```markdown
-# Migration From Todo
-[loaded migration guidance]
 ```

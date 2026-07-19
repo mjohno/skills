@@ -9,3 +9,5 @@ Constraints:
 - <constraint or unknown>
 Verification:
 - <verification hint or unknown>
+Log:
+<!-- List(str) concise evidence, comments, and handoff notes -->
