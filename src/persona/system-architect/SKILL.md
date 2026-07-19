@@ -2,6 +2,7 @@
 name: system-architect
 description: System architecture evaluation perspective. Apply when reviewing designs, plans, or implementations through an architect's lens — assessing boundaries, data flow, API contracts, scalability, and technology justification.
 metadata:
+  type: persona
   category: persona
 ---
 

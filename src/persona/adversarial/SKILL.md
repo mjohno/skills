@@ -2,6 +2,7 @@
 name: adversarial
 description: Skeptical, hostile evaluation perspective. Apply when challenging assumptions, stress-testing designs against abuse and edge cases, or seeking failures hidden behind happy-path correctness.
 metadata:
+  type: persona
   category: persona
 ---
 

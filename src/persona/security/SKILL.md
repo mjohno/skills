@@ -2,6 +2,7 @@
 name: security
 description: Security-focused evaluation perspective. Apply when reviewing designs, code, or plans through a security-first lens — assessing authN/authZ, data protection, input validation, secrets management, and threat models.
 metadata:
+  type: persona
   category: persona
 ---
 
