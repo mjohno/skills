@@ -7,7 +7,7 @@ metadata:
 
 # investigate
 
-Goal: Retrieve facts exhaustively from local files and web sources, then turn them into a compact evidence-first YAML context summary.
+Goal: Retrieve facts exhaustively from local files, remote systems and web sources, then turn them into a compact evidence-first YAML context summary.
 Non-Goals: Remediation, implementation plans, or speculative conclusions.
 Use-When: You need to investigate a codebase, docs, databases, SaaS or other sources to build accurate context.
 
@@ -20,7 +20,7 @@ Use-When: You need to investigate a codebase, docs, databases, SaaS or other sou
 
 ## 2. Processes
 1. **Scope first**: confirm the objective, scope, and any recursion limit (default: unlimited) or time limit.
-2. **Collect evidence**: prefer local files first; use web sources, SaaS and other systems only when asked or when local evidence is insufficient.
+2. **Collect evidence**: prefer local files first; use web sources, CLI's, API's for SaaS and other systems only when asked or when local evidence is insufficient.
 3. **Deduplicate evidence**: remove repeated sources, repeated claims, and overlapping facts while preserving the strongest citation for each fact.
 4. **Track uncertainty**: every fact includes `confidence` and `relevance`; if a claim is not fully supported, mark it `type: tentative`, explain its relevance, and keep gathering evidence.
 5. **Resolve conflicts**: present conflicting readings side by side and record what evidence would settle them.
