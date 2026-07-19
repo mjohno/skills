@@ -8,17 +8,34 @@ This repository uses a role-based skill taxonomy. Each category defines the skil
 - **Verbs are invocable skills** — skills that retrieve, transform, produce, persist, or orchestrate work.
 - **Personas are lenses** — perspectives that modify how another skill evaluates or presents information.
 
+## Metadata Model
+
+Every package declares both type and category:
+
+- `metadata.type` describes runtime treatment:
+  - `interface` — passive contract provider selected and loaded for context
+  - `skill` — invocable behavior that retrieves, transforms, writes, or orchestrates
+  - `persona` — composable lens that changes evaluation or presentation
+- `metadata.category` describes taxonomy placement and primary role.
+
+Valid pairs:
+- `type: interface`, `category: interface`
+- `type: skill`, `category: input|transform|output|map`
+- `type: persona`, `category: persona`
+
 ## Categories
 
 ### interface
-Noun/domain contracts that supply conventions, quality checks, templates, schemas, protocols, artifact shapes, or storage rules used by verb skills.
-- Discoverable contract skills that the model may invoke or reference when another skill needs artifact shape, schema, protocol, conventions, or quality criteria
-- Lives as direct skill packages under `src/interface/<name>/SKILL.md`
+Passive noun/domain contract packages that supply conventions, quality checks, templates, schemas, protocols, artifact shapes, or storage rules used by verb skills.
+- Declares `metadata.type: interface` and `metadata.category: interface`
+- Selected and loaded when another skill needs artifact shape, schema, protocol, conventions, quality criteria, or storage rules
+- Lives as direct packages under `src/interface/<name>/SKILL.md`
 - Examples: `interface/spec`, `interface/rfc`, `interface/plan`, `interface/task`, `interface/code`, `interface/prose`, `interface/script`, `interface/prototype`, `interface/memory`, `interface/knowledge-base`
 - Defines the desired state of a noun-like artifact, protocol, or domain
-- May select an applicable profile from context, such as a script language or storage backend, and expose the relevant contract data to consuming skills
-- Profile-specific materials should be clearly named, e.g. `python_template.py`, `python_quality.md`, or `github_protocol.md`
-- **Do NOT use if** the skill performs retrieval, transformation, evaluation, persistence, or orchestration — it only supplies contract data for other skills to apply
+- May select an applicable domain from context, such as a script language or storage backend
+- Returns the selected reference/asset file paths and exposes their loaded contents to consuming skills
+- Domain-specific materials should be clearly named, e.g. `python_template.py`, `python_quality.md`, or `github_protocol.md`
+- **Do NOT use if** the package performs artifact production, external retrieval, transformation, evaluation, persistence, or orchestration — it only supplies contract data for other skills to apply
 
 ### input
 Skills that bring information into the working context from outside the current reasoning process.
@@ -75,7 +92,9 @@ Personas modify how information is evaluated at any pipeline stage:
 
 ## Notes
 
-- Categories describe the skill's primary role. Skills may touch adjacent concerns, but their category reflects the dominant behavior.
-- `interface` skills define shared contracts and are discoverable for model use. They may return applicable conventions, checks, templates, schemas, or protocol rules, but they do not operate on the artifact themselves.
+- `metadata.type` describes how the package is used at runtime; `metadata.category` describes role and placement.
+- Categories describe primary role. Packages may touch adjacent concerns, but their category reflects the dominant behavior.
+- `interface` packages define shared contracts and are discoverable for model use. They may return applicable conventions, checks, templates, schemas, or protocol rules, but they do not operate on the artifact themselves.
+- Loading package-local interface references/assets is part of exposing contract data, not external retrieval.
 - `transform` intentionally covers both evaluation and derivation; split it only if future usage shows a concrete need.
-- Refer to [skill_template.md](skill_template.md) for frontmatter format.
+- Refer to [interface_template.md](interface_template.md), [skill_template.md](skill_template.md), and [persona_template.md](persona_template.md) for frontmatter format.

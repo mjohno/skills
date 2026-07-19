@@ -6,6 +6,8 @@ Inherits all items from [base_checklist.md](base_checklist.md). Apply base items
 
 ## Persona-Specific CRITICAL
 
+- [ ] **CRITICAL** `metadata.type: persona`
+- [ ] **CRITICAL** `metadata.category: persona`
 - [ ] **CRITICAL** Under `# Persona: [Name]`: Perspective present (one-sentence worldview framing)
 - [ ] **CRITICAL** `Values & Priorities` section present with at least 3 prioritized values
 - [ ] **CRITICAL** `Tradeoffs Acknowledged` section present — documents tensions and costs of applying this lens

@@ -4,9 +4,10 @@ Shared compliance items for all skills — personas and data-flow skills alike. 
 
 ## CRITICAL
 
+- [ ] **CRITICAL** `metadata.type` is present and is `interface`, `skill`, or `persona`
 - [ ] **CRITICAL** `metadata.category` is present and matches a category in `docs/taxonomy.md`
+- [ ] **CRITICAL** `metadata.type` and `metadata.category` form a valid pair: `interface/interface`, `skill/input`, `skill/transform`, `skill/output`, `skill/map`, or `persona/persona`
 - [ ] **CRITICAL** Description includes "Use when..." triggers
-- [ ] **CRITICAL** Interface skills define contract data only and do not perform retrieval, transformation, evaluation, persistence, or orchestration
 - [ ] **CRITICAL** SKILL.md is under 100 lines
 
 ## QUALITY

@@ -2,6 +2,7 @@
 name: [persona-name]
 description: [concise overview with "Use when..." triggers for adopting this perspective]
 metadata:
+  type: persona
   category: persona
 ---
 

@@ -2,10 +2,12 @@
 
 ## Base Checklist
 
-Inherits all items from [base_checklist.md](base_checklist.md). Apply base items before these skill-specific ones.
+Inherits all items from [base_checklist.md](base_checklist.md). Apply base items before these skill-specific items. Use this checklist for `metadata.type: skill` only; use [interface_checklist.md](interface_checklist.md) for interfaces and [persona_checklist.md](persona_checklist.md) for personas.
 
 ## Skill-Specific CRITICAL
 
+- [ ] **CRITICAL** `metadata.type: skill`
+- [ ] **CRITICAL** `metadata.category` is `input`, `transform`, `output`, or `map`
 - [ ] **CRITICAL** Under `# [Name]`: Goal (mandatory), Non-Goals (mandatory), Use-When (mandatory)
 - [ ] **CRITICAL** Section 0: Prerequisites present
 - [ ] **CRITICAL** Section 1: Inputs present (inline OR references/input_*.md / assets/input_*.md)
@@ -23,17 +25,6 @@ Inherits all items from [base_checklist.md](base_checklist.md). Apply base items
 - [ ] **QUALITY** **Minimal default output** — Only essentials returned by default; detail is opt-in
 - [ ] **QUALITY** **Graceful handoff** — When it can't solve something, does it suggest specific downstream skills (e.g., lookup, remember)?
 - [ ] **QUALITY** **Structure matches purpose** — Sections flow logically (prerequisites → inputs → processes → outputs → next steps) and read like a contract
-
-## Interface-Specific QUALITY
-
-Apply these when `metadata.category: interface`.
-
-- [ ] **QUALITY** Interface defines a noun/domain desired state, not production behavior.
-- [ ] **QUALITY** Interface exposes conventions, quality checks, templates, schemas, or protocol rules for consumers.
-- [ ] **QUALITY** Interface does not claim to create, modify, evaluate, persist, retrieve, or orchestrate artifacts.
-- [ ] **QUALITY** Generic rules are separated from language/platform-specific profiles when profiles exist.
-- [ ] **QUALITY** Profile-specific assets are clearly named.
-- [ ] **QUALITY** Templates are examples or canonical shapes consumed by verb skills, not mandatory generation behavior unless explicitly stated.
 
 ## Definition of Done
 

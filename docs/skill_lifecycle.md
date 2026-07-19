@@ -8,7 +8,7 @@ Create or update a skill package that is structurally valid and beautifully simp
 
 ## Inputs
 
-1. Skill name, description, and category
+1. Skill name, description, type, and category
 2. Core purpose and goal
 
 ## Phase 1: Create
@@ -19,41 +19,46 @@ Create or update a skill package that is structurally valid and beautifully simp
 2. **Name & Description**:
    - Use `kebab-case` for the name (must match directory name).
    - Provide a concise description that includes "Use when..." triggers.
-3. **Determine Category**: Choose one category from [taxonomy.md](taxonomy.md):
-   - `interface` — shared contract, schema, artifact shape, or protocol
-   - `input` — retrieve, read, or elicit source data
-   - `transform` — derive, evaluate, restructure, prioritize, reduce, or convert existing context
-   - `output` — create, revise, persist, store, or deliver
-   - `map` — compose multi-step workflows
-   - `persona` — encode perspective that modifies information flow
-4. **Determine Interface Role**: If the skill is an interface contract, ensure it is a discoverable contract provider that defines artifact shape, schema, protocol, conventions, or quality criteria without performing work.
-5. **Place the Skill**:
+3. **Determine Type**: Choose one runtime treatment from [taxonomy.md](taxonomy.md):
+   - `interface` — passive contract provider selected and loaded for context
+   - `skill` — invocable data-flow or workflow behavior
+   - `persona` — composable perspective lens
+4. **Determine Category**: Choose the valid category for the selected type:
+   - `interface` type → `interface` category
+   - `skill` type → `input`, `transform`, `output`, or `map`
+   - `persona` type → `persona` category
+5. **Determine Interface Role**: If the package is an interface, ensure it defines artifact shape, schema, protocol, conventions, or quality criteria without performing operational work. It must select required references/assets, return their paths, and expose loaded contents as context.
+6. **Place the Package**:
    - Interface nouns live under `src/interface/<name>/SKILL.md`.
    - Invocable verb skills live under their data-flow category.
    - Persona lenses live under `src/persona/<name>/SKILL.md`.
-6. **Component Identification**: Determine if the skill requires `scripts/`, `references/`, or `assets/`.
-7. **Constraint Check**: Verify the name uses `kebab-case`.
+7. **Component Identification**: Determine if the package requires `scripts/`, `references/`, or `assets/`.
+8. **Constraint Check**: Verify the name uses `kebab-case`.
 
 ### Step 2 — Scaffolding
 
 1. Create root directory `<category>/<name>/`.
 2. Initialize SKILL.md:
-   - **Data-flow/interface skills** (interface, input, transform, output, map): use [skill_template.md](skill_template.md)
-   - **Persona skills** (persona): use [persona_template.md](persona_template.md)
+   - **Interface packages** (`type: interface`): use [interface_template.md](interface_template.md)
+   - **Invocable skills** (`type: skill`): use [skill_template.md](skill_template.md)
+   - **Persona lenses** (`type: persona`): use [persona_template.md](persona_template.md)
 3. Create sub-directories (`scripts/`, `references/`, `assets/`) as needed.
 
 ### Step 3 — Implementation & Refinement
 
-#### Data-flow and interface skills
+#### Interface packages
 
-- **Interface skills**: Define the desired state of a noun/domain and supply applicable conventions, checks, templates, schemas, or protocol rules. They are discoverable, contract-only reference skills and should not perform retrieval, transformation, evaluation, persistence, or orchestration.
-  - Artifact interfaces define what a good artifact looks like.
-  - Protocol interfaces define valid interaction shape.
-  - Storage interfaces define layout, invariants, and access expectations.
-  - Interfaces may select a profile from context, such as a language or backend, then expose that profile's contract data to consuming skills.
-- **Invocable skills**: Develop self-contained, idempotent behavior and scripts where needed.
-- **Documentation**: Populate `references/` with technical details, contract rules, or procedural specifics. Use names such as `generic_conventions.md`, `<domain>_conventions.md`, and `<domain>_quality.md` for profiled interface materials.
-- **Resources**: Add templates or data to `assets/`. Use profile-specific names such as `<domain>_template.<ext>` when a template is not generic.
+- Define the desired state of a noun/domain and supply applicable conventions, checks, templates, schemas, or protocol rules.
+- Stay passive: do not perform artifact production, external retrieval, transformation, evaluation, persistence, or orchestration.
+- Select applicable references/assets from context, such as a language or backend domain.
+- Return selected file paths and expose loaded file contents in fenced code blocks.
+- Populate `references/` with technical details, contract rules, or procedural specifics. Use names such as `generic_conventions.md`, `<domain>_conventions.md`, and `<domain>_quality.md`.
+- Add templates or data to `assets/`. Use domain-specific names such as `<domain>_template.<ext>` when a template is not generic.
+
+#### Invocable skills
+
+- Develop self-contained, idempotent behavior and scripts where needed.
+- Consume interface-defined contracts when structure, schema, or quality criteria matter.
 - **Quality reminder**: Remember the six simplicity principles — single responsibility, clear scope, graceful handoff, etc.
 
 #### Persona skills
@@ -77,8 +82,9 @@ Create or update a skill package that is structurally valid and beautifully simp
 ### Step 4 — Compliance Check
 
 Run [compliance](#phase-2---comply) against the appropriate checklist:
-- **Data-flow/interface skills** → [skill_checklist.md](skill_checklist.md)
-- **Persona skills** → [persona_checklist.md](persona_checklist.md)
+- **Interface packages** → [interface_checklist.md](interface_checklist.md)
+- **Invocable skills** → [skill_checklist.md](skill_checklist.md)
+- **Persona lenses** → [persona_checklist.md](persona_checklist.md)
 
 ## Phase 2 — Comply
 
@@ -86,12 +92,14 @@ Assert a pass/fail test over an existing skill package against the appropriate c
 
 ### Steps
 
-1. **Read Frontmatter**: Extract `metadata.category` from SKILL.md.
-   - Must match [taxonomy.md](taxonomy.md). Missing or invalid → Critical failure.
-2. **Check Interface Contracts**: If the skill is an interface contract, verify it exposes contract data only and does not describe retrieval, transformation, evaluation, persistence, or orchestration behavior.
+1. **Read Frontmatter**: Extract `metadata.type` and `metadata.category` from SKILL.md.
+   - Both are required. Missing or invalid → Critical failure.
+   - Valid pairs: `interface/interface`, `skill/input`, `skill/transform`, `skill/output`, `skill/map`, `persona/persona`.
+2. **Check Interface Contracts**: If `metadata.type: interface`, verify it exposes contract data only, selects required references/assets, returns their paths, and requires loaded contents in fenced code blocks.
 3. **Load Checklist**:
-   - Data-flow/interface categories (interface, input, transform, output, map) → [skill_checklist.md](skill_checklist.md)
-   - Persona category → [persona_checklist.md](persona_checklist.md)
+   - `metadata.type: interface` → [interface_checklist.md](interface_checklist.md)
+   - `metadata.type: skill` → [skill_checklist.md](skill_checklist.md)
+   - `metadata.type: persona` → [persona_checklist.md](persona_checklist.md)
 4. **Run Checks**: Evaluate each item; record pass/fail with specific violations.
 5. **Report**:
    - **Pass**: All CRITICAL items pass. Report "Compliance passed."
@@ -122,9 +130,9 @@ Synchronize a local skill directory to a `TARGET_DIRECTORY` for active use.
 
 ## Constraints
 
-1. Must choose the correct checklist based on `metadata.category`: data-flow/interface → skill_checklist, persona → persona_checklist
-2. Both checklists inherit shared rules from [base_checklist.md](base_checklist.md)
-3. Must read `metadata.category` from frontmatter — never assume
+1. Must choose the correct checklist based on `metadata.type`: interface → interface_checklist, skill → skill_checklist, persona → persona_checklist
+2. All checklists inherit shared rules from [base_checklist.md](base_checklist.md)
+3. Must read `metadata.type` and `metadata.category` from frontmatter — never assume
 4. Requires explicit user approval before deployment execution
 
 ## Outputs
