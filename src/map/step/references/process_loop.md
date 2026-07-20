@@ -8,6 +8,21 @@ approved
 
 Any additional text is a revision request, not approval.
 
+## Critical Append-Then-Execute Order
+
+Append must happen **before** any execution begins. If a browser/tool is unavailable at the start of a step, pause and append first — do not begin work until the step exists in YAML. The append call is the transition from "proposed" to "current"; nothing counts as "work on the current step" until after that transition.
+
+**Required sequence per cycle:**
+1. **Append via CLI** (`step_cli.py append step`) — step moves into `steps` array
+2. Execute the work described by the newly appended step
+3. Record results: update `do`, `validate`, `retro`
+4. Run lint
+5. Show continuation YAML from the CLI
+6. Propose next step in chat (separate YAML block)
+7. Stop and wait for exact `approved`
+
+No work may begin before append completes. No continuation may be proposed before steps 3–6 complete.
+
 ## Canonical Loop
 
 1. **Resume or init context** — Read `show continuation`, or create the file with `goal`, ordered/numbered `lessons`, and `steps: []`.
