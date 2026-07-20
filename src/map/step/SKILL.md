@@ -1,98 +1,91 @@
 ---
 name: step
-description: Execute one step toward a high-level goal, verify the result, and report outcomes along with the next step. Use when you need to iterate on a set of references (plans, tasks, files, docs) until the goal is complete, with human review between steps.
+description: Use when you need a persistent, human-reviewed loop over next-best local steps toward a goal, backed by one STEP-<slug>.yaml file.
 metadata:
+  type: skill
   category: map
-  capabilities:
-    - tool_operation_composition
-    - execution_verification
-    - outcome_reporting
 ---
 
 # step
 
-Goal: Map out tool operations for one step toward a high-level goal, execute them, verify the result, and report outcomes plus the next step.
-Non-Goals: Creating or breaking down plans at the plan level (that belongs to `output/draft` or `output/modify` with `interface/plan`), long-term state management, fully autonomous execution, or operating without human oversight. Step owns tool-operation composition and execution flow.
-Use-When: You have a high-level goal and references to iterate on.
+Goal: Run a user-invoked, YAML-backed step loop that advances one goal through bounded step packets, validation, retro learning, recommendation, user decision, and saved continuation state.
+Non-Goals: Do not manage task state, replace `coordinate`, create full plans/specs/tasks, run broad orchestration, continue without human review, or require model-level reinvocation each loop.
+Use-When: You have a goal plus an initial or selected next step, and want repeated local progress recorded in `STEP-<slug>.yaml`.
 
 ## 0. Prerequisites
-- A high-level goal and a specific step to execute
-- References (plans, tasks, files, docs) to guide iteration
+
+- A goal and either a new step seed or an existing `STEP-<slug>.yaml`.
+- Use exactly one step file as state; do not create task, iteration, status, or `current_step` state.
+- Must use `src/map/step/scripts/step_cli.py` when available; otherwise edit YAML directly with the same contract.
 
 ## 1. Inputs
-- High-level goal from prompt
-- Next step to execute from prompt
-- References (plans, tasks, files, docs) from prompt
 
-## 2. Processes
-1. **Execute**: Carry out the step using available tools (shell, file ops, git, subagents, etc.).
-2. **Verify**: Check that the step succeeded. Run tests, inspect outputs, confirm artifacts exist.
-3. **Report**: Return the high-level goal, what happened (success/failure/partial), and evidence of what was done.
-4. **Propose next step**: If executing from a task packet, inspect `next_tasks` and report all candidate follow-up task IDs so branches are not missed. If other refs indicate more work, suggest the next step. If the goal appears achieved, signal completion. If the step failed, decide whether to suggest recovery directly or delegate to a sub-skill.
+- Goal, selected step, or step file path.
+- References for the selected step: plans, specs, review findings, files, docs, or user feedback.
+- Optional explicit lessons from phrases like `lesson:` or `learn lesson`.
+- Optional user decision to continue, redirect, insert an operational step, or stop.
 
-## 3. Outputs
-- Structured report in the prompt with: Goal, Step executed, Result (Success/Failure/Partial), Next step, Candidate next tasks, Notes
-- If user specifies an output file, write to that path instead
+## 2. STEP YAML Contract
 
-## 4. Next Steps
-- `step` — continue with the next step
-- `output/modify` with `interface/plan` — update plan status for completed steps
-- `output/draft` with `interface/task` — extract a task packet for the next step
-- `investigate` — if the step failed with unknown root cause
-- `step` — if the step failed with a simple recovery
+State file: `STEP-<slug>.yaml`.
 
-## 5. Examples
+```yaml
+goal: "<overall goal>"
+lessons:
+  - "<durable behavior-shaping lesson>"
+steps:
+  - slug: "<kebab-case-step-slug>"
+    intent: "<what this step is meant to achieve>"
+    do: {summary: "<what was done>", evidence: ["<provenance>"]}
+    validate: {result: "success | partial | failure", evidence: ["<proof>"]}
+    retro: {wins: [], issues: [], actions: []}
+    next_steps: ["<slug-only>"]
+    recommendation: {next: "<slug from next_steps>", rationale: "<why>"}
+```
 
-### Example 1
+Rules:
+- Current state is the last item in `steps`; never add `current_step`, status fields, task objects, or iteration objects.
+- `next_steps` are slug-only candidates; elaborate only the selected next step when appending it.
+- `recommendation` is a field on the step packet, not a separate step or type.
+- `lessons` are top-level durable memory for continuation; keep them concise and reusable.
 
-**Prompt:**
-> Goal: Implement user authentication with JWT.
-> Refs: [plan.md, auth-tasks.md, jwt-docs.md]
-> Next step: Set up JWT package
+## 3. Processes
 
-**Decisions:**
-- Step is clear and actionable → execute directly
-- No failure detected → no delegation needed
+1. **Resume or seed**: Read `show continuation` or create the file with goal, lessons, and first step.
+2. **Do**: Execute the selected/latest step using appropriate local tools or bounded delegation.
+3. **Validate**: Check success with evidence; if validation fails, retry/recover within the same step when useful.
+4. **Retro**: Record wins, issues, retries, user corrections, and actions; promote durable guidance to `lessons` when needed.
+5. **Summarize and review**: Report progress, evidence, validation result, retro, and lessons; stop for user review or feedback.
+6. **Expand and recommend**: Add shallow slug-only `next_steps`, sort/prioritize them, and set `recommendation.next` with rationale.
+7. **Decide and save**: User chooses or inserts the next step; append only `slug` and `intent`, then loop from Do.
 
-**Outcome:**
-- Goal: Implement user authentication with JWT
-- Step executed: Set up JWT package
-- Result: Success — installed `jsonwebtoken`, added to `package.json`, created `config/jwt.js`
-- Next step: Create auth middleware
-- Notes: None
+## 4. CLI Usage
 
-### Example 2
+Preferred helper: `python src/map/step/scripts/step_cli.py --file STEP-<slug>.yaml <operation> <resource>`; without `--file`, it uses `STEP_FILE`.
 
-**Prompt:**
-> Goal: Add database migration for user table.
-> Refs: [plan.md, migration-tasks.md]
-> Next step: Install migration tool
+- `show continuation` preferred; `show all` only when full history is needed.
+- `init --goal ... --slug ... --intent ... [--lesson ...]` creates a new file.
+- `append step --slug ... --intent ...` appends the selected next step.
+- `append lessons <value>` saves an explicit or inferred durable lesson.
+- `update last --do|--validate|--next-steps|--recommendation <yaml-or->` replaces explicit last-step fields.
+- `append last --retro|--next-steps <yaml-or-value>` merges retro fields or next-step slugs.
+- `lint basic` / `lint complete [--all] [--fix]` checks resumability or completed-step quality.
+- `patch lessons` and `patch last` are escape hatches; prefer explicit commands.
 
-**Decisions:**
-- Step failed due to network timeout → assess failure type
-- Failure is simple (transient) → suggest direct recovery, no delegation
+## 5. Outputs
 
-**Outcome:**
-- Goal: Add database migration for user table
-- Step executed: Install migration tool
-- Result: Failure — `npm install` failed due to network timeout
-- Next step: Retry `npm install` or check network connectivity
-- Notes: Simple failure — direct recovery suggested
+- Updated `STEP-<slug>.yaml` only.
+- Brief report: goal, step slug, result, evidence, retro issues/actions, lessons added, next-step slugs, recommendation, and decision needed.
+- Stop prompt for user review/decision unless the user already supplied the next selected step.
 
-### Example 3
+## 6. Next Steps
 
-**Prompt:**
-> Goal: Implement OAuth2 login with Google.
-> Refs: [plan.md, oauth-tasks.md, google-api-docs.md]
-> Next step: Set up OAuth2 config
+- `check` — separate validation against criteria.
+- `review` — structured critique of the result or step file.
+- `investigate` — unknown failure root cause.
+- `git-commit` — user-inserted commit step.
 
-**Decisions:**
-- Step failed due to invalid credentials → assess failure type
-- Failure is complex (root cause unknown) → delegate to `step: investigate`
+## 7. Examples
 
-**Outcome:**
-- Goal: Implement OAuth2 login with Google
-- Step executed: Set up OAuth2 config
-- Result: Failure — Google API credentials are invalid; the client secret is rejected
-- Next step: Delegated to `step: investigate` to determine whether to regenerate credentials in Google Cloud Console or check if the project has the correct OAuth consent screen configured
-- Notes: Complex failure — root cause unknown, investigation needed before proceeding
+- Start: `/skill:step Goal: Refactor step. First step: define-step-schema.` creates `STEP-refactor-step.yaml`.
+- Continue: `Continue STEP-refactor-step.yaml.` reads continuation context, executes/validates the last step, records retro, recommends next slugs, and asks the user to decide.
