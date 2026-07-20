@@ -12,6 +12,8 @@ Goal: Run an approval-gated, YAML-backed step loop that advances one goal throug
 Non-Goals: Do not manage task state, replace `coordinate`, create full plans/specs/tasks, run broad orchestration, continue without exact approval, or persist unapproved proposed steps.
 Use-When: You have a goal and want repeated local progress recorded in one `STEP-<slug>.yaml`, with explicit user approval at each step boundary.
 
+Hard invariant: after exact `approved`, the first state-changing action must be `step_cli.py append step`. Execution, validation, retro, and next-step recording may only operate on the newly appended `steps[-1]`.
+
 ## 0. Prerequisites
 
 - A goal and either a new step seed/proposal or an existing `STEP-<slug>.yaml`.

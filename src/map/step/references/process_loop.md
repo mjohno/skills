@@ -23,6 +23,9 @@ Append must happen **before** any execution begins. If a browser/tool is unavail
 
 No work may begin before append completes. No continuation may be proposed before steps 3–6 complete.
 
+Invalid order: `approved -> execute/edit/browse -> validate -> retro -> append step`.
+Valid order: `approved -> append step -> execute/edit/browse -> validate -> retro`.
+
 ## Canonical Loop
 
 1. **Resume or init context** — Read `show continuation`, or create the file with `goal`, ordered/numbered `lessons`, and `steps: []`.
