@@ -25,7 +25,7 @@ Any additional text is a revision request, not approval.
 Default persisted view:
 
 ```bash
-python src/map/step/scripts/step_cli.py --file STEP-<slug>.yaml show continuation
+python scripts/step_cli.py --file STEP-<slug>.yaml show continuation
 ```
 
 Then show the chat-only proposal separately when there is a next step:
@@ -39,6 +39,10 @@ proposed_next_step:
 ```
 
 The proposed next step is never persisted before approval. If chat context no longer contains the proposal, `approved` is invalid; regenerate and show the proposal for review again.
+
+## CLI Gate Check
+
+Before showing any approval gate, verify you called `show continuation` immediately before this step. If there's a gap between when state changed and when you showed it, re-run `show continuation`. Never show stale YAML.
 
 ## Human Review Gate
 
