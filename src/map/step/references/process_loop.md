@@ -1,19 +1,65 @@
 # Step Loop Process
 
-Follow this loop after the initial user invocation:
+The `step` skill is an explicit approval-gated loop. The step boundary is the user's exact sign-off message:
 
-1. **Resume or seed** — Read `show continuation` or create the file with `goal`, `lessons`, and the first step.
-2. **Do** — Execute the selected/latest step using appropriate local tools or bounded delegation.
-3. **Validate** — Check success with evidence; if validation fails, retry or recover within the same step when useful.
-4. **Retro** — Record wins, issues, retries, user corrections, and actions; promote durable guidance to `lessons` when needed.
-5. **Summarize and review** — Report progress, evidence, validation result, retro, and lessons; stop for user review or feedback.
-6. **Expand and recommend** — Add shallow slug-only `next_steps`, sort/prioritize them, and set `recommendation.next` with rationale.
-7. **Decide and save** — User chooses or inserts the next step; append only `slug` and `intent`, then loop from Do.
+```text
+approved
+```
 
-Human review gate:
-- Do not silently continue past the report/recommendation point unless the user has already supplied the next selected step.
-- The user may redirect, insert an operational step such as commit/cleanup, choose a different next step, or stop.
+Any additional text is a revision request, not approval.
 
-Lesson capture:
+## Canonical Loop
+
+1. **Resume or init context** — Read `show continuation`, or create the file with `goal`, ordered/numbered `lessons`, and `steps: []`.
+2. **Propose next step in chat** — When there is no approved executable step pending, present a chat-only `proposed_next_step` with `slug`, `intent`, and ordered/numbered `criteria`.
+3. **Wait for exact approval** — Do not append or execute unless the user's whole message is exactly `approved`.
+4. **Append approved step** — Use the normal `append step` command. If append fails, do not execute; report the error, revise the chat-only proposal, and require approval again.
+5. **Execute one current step** — The appended step is now the current step. Execute exactly that one step.
+6. **Record work** — Update current `do`, `validate`, `retro`, ordered/numbered lessons when useful, slug-only `next_steps`, and `recommendation` or `null`.
+7. **Lint persisted state** — Run complete lint for the current step. Use deterministic fixes only when safe.
+8. **Show approval gate** — Output CLI `show continuation` YAML for persisted state, followed by a separate YAML block for chat-only `proposed_next_step` when a next step exists.
+9. **Wait again** — The user may type exact `approved`, revise the proposal, revise lessons/criteria, request more work on the current step, stop, or sign off final state when no next step exists.
+
+## Approval Gate Output
+
+Default persisted view:
+
+```bash
+python src/map/step/scripts/step_cli.py --file STEP-<slug>.yaml show continuation
+```
+
+Then show the chat-only proposal separately when there is a next step:
+
+```yaml
+proposed_next_step:
+  slug: "<slug>"
+  intent: "<intent>"
+  criteria:
+    - "<criterion>"
+```
+
+The proposed next step is never persisted before approval. If chat context no longer contains the proposal, `approved` is invalid; regenerate and show the proposal for review again.
+
+## Human Review Gate
+
+At the gate, the user may:
+
+- type exactly `approved` to approve the displayed packet;
+- revise the proposed slug, intent, or criteria;
+- add or update lessons;
+- revise current criteria and rerun the current step;
+- request more validation or recovery inside the current step;
+- stop.
+
+When there is no proposed next step, exact `approved` signs off the completed current step only. No append or execution happens, and approval is not persisted.
+
+## Lesson Capture
+
 - Treat phrases like `lesson:`, `learn lesson`, and equivalent explicit feedback as instructions to update top-level `lessons`.
-- Add inferred lessons only when they are durable enough to guide future continuation.
+- Lessons are ordered/numbered prose derived from wins, issues, and actions.
+- Add lessons whenever they become useful; the usual point is review before continuation.
+- Keep ordinary attempt details in `retro`; promote only durable guidance to top-level `lessons`.
+
+## Criteria Revisions and Reruns
+
+Criteria are approved targets. If the user explicitly changes criteria after execution has started, update current criteria and rerun the current step as needed. Keep attempt history in the same packet: `do.evidence`, `validate.evidence`, `retro.issues`, and `retro.actions`. Do not create retry/rerun state.

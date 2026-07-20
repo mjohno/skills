@@ -8,44 +8,64 @@ metadata:
 
 # step
 
-Goal: Run a user-invoked, YAML-backed step loop that advances one goal through bounded step packets, validation, retro learning, recommendation, user decision, and saved continuation state.
-Non-Goals: Do not manage task state, replace `coordinate`, create full plans/specs/tasks, run broad orchestration, continue without human review, or require model-level reinvocation each loop.
-Use-When: You have a goal plus an initial or selected next step, and want repeated local progress recorded in `STEP-<slug>.yaml`.
+Goal: Run an approval-gated, YAML-backed step loop that advances one goal through exactly one approved current step at a time, with criteria, validation, retro learning, recommendation, and saved continuation state.
+Non-Goals: Do not manage task state, replace `coordinate`, create full plans/specs/tasks, run broad orchestration, continue without exact approval, or persist unapproved proposed steps.
+Use-When: You have a goal and want repeated local progress recorded in one `STEP-<slug>.yaml`, with explicit user approval at each step boundary.
 
 ## 0. Prerequisites
 
-- A goal and either a new step seed or an existing `STEP-<slug>.yaml`.
-- Use exactly one step file as state; do not create task, iteration, status, or `current_step` state.
+- A goal and either a new step seed/proposal or an existing `STEP-<slug>.yaml`.
+- Use exactly one step file as state; do not create task, iteration, status, approval, retry, proposal, or `current_step` state.
 - Must use `src/map/step/scripts/step_cli.py` when available; otherwise edit YAML directly with the same contract.
 - Read `references/state_contract.md` before creating or changing step state.
 
 ## 1. Inputs
 
-- Goal, selected step, or step file path.
-- References for the selected step: plans, specs, review findings, files, docs, or user feedback.
+- Goal, proposed step, or step file path.
+- References for the current step: plans, specs, review findings, files, docs, or user feedback.
 - Optional explicit lessons from phrases like `lesson:` or `learn lesson`.
-- Optional user decision to continue, redirect, insert an operational step, or stop.
+- Optional user revision to proposed slug, intent, criteria, lessons, or current criteria.
+- Exact approval token: the whole user message must be `approved`.
 
 ## 2. Processes
 
 Use these references as needed:
 - `references/state_contract.md` — required YAML state shape and state-churn constraints.
-- `references/process_loop.md` — required loop actions: do, validate, retro, summarize/review, expand/recommend, decide/save.
-- `references/cli_usage.md` — helper command surface for safe state updates.
+- `references/process_loop.md` — required loop actions: propose, approve, append, execute, validate, retro, lessons, recommend, lint, review.
+- `references/cli_usage.md` — helper command surface and one-line golden path.
 - `references/failure_handling.md` — recovery rules when validation fails or work blocks.
 
 Default loop:
-1. Resume or seed the single `STEP-<slug>.yaml` file.
-2. Execute the selected/latest step and record `do` evidence.
-3. Validate with evidence; keep retries/recovery inside the same step.
-4. Record retro wins/issues/actions and concise durable lessons.
-5. Report progress, next-step candidates, and recommendation; stop for user review/decision unless the user already selected the next step.
+1. Resume or initialize the single `STEP-<slug>.yaml` file. Initialization creates only `goal`, ordered/numbered `lessons`, and `steps: []`.
+2. Present a chat-only `proposed_next_step` with `slug`, `intent`, and ordered/numbered `criteria`.
+3. Stop unless the user message is exactly `approved`. Any extra text is a revision request.
+4. After exact approval, append the proposed step and execute exactly that one current step.
+5. Record `do` evidence, validate against criteria, and keep retries/recovery inside the same current step.
+6. Record retro wins/issues/actions and concise durable numbered lessons when useful.
+7. Add slug-only `next_steps`, set `recommendation` or `null`, run lint, then output CLI YAML from `show continuation` plus separate chat-only proposed-next-step YAML when applicable.
+8. Stop at the next approval gate.
+
+Current-step rules:
+- Persisted state is `steps`; the current step is derived from `steps[-1]`, or `null` before the first approved append.
+- A step is appended only after exact `approved`; the presence of a step implies it was approved.
+- Approval metadata is not persisted.
+- If the chat-only proposal is unavailable, do not append; regenerate/show it and require approval again.
 
 ## 3. Outputs
 
 - Updated `STEP-<slug>.yaml` only.
-- Brief report: goal, step slug, result, evidence, retro issues/actions, lessons added, next-step slugs, recommendation, and decision needed.
-- Stop prompt for user review/decision unless the user already supplied the next selected step.
+- At approval gates, output CLI YAML directly, normally from `show continuation`.
+- When a next step is proposed, output a separate chat-only YAML block:
+
+```yaml
+proposed_next_step:
+  slug: "<slug>"
+  intent: "<intent>"
+  criteria:
+    - "<criterion>"
+```
+
+- Minimal prompt: ask for exact `approved`, revision, or stop.
 
 ## 4. Next Steps
 
@@ -56,5 +76,5 @@ Default loop:
 
 ## 5. Examples
 
-- Start: `/skill:step Goal: Refactor step. First step: define-step-schema.` creates `STEP-refactor-step.yaml`.
-- Continue: `Continue STEP-refactor-step.yaml.` reads continuation context, executes/validates the last step, records retro, recommends next slugs, and asks the user to decide.
+- Start: `/skill:step Goal: Refactor step. Proposed first step: define-step-schema.` creates `STEP-refactor-step.yaml` with `steps: []`, proposes the first step in chat, and waits for exact `approved`.
+- Continue after approval: `approved` appends the displayed proposal, executes that current step, records results, shows continuation YAML plus the next chat-only proposal, and waits again.
