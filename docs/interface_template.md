@@ -6,6 +6,8 @@ metadata:
   category: interface
 ---
 
+<!-- For context-only project terms, use vocab_template.md instead. -->
+
 # [interface-name]
 
 Goal: [one clear noun/domain contract this interface exposes]

@@ -5,6 +5,7 @@ This repository uses a role-based skill taxonomy. Each category defines the skil
 ## Mental Model
 
 - **Nouns are interfaces** — artifact schemas, storage contracts, protocols, and canonical shapes.
+- **Vocabulary is context** — human-loaded term definitions that shape interpretation without model invocation.
 - **Verbs are invocable skills** — skills that retrieve, transform, produce, persist, or orchestrate work.
 - **Personas are lenses** — perspectives that modify how another skill evaluates or presents information.
 
@@ -14,28 +15,41 @@ Every package declares both type and category:
 
 - `metadata.type` describes runtime treatment:
   - `interface` — passive contract provider selected and loaded for context
+  - `vocabulary` — human-loadable context definitions with model invocation disabled
   - `skill` — invocable behavior that retrieves, transforms, writes, or orchestrates
   - `persona` — composable lens that changes evaluation or presentation
 - `metadata.category` describes taxonomy placement and primary role.
 
 Valid pairs:
 - `type: interface`, `category: interface`
+- `type: vocabulary`, `category: interface`
 - `type: skill`, `category: input|transform|output|map`
 - `type: persona`, `category: persona`
 
 ## Categories
 
 ### interface
-Passive noun/domain contract packages that supply conventions, quality checks, templates, schemas, protocols, artifact shapes, or storage rules used by verb skills.
-- Declares `metadata.type: interface` and `metadata.category: interface`
-- Selected and loaded when another skill needs artifact shape, schema, protocol, conventions, quality criteria, or storage rules
+Passive noun/domain contract packages that supply conventions, quality checks, templates, schemas, protocols, artifact shapes, vocabulary, or storage rules used by verb skills.
+- Declares `metadata.category: interface` with either `metadata.type: interface` or `metadata.type: vocabulary`
+- Selected and loaded when another skill needs artifact shape, schema, protocol, conventions, quality criteria, or storage rules; vocabulary packages are human-loaded instead
 - Lives as direct packages under `src/interface/<name>/SKILL.md`
-- Examples: `interface/spec`, `interface/rfc`, `interface/plan`, `interface/task`, `interface/code`, `interface/prose`, `interface/script`, `interface/prototype`, `interface/memory`, `interface/knowledge-base`
-- Defines the desired state of a noun-like artifact, protocol, or domain
+- Examples: `interface/spec`, `interface/rfc`, `interface/plan`, `interface/task`, `interface/code`, `interface/prose`, `interface/script`, `interface/prototype`, `interface/memory`, `interface/knowledge-base`, `interface/vocab`
+- Defines the desired state of a noun-like artifact, protocol, domain, or context vocabulary
 - May select an applicable domain from context, such as a script language or storage backend
-- Returns the minimal selected reference/asset file paths and exposes their loaded contents to consuming skills
+- Returns the minimal selected reference/asset file paths and exposes their loaded contents to consuming skills, except vocabulary packages whose SKILL.md body is the human-loaded context
 - Domain- or intent-specific materials should be clearly named, e.g. `python_template.py`, `plan_quality.md`, `plan_checklist.md`, or `github_protocol.md`
-- **Do NOT use if** the package performs artifact production, external retrieval, transformation, evaluation, persistence, or orchestration — it only supplies contract data for other skills to apply
+- **Do NOT use if** the package performs artifact production, external retrieval, transformation, evaluation, persistence, or orchestration — it only supplies contract data or vocabulary context for other skills to apply
+
+### vocabulary
+Special interface-category packages that define project operational terms for human-loaded context.
+- Declares `metadata.type: vocabulary` and `metadata.category: interface`
+- Requires top-level `disable_model_invocations: true`
+- Is loaded directly by a human before prompting; the model should not invoke or route to it
+- Defines only terms that are not already owned by skill names or skill descriptions
+- Keeps terms in the `description` trigger and body content; do not add frontmatter term metadata
+- May include compact behavioral controls, but contains no formal inputs, processes, outputs, return contract, verification, or next-step behavior
+- Project `vocab` is operational vocabulary; knowledge-base `glossary` content is domain-local terminology
+- **Do NOT use if** the term needs structured inputs, formal outputs, verification criteria, or multi-step process — create or update a verb skill instead
 
 ### input
 Skills that bring information into the working context from outside the current reasoning process.
@@ -78,6 +92,7 @@ Skills that encode a consistent perspective, tradeoff-awareness, or output style
 
 Interfaces define contract data that invocable skills consume:
 
+- **interface/vocab** — Human-load project terms such as `study`, `simplify`, or `lean` before the first prompt; do not include skill-owned verbs such as `modify`, `review`, or `draft`.
 - **interface/spec + output/outline** — Outline a traceable future-state spec using the spec template.
 - **interface/spec + output/draft** — Draft a generic future-state spec using the spec contract.
 - **interface/code + output/modify** — Modify code while preserving code-brief boundaries and verification hints.
@@ -95,6 +110,7 @@ Personas modify how information is evaluated at any pipeline stage:
 - `metadata.type` describes how the package is used at runtime; `metadata.category` describes role and placement.
 - Categories describe primary role. Packages may touch adjacent concerns, but their category reflects the dominant behavior.
 - `interface` packages define shared contracts and are discoverable for model use. They may return applicable conventions, checks, templates, schemas, or protocol rules, but they do not operate on the artifact themselves.
+- `vocabulary` packages are not model-invocable; they are compact context definitions loaded by a human.
 - Loading package-local interface references/assets is part of exposing contract data, not external retrieval.
 - `transform` intentionally covers both evaluation and derivation; split it only if future usage shows a concrete need.
-- Refer to [interface_template.md](interface_template.md), [skill_template.md](skill_template.md), and [persona_template.md](persona_template.md) for frontmatter format.
+- Refer to [interface_template.md](interface_template.md), [vocab_template.md](vocab_template.md), [skill_template.md](skill_template.md), and [persona_template.md](persona_template.md) for frontmatter format.
