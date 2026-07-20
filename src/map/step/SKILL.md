@@ -17,6 +17,7 @@ Use-When: You have a goal plus an initial or selected next step, and want repeat
 - A goal and either a new step seed or an existing `STEP-<slug>.yaml`.
 - Use exactly one step file as state; do not create task, iteration, status, or `current_step` state.
 - Must use `src/map/step/scripts/step_cli.py` when available; otherwise edit YAML directly with the same contract.
+- Read `references/state_contract.md` before creating or changing step state.
 
 ## 1. Inputs
 
@@ -25,67 +26,35 @@ Use-When: You have a goal plus an initial or selected next step, and want repeat
 - Optional explicit lessons from phrases like `lesson:` or `learn lesson`.
 - Optional user decision to continue, redirect, insert an operational step, or stop.
 
-## 2. STEP YAML Contract
+## 2. Processes
 
-State file: `STEP-<slug>.yaml`.
+Use these references as needed:
+- `references/state_contract.md` — required YAML state shape and state-churn constraints.
+- `references/process_loop.md` — required loop actions: do, validate, retro, summarize/review, expand/recommend, decide/save.
+- `references/cli_usage.md` — helper command surface for safe state updates.
+- `references/failure_handling.md` — recovery rules when validation fails or work blocks.
 
-```yaml
-goal: "<overall goal>"
-lessons:
-  - "<durable behavior-shaping lesson>"
-steps:
-  - slug: "<kebab-case-step-slug>"
-    intent: "<what this step is meant to achieve>"
-    do: {summary: "<what was done>", evidence: ["<provenance>"]}
-    validate: {result: "success | partial | failure", evidence: ["<proof>"]}
-    retro: {wins: [], issues: [], actions: []}
-    next_steps: ["<slug-only>"]
-    recommendation: {next: "<slug from next_steps>", rationale: "<why>"}
-```
+Default loop:
+1. Resume or seed the single `STEP-<slug>.yaml` file.
+2. Execute the selected/latest step and record `do` evidence.
+3. Validate with evidence; keep retries/recovery inside the same step.
+4. Record retro wins/issues/actions and concise durable lessons.
+5. Report progress, next-step candidates, and recommendation; stop for user review/decision unless the user already selected the next step.
 
-Rules:
-- Current state is the last item in `steps`; never add `current_step`, status fields, task objects, or iteration objects.
-- `next_steps` are slug-only candidates; elaborate only the selected next step when appending it.
-- `recommendation` is a field on the step packet, not a separate step or type.
-- `lessons` are top-level durable memory for continuation; keep them concise and reusable.
-
-## 3. Processes
-
-1. **Resume or seed**: Read `show continuation` or create the file with goal, lessons, and first step.
-2. **Do**: Execute the selected/latest step using appropriate local tools or bounded delegation.
-3. **Validate**: Check success with evidence; if validation fails, retry/recover within the same step when useful.
-4. **Retro**: Record wins, issues, retries, user corrections, and actions; promote durable guidance to `lessons` when needed.
-5. **Summarize and review**: Report progress, evidence, validation result, retro, and lessons; stop for user review or feedback.
-6. **Expand and recommend**: Add shallow slug-only `next_steps`, sort/prioritize them, and set `recommendation.next` with rationale.
-7. **Decide and save**: User chooses or inserts the next step; append only `slug` and `intent`, then loop from Do.
-
-## 4. CLI Usage
-
-Preferred helper: `python src/map/step/scripts/step_cli.py --file STEP-<slug>.yaml <operation> <resource>`; without `--file`, it uses `STEP_FILE`.
-
-- `show continuation` preferred; `show all` only when full history is needed.
-- `init --goal ... --slug ... --intent ... [--lesson ...]` creates a new file.
-- `append step --slug ... --intent ...` appends the selected next step.
-- `append lessons <value>` saves an explicit or inferred durable lesson.
-- `update last --do|--validate|--next-steps|--recommendation <yaml-or->` replaces explicit last-step fields.
-- `append last --retro|--next-steps <yaml-or-value>` merges retro fields or next-step slugs.
-- `lint basic` / `lint complete [--all] [--fix]` checks resumability or completed-step quality.
-- `patch lessons` and `patch last` are escape hatches; prefer explicit commands.
-
-## 5. Outputs
+## 3. Outputs
 
 - Updated `STEP-<slug>.yaml` only.
 - Brief report: goal, step slug, result, evidence, retro issues/actions, lessons added, next-step slugs, recommendation, and decision needed.
 - Stop prompt for user review/decision unless the user already supplied the next selected step.
 
-## 6. Next Steps
+## 4. Next Steps
 
 - `check` — separate validation against criteria.
 - `review` — structured critique of the result or step file.
 - `investigate` — unknown failure root cause.
 - `git-commit` — user-inserted commit step.
 
-## 7. Examples
+## 5. Examples
 
 - Start: `/skill:step Goal: Refactor step. First step: define-step-schema.` creates `STEP-refactor-step.yaml`.
 - Continue: `Continue STEP-refactor-step.yaml.` reads continuation context, executes/validates the last step, records retro, recommends next slugs, and asks the user to decide.
