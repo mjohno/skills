@@ -277,6 +277,13 @@ def command_update(args: argparse.Namespace) -> int:
         old = data.get("goal")
         data["goal"] = args.value
         changed = old != args.value
+    elif args.resource == "lessons":
+        value = parse_yaml_value(args.value)
+        lessons = ensure_list(value, "lessons")
+        normalized, _ = dedupe_normalized(lessons)
+        old = data.get("lessons")
+        data["lessons"] = normalized
+        changed = old != normalized
     elif args.resource == "last":
         step = last_step(data)
         supplied = [
@@ -342,14 +349,15 @@ def command_append(args: argparse.Namespace) -> int:
         if not isinstance(steps, list):
             raise StepCliError("steps must be a list")
         existing = [s.get("slug") for s in steps if isinstance(s, dict)]
-        if args.slug in existing:
-            raise StepCliError(f"step slug already exists: {args.slug}")
+        final_slug = unique_step_slug(args.slug, existing)
+        if final_slug != args.slug:
+            warn(f"step slug already exists: using {final_slug}")
         if steps:
             prev = last_step(data)
             next_steps = prev.get("next_steps", [])
-            if isinstance(next_steps, list) and args.slug not in next_steps:
+            if isinstance(next_steps, list) and final_slug not in next_steps:
                 warn("new step slug is not listed in previous next_steps")
-        steps.append({"slug": args.slug, "intent": args.intent})
+        steps.append({"slug": final_slug, "intent": args.intent})
         changed = True
     elif args.resource == "last":
         step = last_step(data)
@@ -378,7 +386,10 @@ def command_append(args: argparse.Namespace) -> int:
         raise StepCliError(f"unsupported append resource: {args.resource}", EXIT_USAGE)
     if changed:
         write_step_file(path, data, dry_run=args.dry_run)
-    emit(result(args, changed))
+    extra = {}
+    if args.resource == "step":
+        extra = {"slug": final_slug, "requested_slug": args.slug}
+    emit(result(args, changed, **extra))
     return EXIT_OK
 
 
@@ -403,6 +414,16 @@ def command_patch(args: argparse.Namespace) -> int:
 def validate_slug(value: Any, label: str) -> None:
     if not isinstance(value, str) or not SLUG_RE.match(value):
         raise StepCliError(f"{label} must be lowercase kebab-case matching {SLUG_RE.pattern}")
+
+
+def unique_step_slug(requested: str, existing: list[Any]) -> str:
+    seen = {slug for slug in existing if isinstance(slug, str)}
+    if requested not in seen:
+        return requested
+    index = 2
+    while f"{requested}-{index}" in seen:
+        index += 1
+    return f"{requested}-{index}"
 
 
 def coerce_slug_list(value: Any, name: str) -> list[str]:
@@ -619,9 +640,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_show.add_argument("resource", choices=["all", "continuation", "goal", "lessons", "last"])
     p_show.set_defaults(func=command_show)
 
-    p_update = sub.add_parser("update", help="update goal or explicit last-step fields")
-    p_update.add_argument("resource", choices=["goal", "last"])
-    p_update.add_argument("value", nargs="?", help="goal value for 'update goal'")
+    p_update = sub.add_parser("update", help="update goal, lessons, or explicit last-step fields")
+    p_update.add_argument("resource", choices=["goal", "lessons", "last"])
+    p_update.add_argument("value", nargs="?", help="goal value or YAML lessons list")
     p_update.add_argument("--do", dest="do", help="YAML object or '-' for stdin")
     p_update.add_argument("--validate", dest="validate", help="YAML object or '-' for stdin")
     p_update.add_argument("--next-steps", dest="next_steps", help="YAML slug/list or '-' for stdin")
@@ -662,14 +683,14 @@ def validate_args(args: argparse.Namespace) -> None:
         return
     if args.operation is None:
         raise StepCliError("operation is required unless --test is supplied", EXIT_USAGE)
-    if args.operation == "update" and args.resource == "goal":
+    if args.operation == "update" and args.resource in {"goal", "lessons"}:
         if args.value is None:
-            raise StepCliError("update goal requires a value", EXIT_USAGE)
+            raise StepCliError(f"update {args.resource} requires a value", EXIT_USAGE)
         if any(
             getattr(args, name) is not None
             for name in ("do", "validate", "next_steps", "recommendation")
         ):
-            raise StepCliError("update goal does not accept last-step field options", EXIT_USAGE)
+            raise StepCliError(f"update {args.resource} does not accept last-step field options", EXIT_USAGE)
     if args.operation == "update" and args.resource == "last" and args.value is not None:
         raise StepCliError("update last does not accept a positional value", EXIT_USAGE)
     if args.operation == "append" and args.resource == "lessons" and args.value is None:
@@ -707,6 +728,9 @@ class StepCliSelfTest(unittest.TestCase):
 
     def test_update_append_and_complete_lint(self) -> None:
         self.run_cli("init", "--goal", "Goal", "--slug", "first-step", "--intent", "Do first")
+        self.run_cli("update", "lessons", '["Keep lessons concise", "Keep lessons concise!"]')
+        shown_lessons = yaml.safe_load(self.run_cli("show", "lessons").stdout)
+        self.assertEqual(shown_lessons["lessons"], ["Keep lessons concise"])
         self.run_cli("update", "last", "--do", '{summary: "Did", evidence: ["file"]}')
         self.run_cli("update", "last", "--validate", '{result: success, evidence: ["checked"]}')
         self.run_cli("append", "last", "--retro", '{wins: ["won"], issues: [], actions: []}')
@@ -721,6 +745,18 @@ class StepCliSelfTest(unittest.TestCase):
         self.run_cli("lint", "complete", "--fix", expect=EXIT_LINT)
         shown = yaml.safe_load(self.run_cli("show", "last").stdout)
         self.assertIn("second-step", shown["last_step"]["next_steps"])
+
+    def test_append_duplicate_step_slug_adds_suffix(self) -> None:
+        self.run_cli("init", "--goal", "Goal", "--slug", "first-step", "--intent", "Do first")
+        self.run_cli("append", "last", "--next-steps", "first-step")
+        proc = self.run_cli("append", "step", "--slug", "first-step", "--intent", "Repeat")
+        appended = yaml.safe_load(proc.stdout)
+        self.assertEqual(appended["requested_slug"], "first-step")
+        self.assertEqual(appended["slug"], "first-step-2")
+        self.assertIn("using first-step-2", proc.stderr)
+        self.assertIn("new step slug is not listed", proc.stderr)
+        shown = yaml.safe_load(self.run_cli("show", "all").stdout)
+        self.assertEqual([step["slug"] for step in shown["steps"]], ["first-step", "first-step-2"])
 
     def test_dry_run_does_not_write(self) -> None:
         self.run_cli("init", "--goal", "Goal", "--slug", "first-step", "--intent", "Do first")
