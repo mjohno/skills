@@ -31,8 +31,8 @@ Use-When: You need to add TODOs, NOTEs, CHECKs, REVIEWs, or DONE marks directly 
 
 ## 4. Next Steps
 - `step` — execute the work indicated by a TODO/CHECK/REVIEW annotation
-- `output/modify` — make the code or prose change described by an annotation
-- `output/draft` with `interface/task` — convert a pending annotation into a task packet
+- `modify` — make the code or prose change described by an annotation
+- `draft` with `interface/task` — convert a pending annotation into a task packet
 - `annotate` — update, remove, or mark an existing annotation as DONE
 
 ## 5. Examples

@@ -69,8 +69,8 @@ Create or update a skill package that is structurally valid and beautifully simp
 - Set `disable_model_invocations: true` in frontmatter.
 - Use `metadata.type: vocabulary` and `metadata.category: interface`; do not add extra metadata or frontmatter term lists.
 - Name terms in the description, e.g. `Use when terms like study, simplify, lean need definition.`
-- Do not include terms that match existing skill names or meanings already defined by skill descriptions.
-- Behavioral controls are allowed when they clarify intended meaning, e.g. `propose` means respond in chat only and do not change files.
+- Do not include terms that match existing skill names or meanings already defined by skill descriptions. General operational terms may be vocabulary-owned when no dedicated skill remains.
+- Behavioral controls are allowed when they clarify intended meaning, e.g. `modify` means make the smallest coherent requested change while preserving unrelated content.
 - Keep domain-local terminology in the relevant knowledge-base glossary.
 - Avoid Selection, Return, Inputs, Processes, Outputs, Next Steps, and Examples sections.
 
@@ -103,7 +103,7 @@ Create or update a skill package that is structurally valid and beautifully simp
 - X Interface skill that duplicates long contract details already present in selected references/assets
 - X Interface skill that loads optional checklists, quality criteria, or templates by default without caller intent
 - X Interface skill that produces a brief unless the noun itself is a brief
-- X Vocabulary package that defines a skill-owned verb such as `modify`, `review`, or `draft`
+- X Vocabulary package that defines a specialized skill-owned verb such as `review`, `record`, or `commit`
 - X Vocabulary package that includes process, input, output, or routing behavior
 - X Knowledge-base domain glossary term placed in project vocab
 - X Invocable skill that only defines an artifact schema instead of consuming an interface

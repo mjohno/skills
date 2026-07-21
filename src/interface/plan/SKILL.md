@@ -36,8 +36,8 @@ Optional paths:
 
 ## Next Steps
 
-- `output/draft` — create a first-pass plan from source context.
-- `output/modify` — revise an existing plan while preserving stable IDs.
+- `draft` — create a first-pass plan from source context.
+- `modify` — revise an existing plan while preserving stable IDs.
 - `transform/check` — check plan conformance with `plan_checklist.md`.
 - `transform/review` — review plan quality with `plan_quality.md`.
 - `map/step` — execute one plan item or task packet.

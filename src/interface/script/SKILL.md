@@ -23,7 +23,7 @@ Also select:
 - `script_quality.md` when the caller asks to review script quality.
 
 If caller intent is unclear, assume default contract only and state the assumption.
-If the script domain is unsupported, return the generic contract, state unavailable domain-specific refs/assets, and hand off to `output/modify` to add a domain reference.
+If the script domain is unsupported, return the generic contract, state unavailable domain-specific refs/assets, and hand off to `modify` to add a domain reference.
 
 ## Return
 
@@ -40,9 +40,9 @@ Optional paths:
 
 ## Next Steps
 
-- `output/outline` — create a script skeleton using applicable template data.
-- `output/draft` — produce a first-pass script.
-- `output/modify` — update an existing script against the contract.
+- `outline` — create a script skeleton using applicable template data.
+- `draft` — produce a first-pass script.
+- `modify` — update an existing script against the contract.
 - `transform/check` — check script conformance with `script_checklist.md`.
 - `transform/review` — review script quality with `script_quality.md`.
 - `map/step` — run a bounded implementation or verification step.

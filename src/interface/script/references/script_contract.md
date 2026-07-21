@@ -19,7 +19,7 @@ A script is an executable or automatable artifact with one clear purpose, explic
 
 - Select Python when the user states Python, path ends in `.py`, a Python shebang/import/runtime is present, or no language is specified.
 - Select another domain from explicit language, extension, shebang, runtime clues, or user constraints.
-- For unsupported domains, return this generic contract, state that domain-specific refs/assets are unavailable, and hand off to `output/modify` to add a domain reference.
+- For unsupported domains, return this generic contract, state that domain-specific refs/assets are unavailable, and hand off to `modify` to add a domain reference.
 
 ## Python Profile Summary
 

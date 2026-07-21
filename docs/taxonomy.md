@@ -6,7 +6,7 @@ This repository uses a role-based skill taxonomy. Each category defines the skil
 
 - **Nouns are interfaces** — artifact schemas, storage contracts, protocols, and canonical shapes.
 - **Vocabulary is context** — human-loaded term definitions that shape interpretation without model invocation.
-- **Verbs are invocable skills** — skills that retrieve, transform, produce, persist, or orchestrate work.
+- **Specialized verbs are invocable skills** — skills that retrieve, transform, persist, or orchestrate work through a dedicated contract.
 - **Protocols are governed interaction contracts** — stateful or approval-sensitive flows that agents follow through an authoritative interface.
 - **Personas are lenses** — perspectives that modify how another skill evaluates or presents information.
 
@@ -72,7 +72,7 @@ Skills that operate on existing context or artifacts to derive, evaluate, restru
 
 ### output
 Verb-shaped production skills that create, revise, persist, store, or deliver results outward.
-- Performs production actions such as outline, draft, modify, record, memorize, annotate, or commit
+- Performs production actions with dedicated contracts, such as record, memorize, annotate, or commit
 - Consumes interface-defined artifact nouns and storage contracts when structure matters
 - May write files, records, logs, or artifacts when requested
 - **Do NOT use if** the skill only defines an artifact schema or canonical form — use an interface skill for nouns
@@ -106,10 +106,10 @@ Skills that encode a consistent perspective, tradeoff-awareness, or output style
 
 Interfaces define contract data that invocable skills consume:
 
-- **interface/vocab** — Human-load project terms such as `study`, `simplify`, or `lean` before the first prompt; do not include skill-owned verbs such as `modify`, `review`, or `draft`.
-- **interface/spec + output/outline** — Outline a traceable future-state spec using the spec template.
-- **interface/spec + output/draft** — Draft a generic future-state spec using the spec contract.
-- **interface/code + output/modify** — Modify code while preserving code-brief boundaries and verification hints.
+- **interface/vocab** — Human-load project terms such as `study`, `outline`, `draft`, `modify`, `simplify`, or `lean` before the first prompt; reserve dedicated skills for verbs that need a specialized contract or workflow.
+- **interface/spec + outline** — Outline a traceable future-state spec using the spec template.
+- **interface/spec + draft** — Draft a generic future-state spec using the spec contract.
+- **interface/code + modify** — Modify code while preserving code-brief boundaries and verification hints.
 - **interface/knowledge-base + output/record** — Record durable knowledge using the KB root and entry contract.
 - **interface/memory + output/memorize** — Append memory using the memory file and entry contract.
 

@@ -39,9 +39,9 @@ Optional paths:
 ## Next Steps
 
 - `input/investigate` — gather current-state facts and uncertainty evidence.
-- `output/outline` — create a spec skeleton using `spec_template.md`.
-- `output/draft` — fill the spec from source material.
-- `output/modify` — revise a spec while preserving stable IDs.
+- `outline` — create a spec skeleton using `spec_template.md`.
+- `draft` — fill the spec from source material.
+- `modify` — revise a spec while preserving stable IDs.
 - `transform/check` — check spec conformance with `spec_checklist.md`.
 - `transform/review` — review spec quality with `spec_quality.md`.
 - `interface/plan` — create traceable gap-closing work from spec IDs.

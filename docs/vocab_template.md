@@ -10,7 +10,7 @@ metadata:
 # vocab
 
 Goal: Define compact project vocabulary for human-loaded context before prompting.
-Non-Goals: Do not define skill-owned verbs, domain glossary terms, inputs, outputs, procedures, routing, or verification.
+Non-Goals: Do not define specialized skill-owned verbs, domain glossary terms, inputs, outputs, procedures, routing, or verification.
 
 ## Terms
 

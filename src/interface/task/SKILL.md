@@ -38,8 +38,8 @@ Optional paths:
 
 ## Next Steps
 
-- `output/draft` — create a first-pass task packet.
-- `output/modify` — revise a task packet while preserving stable IDs.
+- `draft` — create a first-pass task packet.
+- `modify` — revise a task packet while preserving stable IDs.
 - `transform/check` — check task conformance with `task_checklist.md`.
 - `transform/review` — review task quality with `task_quality.md`.
 - `map/step` — execute one task packet.

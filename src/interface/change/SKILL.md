@@ -36,8 +36,8 @@ Optional paths:
 
 ## Next Steps
 
-- `output/draft` — create a first-pass `CHANGE.md` from the template.
-- `output/modify` — revise an existing change workspace artifact while preserving boundaries.
+- `draft` — create a first-pass `CHANGE.md` from the template.
+- `modify` — revise an existing change workspace artifact while preserving boundaries.
 - `transform/check` — check change workspace conformance with `change_checklist.md`.
 - `map/coordinate` — orchestrate local work using prompt coordinates or change-scoped `COORDS.md`.
 

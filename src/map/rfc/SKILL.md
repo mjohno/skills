@@ -36,9 +36,9 @@ Use-When: The user explicitly asks to run RFC, rfc, or request-for-comment feedb
 - Brief verification note listing edited files and annotation count
 
 ## 4. Next Steps
-- `output/modify` — apply accepted changes from RFC annotations
+- `modify` — apply accepted changes from RFC annotations
 - `transform/review` — produce a formal severity-scored review report
-- `output/draft` with `interface/plan` — turn the RFC summary into a fix plan
+- `draft` with `interface/plan` — turn the RFC summary into a fix plan
 - `step` — implement one accepted annotation at a time
 - `annotate` — update, remove, or mark annotations after resolution
 

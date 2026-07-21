@@ -21,7 +21,7 @@ Inherits applicable items from [base_checklist.md](base_checklist.md), except wh
 
 - [ ] **QUALITY** Each term has one concise operational meaning
 - [ ] **QUALITY** Terms are non-overlapping with each other
-- [ ] **QUALITY** Terms are not synonyms for existing skills; prefer updating the skill description instead
+- [ ] **QUALITY** Terms are not synonyms for existing specialized skills; prefer updating that skill description instead
 - [ ] **QUALITY** Terms are stable project vocabulary, not one-off prompt preferences
 - [ ] **QUALITY** Definitions may constrain default agent behavior, but remain compact intent semantics rather than full skill processes
 - [ ] **QUALITY** Definitions avoid circular references to other vocab terms unless the relationship is explicitly clarifying

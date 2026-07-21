@@ -36,8 +36,8 @@ Optional paths:
 
 ## Next Steps
 
-- `output/draft` — create a first-pass goal from supplied context.
-- `output/modify` — revise an existing goal while preserving its intended outcome.
+- `draft` — create a first-pass goal from supplied context.
+- `modify` — revise an existing goal while preserving its intended outcome.
 - `transform/check` — check a goal against `goal_checklist.md`.
 - `transform/review` — review goal clarity and feasibility.
 - `map/step` — turn an approved goal into recorded, user-gated next-best-step progress.
