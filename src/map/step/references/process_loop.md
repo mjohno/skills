@@ -29,7 +29,7 @@ Valid order: `approved -> approve -> execute/edit/browse -> record -> gate`.
 ## Canonical Loop
 
 1. **Resume or init context** — Run `context`, or create the file with `start`.
-2. **Propose next step in chat** — When there is no approved executable step pending, present a chat-only `proposed_next_step` with `slug`, `intent`, and ordered/numbered `criteria`.
+2. **Propose next step in chat** — When there is no approved executable step pending, present a chat-only `proposed` block with `slug`, `intent`, and ordered `criteria`.
 3. **Wait for exact approval** — Do not approve/promote or execute unless the user's whole message is exactly `approved`.
 4. **Approve approved step** — Use the normal `approve` command. It preserves the exact approved slug, merges any durable `--lessons`, and requires the current step, when present, to be complete. If approve fails, do not execute; report the error, revise the chat-only proposal, and require approval again.
 5. **Execute one current step** — The approved step is now the current step. Execute exactly that one step.
@@ -49,7 +49,7 @@ python scripts/step_cli.py --file STEP-<slug>.yaml gate
 Then show the chat-only proposal separately when there is a next step:
 
 ```yaml
-proposed_next_step:
+proposed:
   slug: "<slug>"
   intent: "<intent>"
   criteria:
@@ -77,9 +77,9 @@ When there is no proposed next step, exact `approved` signs off the completed cu
 
 ## Lesson Capture
 
-- Treat phrases like `lesson:`, `learn lesson`, and equivalent explicit feedback as instructions to update top-level `lessons`.
-- Lessons are ordered/numbered prose derived from wins, issues, and actions.
-- Add lessons whenever they become useful; the usual point is review before continuation.
+- Treat phrases like `lesson:`, `learn lesson`, and equivalent explicit feedback as candidates for durable top-level `lessons`.
+- Lessons are ordered prose derived from wins, issues, and actions.
+- Merge an approved durable lesson through the next `approve --lessons`; keep it in chat until then.
 - Keep ordinary attempt details in `retro`; promote only durable guidance to top-level `lessons`.
 
 ## Criteria Revisions and Reruns

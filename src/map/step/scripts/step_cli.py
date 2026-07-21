@@ -264,6 +264,16 @@ def result(args: argparse.Namespace, changed: bool, **extra: Any) -> dict[str, A
 def command_init(args: argparse.Namespace) -> int:
     path = resolve_file(args, for_init=True)
     if path.exists() and not args.force:
+        if args.operation == "start":
+            emit({
+                "ok": True,
+                "file": str(path),
+                "operation": "start",
+                "resource": "step",
+                "changed": False,
+                "dry_run": args.dry_run,
+            })
+            return EXIT_OK
         raise StepCliError(f"step file already exists: {path}; use --force to overwrite", EXIT_FILE)
     lessons, _ = dedupe_normalized(args.lesson or [])
     data = {
@@ -1021,7 +1031,12 @@ class StepCliSelfTest(unittest.TestCase):
 
     def test_protocol_happy_path(self) -> None:
         self.run_cli("start", "--goal", "Goal")
+        restarted = yaml.safe_load(self.run_cli("start", "--goal", "Different goal").stdout)
+        self.assertTrue(restarted["ok"])
+        self.assertEqual(restarted["operation"], "start")
+        self.assertFalse(restarted["changed"])
         context = yaml.safe_load(self.run_cli("context").stdout)
+        self.assertEqual(context["goal"], "Goal")
         self.assertIsNone(context["current_step"])
         self.run_cli(
             "approve",
