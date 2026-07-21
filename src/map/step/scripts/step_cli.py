@@ -629,7 +629,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     p_start = sub.add_parser("start", help="protocol: create a new STEP file")
-    p_start.add_argument("--goal", required=True)
+    p_start.add_argument(
+        "--goal",
+        required=True,
+        help="workflow objective in concise prose",
+    )
     p_start.add_argument("--lesson", action="append", help="initial lesson; may be repeated")
     p_start.add_argument(
         "--force",
@@ -642,8 +646,16 @@ def build_parser() -> argparse.ArgumentParser:
     p_context.set_defaults(func=command_context, resource="continuation")
 
     p_approve = sub.add_parser("approve", help="protocol: merge lessons and persist the exactly-approved proposal")
-    p_approve.add_argument("--slug", required=True)
-    p_approve.add_argument("--intent", required=True)
+    p_approve.add_argument(
+        "--slug",
+        required=True,
+        help="unique kebab-case identifier for the approved step",
+    )
+    p_approve.add_argument(
+        "--intent",
+        required=True,
+        help="approved step objective in concise prose",
+    )
     p_approve.add_argument("--criteria", action="append", required=True, help="criteria string, YAML list, or '-' for stdin; may repeat")
     p_approve.add_argument("--lessons", action="append", help="lesson string, YAML list, or '-' for stdin; may repeat; merged into top-level lessons")
     p_approve.set_defaults(func=command_approve, resource="step")
@@ -684,6 +696,25 @@ class StepCliSelfTest(unittest.TestCase):
         proc = subprocess.run(cmd, text=True, capture_output=True, check=False)
         self.assertEqual(proc.returncode, expect, msg=proc.stderr + proc.stdout)
         return proc
+
+    def test_no_args_prints_help(self) -> None:
+        proc = subprocess.run(
+            [sys.executable, str(self.script)], text=True, capture_output=True, check=False
+        )
+        self.assertEqual(proc.returncode, EXIT_OK)
+        self.assertIn("Primary protocol commands:", proc.stdout)
+        self.assertNotIn("operation is required unless --test is supplied", proc.stderr)
+
+    def test_required_option_help_explains_inputs(self) -> None:
+        proc = subprocess.run(
+            [sys.executable, str(self.script), "approve", "--help"],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(proc.returncode, EXIT_OK)
+        self.assertIn("unique kebab-case identifier", proc.stdout)
+        self.assertIn("approved step objective", proc.stdout)
 
     def approve_first(self) -> None:
         self.run_cli(
@@ -778,6 +809,9 @@ def main() -> int:
     parser = build_parser()
     try:
         args = parser.parse_args()
+        if args.operation is None and not args.test:
+            parser.print_help()
+            return EXIT_OK
         if yaml is None:
             log.error("PyYAML is required; install it with `pip install PyYAML`")
             return EXIT_SCHEMA
