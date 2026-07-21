@@ -18,3 +18,5 @@ Non-Goals: Do not define skill-owned verbs, domain glossary terms, inputs, outpu
 - `simplify`: Reduce complexity while preserving required meaning, behavior, and useful structure.
 - `lean`: Reduce overhead, waste, duplication, ceremony, or maintenance burden.
 - `propose`: Write a response back to the user via chat only. Do not execute or change anything.
+- `discuss`: Engage in a back-and-forth conversation with the user to clarify, explore, or refine ideas. Do not execute or change anything.
+

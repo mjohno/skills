@@ -8,34 +8,34 @@ approved
 
 Any additional text is a revision request, not approval.
 
-## Critical Append-Then-Execute Order
+## Critical Approve-Then-Execute Order
 
-Append must happen **before** any execution begins. If a browser/tool is unavailable at the start of a step, pause and append first — do not begin work until the step exists in YAML. The append call is the transition from "proposed" to "current"; nothing counts as "work on the current step" until after that transition.
+Approval promotion must happen **before** any execution begins. If a browser/tool is unavailable at the start of a step, pause and approve first — do not begin work until the step exists in YAML. The `approve` call is the transition from "proposed" to "current"; nothing counts as "work on the current step" until after that transition.
 
 **Required sequence per cycle:**
-1. **Append via CLI** (`step_cli.py append step`) — step moves into `steps` array
-2. Execute the work described by the newly appended step
+1. **Approve via CLI** (`step_cli.py approve`) — step moves into `steps` array
+2. Execute the work described by the newly approved step
 3. Record results: update `do`, `validate`, `retro`
 4. Run lint
 5. Show continuation YAML from the CLI
 6. Propose next step in chat (separate YAML block)
 7. Stop and wait for exact `approved`
 
-No work may begin before append completes. No continuation may be proposed before steps 3–6 complete.
+No work may begin before approval promotion completes. No continuation may be proposed before steps 3–6 complete.
 
-Invalid order: `approved -> execute/edit/browse -> validate -> retro -> append step`.
-Valid order: `approved -> append step -> execute/edit/browse -> validate -> retro`.
+Invalid order: `approved -> execute/edit/browse -> validate -> retro -> approve`.
+Valid order: `approved -> approve -> execute/edit/browse -> record -> gate`.
 
 ## Canonical Loop
 
-1. **Resume or init context** — Read `show continuation`, or create the file with `goal`, ordered/numbered `lessons`, and `steps: []`.
+1. **Resume or init context** — Run `context`, or create the file with `start`.
 2. **Propose next step in chat** — When there is no approved executable step pending, present a chat-only `proposed_next_step` with `slug`, `intent`, and ordered/numbered `criteria`.
-3. **Wait for exact approval** — Do not append or execute unless the user's whole message is exactly `approved`.
-4. **Append approved step** — Use the normal `append step` command. If append fails, do not execute; report the error, revise the chat-only proposal, and require approval again.
-5. **Execute one current step** — The appended step is now the current step. Execute exactly that one step.
-6. **Record work** — Update current `do`, `validate`, `retro`, ordered/numbered lessons when useful, slug-only `next_steps`, and `recommendation` or `null`.
+3. **Wait for exact approval** — Do not approve/promote or execute unless the user's whole message is exactly `approved`.
+4. **Approve approved step** — Use the normal `approve` command. It preserves the exact approved slug, merges any durable `--lessons`, and requires the current step, when present, to be complete. If approve fails, do not execute; report the error, revise the chat-only proposal, and require approval again.
+5. **Execute one current step** — The approved step is now the current step. Execute exactly that one step.
+6. **Record work** — Use `record` to update current `do`, `validate`, `retro`, slug-only `next_steps`, and scalar `recommendation` or `null`. Keep newly observed lessons in `retro.actions` until they are promoted by a later `approve --lessons`.
 7. **Lint persisted state** — Run complete lint for the current step. Use deterministic fixes only when safe.
-8. **Show approval gate** — Output CLI `show continuation` YAML for persisted state, followed by a separate YAML block for chat-only `proposed_next_step` when a next step exists.
+8. **Show approval gate** — Output CLI `gate` YAML for persisted state, followed by a separate YAML block for chat-only `proposed_next_step` when a next step exists.
 9. **Wait again** — The user may type exact `approved`, revise the proposal, revise lessons/criteria, request more work on the current step, stop, or sign off final state when no next step exists.
 
 ## Approval Gate Output
@@ -43,7 +43,7 @@ Valid order: `approved -> append step -> execute/edit/browse -> validate -> retr
 Default persisted view:
 
 ```bash
-python scripts/step_cli.py --file STEP-<slug>.yaml show continuation
+python scripts/step_cli.py --file STEP-<slug>.yaml gate
 ```
 
 Then show the chat-only proposal separately when there is a next step:
@@ -60,7 +60,7 @@ The proposed next step is never persisted before approval. If chat context no lo
 
 ## CLI Gate Check
 
-Before showing any approval gate, verify you called `show continuation` immediately before this step. If there's a gap between when state changed and when you showed it, re-run `show continuation`. Never show stale YAML.
+Before showing any approval gate, verify you called `gate` immediately before this step. If there's a gap between when state changed and when you showed it, re-run `gate`. Never show stale YAML.
 
 ## Human Review Gate
 
@@ -73,7 +73,7 @@ At the gate, the user may:
 - request more validation or recovery inside the current step;
 - stop.
 
-When there is no proposed next step, exact `approved` signs off the completed current step only. No append or execution happens, and approval is not persisted.
+When there is no proposed next step, exact `approved` signs off the completed current step only. No approval promotion or execution happens, and approval is not persisted.
 
 ## Lesson Capture
 

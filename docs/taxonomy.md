@@ -7,6 +7,7 @@ This repository uses a role-based skill taxonomy. Each category defines the skil
 - **Nouns are interfaces** — artifact schemas, storage contracts, protocols, and canonical shapes.
 - **Vocabulary is context** — human-loaded term definitions that shape interpretation without model invocation.
 - **Verbs are invocable skills** — skills that retrieve, transform, produce, persist, or orchestrate work.
+- **Protocols are governed interaction contracts** — stateful or approval-sensitive flows that agents follow through an authoritative interface.
 - **Personas are lenses** — perspectives that modify how another skill evaluates or presents information.
 
 ## Metadata Model
@@ -17,6 +18,7 @@ Every package declares both type and category:
   - `interface` — passive contract provider selected and loaded for context
   - `vocabulary` — human-loadable context definitions with model invocation disabled
   - `skill` — invocable behavior that retrieves, transforms, writes, or orchestrates
+  - `protocol` — governed interaction contract, usually map-category, that defines safe transitions between agent, user, tools, and state
   - `persona` — composable lens that changes evaluation or presentation
 - `metadata.category` describes taxonomy placement and primary role.
 
@@ -24,6 +26,7 @@ Valid pairs:
 - `type: interface`, `category: interface`
 - `type: vocabulary`, `category: interface`
 - `type: skill`, `category: input|transform|output|map`
+- `type: protocol`, `category: map`, with top-level `disable_model_invocation: true`
 - `type: persona`, `category: persona`
 
 ## Categories
@@ -75,10 +78,21 @@ Verb-shaped production skills that create, revise, persist, store, or deliver re
 - **Do NOT use if** the skill only defines an artifact schema or canonical form — use an interface skill for nouns
 
 ### map
-Workflow composition skills that orchestrate multiple steps.
+Workflow composition skills and protocols that orchestrate multiple steps.
 - Combines other skills and/or direct file operations
 - Owns end-to-end execution of a process
-- **Do NOT use if** the skill performs a single focused task — it only orchestrates others
+- Hosts `metadata.type: protocol` packages when the primary role is governing agent/user/tool/state transitions
+- **Do NOT use if** the package performs a single focused task — it only orchestrates others
+
+### protocol
+Map-category packages that define governed interaction contracts rather than ordinary invocable behavior.
+- Declares `metadata.type: protocol`, `metadata.category: map`, and top-level `disable_model_invocation: true`
+- Defines safe transitions between agent, user, tools, and persistent or derived state
+- May be mediated by a CLI, API, or compact instruction surface; CLIs are optional, not required by the type
+- Uses its authoritative interface to expose workflow stages and legal operations when one exists
+- Is not directly invocable by the model; it is loaded by a human/orchestrator as protocol context
+- Examples: `map/step`
+- **Do NOT use if** the package only performs a normal one-shot task — use `type: skill` instead
 
 ### persona
 Skills that encode a consistent perspective, tradeoff-awareness, or output style across any pipeline stage.
@@ -113,4 +127,4 @@ Personas modify how information is evaluated at any pipeline stage:
 - `vocabulary` packages are not model-invocable; they are compact context definitions loaded by a human.
 - Loading package-local interface references/assets is part of exposing contract data, not external retrieval.
 - `transform` intentionally covers both evaluation and derivation; split it only if future usage shows a concrete need.
-- Refer to [interface_template.md](interface_template.md), [vocab_template.md](vocab_template.md), [skill_template.md](skill_template.md), and [persona_template.md](persona_template.md) for frontmatter format.
+- Refer to [interface_template.md](interface_template.md), [vocab_template.md](vocab_template.md), [skill_template.md](skill_template.md), [protocol_template.md](protocol_template.md), and [persona_template.md](persona_template.md) for frontmatter format.
