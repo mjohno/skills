@@ -20,7 +20,7 @@ python scripts/step_cli.py --file STEP-<slug>.yaml context
    ```bash
    python scripts/step_cli.py --file STEP-<slug>.yaml gate
    ```
-5. When the `gate` command succeeds, output its YAML directly, then separately propose the selected next step in chat only using [`asset/proposed_next_template.md`](asset/proposed_next_template.md). If no next step remains, record `--next-steps '[]' --recommendation null`, gate, and offer final sign-off.
+5. When the `gate` command succeeds, output its complete YAML directly without summarizing or omitting `current_step` fields, then separately propose the selected next step in chat only using [`asset/proposed_next_template.md`](asset/proposed_next_template.md). If no next step remains, record `--next-steps '[]' --recommendation null`, gate, and offer final sign-off. A later revision at that terminal gate may add a next choice through `record` and a fresh gate.
 
 **Outputs:** recorded current-step outcome, fresh successful gate YAML, and either one chat-only proposal or a terminal state.
 

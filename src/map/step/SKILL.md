@@ -30,10 +30,11 @@ flowchart TD
     record --> nextGate[Run approval gate]
     nextGate -->|approved + proposal| approve
     nextGate -->|revise| revise
+    nextGate -->|terminal + revised next choice| revise
     nextGate -->|terminal + approved or break| stop[Stop workflow]
 ```
 
-Only the whole user message `approved` promotes the currently displayed chat proposal. After it, `approve` is the first state-changing action and must succeed before execution. `break` is terminal only: accept it only after `gate` succeeds and the current step has `next_steps: []` and `recommendation: null`; it changes no state. Any other response is a revision request.
+Only the whole user message `approved` promotes the currently displayed chat proposal. After it, `approve` is the first state-changing action and must succeed before execution. `break` is terminal only: accept it only after `gate` succeeds and the current step has `next_steps: []` and `recommendation: null`; it changes no state. Any other response is a revision request, including a request at a terminal gate to add a next choice; record that revised next choice and gate it again before approval.
 
 ## 2. Mandatory Phase References
 

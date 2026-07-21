@@ -484,13 +484,17 @@ def command_lint(args: argparse.Namespace) -> int:
     return EXIT_OK if not errors else EXIT_LINT
 
 
-def command_context(args: argparse.Namespace) -> int:
-    data = read_step_file(resolve_file(args))
-    emit({
+def context_payload(data: dict[str, Any]) -> dict[str, Any]:
+    """Return the complete resumable context used by context and gate."""
+    return {
         "goal": data.get("goal"),
         "lessons": data.get("lessons", []),
         "current_step": current_step_or_none(data),
-    })
+    }
+
+
+def command_context(args: argparse.Namespace) -> int:
+    emit(context_payload(read_step_file(resolve_file(args))))
     return EXIT_OK
 
 
@@ -593,18 +597,14 @@ def command_record(args: argparse.Namespace) -> int:
 
 
 def command_gate(args: argparse.Namespace) -> int:
-    path = resolve_file(args)
-    data = read_step_file(path)
+    data = read_step_file(resolve_file(args))
     errors = lint_document(data)
     if errors:
         emit({"ok": False, "errors": errors})
         return EXIT_LINT
-    emit({
-        "ok": True,
-        "goal": data.get("goal"),
-        "lessons": data.get("lessons", []),
-        "current_step": current_step_or_none(data),
-    })
+    # A gate is a validated context view. Reuse the context payload so its current
+    # step always includes criteria, execution evidence, validation, and next choices.
+    emit({"ok": True, **context_payload(data)})
     return EXIT_OK
 
 
@@ -757,6 +757,9 @@ class StepCliSelfTest(unittest.TestCase):
         gated = yaml.safe_load(self.run_cli("gate").stdout)
         linted = yaml.safe_load(self.run_cli("lint").stdout)
         self.assertTrue(gated["ok"])
+        self.assertEqual(gated["current_step"]["do"]["summary"], "Did")
+        self.assertEqual(gated["current_step"]["validate"]["result"], "success")
+        self.assertEqual(gated["current_step"]["next_steps"], ["second-step"])
         self.assertTrue(linted["ok"])
 
     def test_approve_merges_lessons(self) -> None:
@@ -790,6 +793,22 @@ class StepCliSelfTest(unittest.TestCase):
             "--criteria", "Repeat criterion", expect=EXIT_SCHEMA,
         )
         self.assertIn("approved slug already exists", proc.stderr)
+
+    def test_terminal_gate_can_add_a_revised_next_choice(self) -> None:
+        self.run_cli("start", "--goal", "Goal")
+        self.approve_first()
+        self.record_complete()
+        terminal = yaml.safe_load(self.run_cli("gate").stdout)
+        self.assertEqual(terminal["current_step"]["next_steps"], [])
+        self.run_cli(
+            "record", "--next-steps", "[second-step]", "--recommendation", "second-step",
+        )
+        revised = yaml.safe_load(self.run_cli("gate").stdout)
+        self.assertEqual(revised["current_step"]["next_steps"], ["second-step"])
+        self.run_cli(
+            "approve", "--slug", "second-step", "--intent", "Do second",
+            "--criteria", "Second criterion",
+        )
 
     def test_dry_run_does_not_write(self) -> None:
         self.run_cli("start", "--goal", "Goal")
