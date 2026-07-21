@@ -1,0 +1,27 @@
+# Execute a STEP
+
+**Input:** a step that `approve` has already promoted into current STEP state.
+
+1. Read `context`, understand its goal, lessons, intent, and criteria, then do only that current step's work.
+```bash
+python scripts/step_cli.py --file STEP-<slug>.yaml context
+```
+2. Record work evidence, validate the result against the intent and criteria, retrospect, and record next-step choices. These may be separate `record` calls or one batch call:
+   ```bash
+   python scripts/step_cli.py --file STEP-<slug>.yaml record \
+     --do '{summary: "<work done>", evidence: ["<evidence>"]}' \
+     --validate '{result: "success|partial|failure", evidence: ["<proof>"]}' \
+     --retro '{wins: [], issues: [], actions: []}' \
+     --next-steps '[<next-slug>]' \
+     --recommendation <next-slug-or-null>
+   ```
+3. For simple failure, retry within this step and record the attempt. For unclear or blocked failure, record the blocker in `retro`, set `validate.result: failure` or `partial`, and propose one recovery or investigation slug in `next_steps`. Do not create retry, task, status, or sidecar state.
+4. Run the approval gate. If it returns errors, correct and re-record the current step; do not propose or promote another step.
+   ```bash
+   python scripts/step_cli.py --file STEP-<slug>.yaml gate
+   ```
+5. When the `gate` command succeeds, output its YAML directly, then separately propose the selected next step in chat only using [`asset/proposed_next_template.md`](asset/proposed_next_template.md). If no next step remains, record `--next-steps '[]' --recommendation null`, gate, and offer final sign-off.
+
+**Outputs:** recorded current-step outcome, fresh successful gate YAML, and either one chat-only proposal or a terminal state.
+
+**Next mandatory phase:** Proceed to [`references/gate.md`](references/gate.md) before presenting or handling the gate.

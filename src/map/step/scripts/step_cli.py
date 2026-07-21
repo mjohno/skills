@@ -766,12 +766,17 @@ def command_record(args: argparse.Namespace) -> int:
     data = read_step_file(path)
     step = current_step(data)
     changed = False
-    supplied = [args.do, args.validate, args.retro, args.next_steps, args.recommendation]
+    supplied = [args.criteria, args.do, args.validate, args.retro, args.next_steps, args.recommendation]
     if not any(value is not None for value in supplied):
         raise StepCliError(
-            "record requires at least one of --do, --validate, --retro, --next-steps, or --recommendation",
+            "record requires at least one of --criteria, --do, --validate, --retro, --next-steps, or --recommendation",
             EXIT_USAGE,
         )
+    if args.criteria is not None:
+        value = collect_criteria(args)
+        old = step.get("criteria")
+        step["criteria"] = value
+        changed = changed or old != value
     if args.do is not None:
         value = ensure_mapping(parse_yaml_value(args.do), "do")
         old = step.get("do")
@@ -863,6 +868,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_approve.set_defaults(func=command_approve, resource="step")
 
     p_record = sub.add_parser("record", help="protocol: record current-step results and next choices")
+    p_record.add_argument("--criteria", action="append", help="criteria string, YAML list, or '-' for stdin; may repeat")
     p_record.add_argument("--do", dest="do", help="YAML object or '-' for stdin")
     p_record.add_argument("--validate", dest="validate", help="YAML object or '-' for stdin")
     p_record.add_argument("--retro", help="YAML object or '-' for stdin")
