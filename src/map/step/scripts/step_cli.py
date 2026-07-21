@@ -9,7 +9,6 @@ Primary protocol commands:
   gate     lint and show the next approval-gate context
   lint     validate state shape
 
-Legacy low-level commands remain escape hatches; prefer protocol commands.
 
 Exit codes:
   0 success
@@ -65,7 +64,7 @@ PROTOCOL_HELP = """step protocol workflow:
                                        merge lessons and persist the approved proposal before execution
   5. record --do ... --validate ... --retro ... --next-steps ... --recommendation ...
                                        record execution evidence and next choices
-  6. gate                              lint current state and show approval-gate context
+  6. gate                              lint the complete state and show approval-gate context
 
 Invariants:
   - never execute a proposed step before approve succeeds
@@ -87,10 +86,6 @@ class StepArgumentParser(argparse.ArgumentParser):
     def error(self, message: str) -> None:
         self.print_usage(sys.stderr)
         raise StepCliError(message, EXIT_USAGE)
-
-
-def warn(message: str) -> None:
-    log.warning(message)
 
 
 def emit(obj: Any) -> None:
@@ -261,10 +256,10 @@ def result(args: argparse.Namespace, changed: bool, **extra: Any) -> dict[str, A
     return payload
 
 
-def command_init(args: argparse.Namespace) -> int:
+def command_start(args: argparse.Namespace) -> int:
     path = resolve_file(args, for_init=True)
-    if path.exists() and not args.force:
-        if args.operation == "start":
+    if path.exists():
+        if not args.force:
             emit({
                 "ok": True,
                 "file": str(path),
@@ -274,202 +269,30 @@ def command_init(args: argparse.Namespace) -> int:
                 "dry_run": args.dry_run,
             })
             return EXIT_OK
-        raise StepCliError(f"step file already exists: {path}; use --force to overwrite", EXIT_FILE)
-    lessons, _ = dedupe_normalized(args.lesson or [])
-    data = {
-        "goal": args.goal,
-        "lessons": lessons,
-        "steps": [],
-    }
-    write_step_file(path, data, create_parent=True, dry_run=args.dry_run)
+        data = read_step_file(path)
+        changed = data.get("goal") != args.goal
+        data["goal"] = args.goal
+        if changed:
+            write_step_file(path, data, dry_run=args.dry_run)
+    else:
+        lessons, _ = dedupe_normalized(args.lesson or [])
+        data = {"goal": args.goal, "lessons": lessons, "steps": []}
+        changed = True
+        write_step_file(path, data, create_parent=True, dry_run=args.dry_run)
     emit({
         "ok": True,
         "file": str(path),
-        "operation": args.operation,
+        "operation": "start",
         "resource": "step",
-        "changed": True,
+        "changed": changed,
         "dry_run": args.dry_run,
     })
-    return EXIT_OK
-
-
-def command_show(args: argparse.Namespace) -> int:
-    data = read_step_file(resolve_file(args))
-    resource = args.resource
-    if resource == "all":
-        emit(normalize_document(data))
-    elif resource == "continuation":
-        emit({
-            "goal": data.get("goal"),
-            "lessons": data.get("lessons", []),
-            "current_step": current_step_or_none(data),
-        })
-    elif resource == "goal":
-        emit({"goal": data.get("goal")})
-    elif resource == "lessons":
-        emit({"lessons": data.get("lessons", [])})
-    elif resource == "current":
-        emit({"current_step": current_step(data)})
-    else:
-        raise StepCliError(f"unsupported show resource: {resource}", EXIT_USAGE)
-    return EXIT_OK
-
-
-def command_update(args: argparse.Namespace) -> int:
-    path = resolve_file(args)
-    data = read_step_file(path)
-    changed = False
-    if args.resource == "goal":
-        old = data.get("goal")
-        data["goal"] = args.value
-        changed = old != args.value
-    elif args.resource == "lessons":
-        value = parse_yaml_value(args.value)
-        lessons = ensure_list(value, "lessons")
-        normalized, _ = dedupe_normalized(lessons)
-        old = data.get("lessons")
-        data["lessons"] = normalized
-        changed = old != normalized
-    elif args.resource == "current":
-        step = current_step(data)
-        supplied = [
-            ("criteria", args.criteria),
-            ("do", args.do),
-            ("validate", args.validate),
-            ("next_steps", args.next_steps),
-            ("recommendation", args.recommendation),
-        ]
-        fields = [(name, value) for name, value in supplied if value is not None]
-        if len(fields) != 1:
-            raise StepCliError(
-                "update current requires exactly one of --criteria, --do, --validate, "
-                "--next-steps, or --recommendation",
-                EXIT_USAGE,
-            )
-        field, raw = fields[0]
-        if field == "criteria":
-            value = collect_criteria(args)
-        else:
-            value = parse_yaml_value(raw)
-        if field in {"do", "validate"}:
-            value = ensure_mapping(value, field)
-        if field == "recommendation":
-            value = coerce_recommendation(value)
-        if field == "next_steps":
-            value = coerce_slug_list(value, "next_steps")
-            value, _ = dedupe_slugs(value)
-            rec = step.get("recommendation")
-            if isinstance(rec, str) and rec not in value:
-                raise StepCliError("recommendation is not listed in updated next_steps")
-        if field == "recommendation" and isinstance(value, str):
-            next_steps = step.get("next_steps", [])
-            if isinstance(next_steps, list) and value not in next_steps:
-                raise StepCliError("recommendation is not listed in current_step.next_steps")
-        old = step.get(field)
-        step[field] = value
-        changed = old != value
-    else:
-        raise StepCliError(f"unsupported update resource: {args.resource}", EXIT_USAGE)
-    if changed:
-        write_step_file(path, data, dry_run=args.dry_run)
-    emit(result(args, changed))
-    return EXIT_OK
-
-
-def command_append(args: argparse.Namespace) -> int:
-    path = resolve_file(args)
-    data = read_step_file(path)
-    changed = False
-    if args.resource == "lessons":
-        lessons = data.setdefault("lessons", [])
-        if not isinstance(lessons, list):
-            raise StepCliError("lessons must be a list")
-        before = list(lessons)
-        lessons.append(args.value)
-        data["lessons"], _ = dedupe_normalized(lessons)
-        changed = before != data["lessons"]
-    elif args.resource == "step":
-        validate_slug(args.slug, "slug")
-        criteria = collect_criteria(args)
-        steps = data.setdefault("steps", [])
-        if not isinstance(steps, list):
-            raise StepCliError("steps must be a list")
-        existing = [s.get("slug") for s in steps if isinstance(s, dict)]
-        final_slug = unique_step_slug(args.slug, existing)
-        if final_slug != args.slug:
-            warn(f"step slug already exists: using {final_slug}")
-        if steps:
-            prev = current_step(data)
-            next_steps = prev.get("next_steps", [])
-            if isinstance(next_steps, list) and final_slug not in next_steps:
-                warn("new step slug is not listed in previous next_steps")
-        steps.append({"slug": final_slug, "intent": args.intent, "criteria": criteria})
-        changed = True
-    elif args.resource == "current":
-        step = current_step(data)
-        fields = [("retro", args.retro), ("next_steps", args.next_steps)]
-        fields = [(name, value) for name, value in fields if value is not None]
-        if len(fields) != 1:
-            raise StepCliError(
-                "append current requires exactly one of --retro or --next-steps",
-                EXIT_USAGE,
-            )
-        field, raw = fields[0]
-        value = parse_yaml_value(raw)
-        if field == "retro":
-            value = ensure_mapping(value, "retro")
-            changed = merge_retro(step, value)
-        else:
-            values = coerce_slug_list(value, "next_steps")
-            current = step.setdefault("next_steps", [])
-            if not isinstance(current, list):
-                raise StepCliError("current.next_steps must be a list")
-            before = list(current)
-            merged, _ = dedupe_slugs(current + values)
-            step["next_steps"] = merged
-            changed = before != merged
-    else:
-        raise StepCliError(f"unsupported append resource: {args.resource}", EXIT_USAGE)
-    if changed:
-        write_step_file(path, data, dry_run=args.dry_run)
-    extra = {}
-    if args.resource == "step":
-        extra = {"slug": final_slug, "requested_slug": args.slug}
-    emit(result(args, changed, **extra))
-    return EXIT_OK
-
-
-def command_patch(args: argparse.Namespace) -> int:
-    path = resolve_file(args)
-    data = read_step_file(path)
-    value = parse_yaml_value(args.value)
-    if args.resource == "lessons":
-        lessons = ensure_list(value, "lessons")
-        data["lessons"], _ = dedupe_normalized(lessons)
-    elif args.resource == "current":
-        patch = ensure_mapping(value, "current patch")
-        step = current_step(data)
-        step.update(patch)
-    else:
-        raise StepCliError(f"unsupported patch resource: {args.resource}", EXIT_USAGE)
-    write_step_file(path, data, dry_run=args.dry_run)
-    emit(result(args, True))
     return EXIT_OK
 
 
 def validate_slug(value: Any, label: str) -> None:
     if not isinstance(value, str) or not SLUG_RE.match(value):
         raise StepCliError(f"{label} must be lowercase kebab-case matching {SLUG_RE.pattern}")
-
-
-def unique_step_slug(requested: str, existing: list[Any]) -> str:
-    seen = {slug for slug in existing if isinstance(slug, str)}
-    if requested not in seen:
-        return requested
-    index = 2
-    while f"{requested}-{index}" in seen:
-        index += 1
-    return f"{requested}-{index}"
 
 
 def coerce_string_list(value: Any, name: str) -> list[str]:
@@ -552,7 +375,7 @@ def merge_retro(step: dict[str, Any], value: dict[str, Any]) -> bool:
     return changed
 
 
-def lint_basic(data: dict[str, Any], errors: list[str], warnings: list[str]) -> None:
+def lint_basic(data: dict[str, Any], errors: list[str]) -> None:
     if not isinstance(data.get("goal"), str) or not data.get("goal"):
         errors.append("goal must be a non-empty string")
     lessons = data.get("lessons", [])
@@ -586,7 +409,7 @@ def lint_basic(data: dict[str, Any], errors: list[str], warnings: list[str]) -> 
             errors.append("current_step.intent is required")
 
 
-def lint_step(step: Any, label: str, errors: list[str], warnings: list[str]) -> None:
+def lint_step(step: Any, label: str, errors: list[str]) -> None:
     if not isinstance(step, dict):
         errors.append(f"{label} must be a mapping/object")
         return
@@ -641,64 +464,24 @@ def lint_step(step: Any, label: str, errors: list[str], warnings: list[str]) -> 
             errors.append(f"{label}.recommendation is not listed in {label}.next_steps")
 
 
-def apply_lint_fixes(data: dict[str, Any], level: str, all_steps: bool) -> bool:
-    before = yaml.safe_dump(normalize_document(dict_deepcopy(data)), sort_keys=False)
-    data.setdefault("lessons", [])
-    if isinstance(data.get("lessons"), list):
-        data["lessons"], _ = dedupe_normalized(data["lessons"])
+def lint_document(data: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    lint_basic(data, errors)
     steps = data.get("steps")
-    if isinstance(steps, list):
-        targets = steps if all_steps else steps[-1:] if steps else []
-        for step in targets:
-            if not isinstance(step, dict):
-                continue
-            if isinstance(step.get("next_steps"), list):
-                step["next_steps"], _ = dedupe_slugs(step["next_steps"])
-            retro = step.get("retro")
-            if isinstance(retro, dict):
-                for key in ("wins", "issues", "actions"):
-                    retro.setdefault(key, [])
-                    if isinstance(retro.get(key), list):
-                        retro[key], _ = dedupe_normalized(retro[key])
-    normalize_document(data)
-    after = yaml.safe_dump(data, sort_keys=False)
-    return before != after
-
-
-def dict_deepcopy(value: Any) -> Any:
-    return yaml.safe_load(yaml.safe_dump(value, sort_keys=False))
+    if not isinstance(steps, list):
+        return errors
+    if not steps:
+        errors.append("current_step is required")
+        return errors
+    for idx, step in enumerate(steps):
+        lint_step(step, f"steps[{idx}]", errors)
+    return errors
 
 
 def command_lint(args: argparse.Namespace) -> int:
-    path = resolve_file(args)
-    data = read_step_file(path)
-    if args.fix:
-        changed = apply_lint_fixes(data, args.level, args.all)
-        if changed:
-            write_step_file(path, data, dry_run=args.dry_run)
-            if not args.dry_run:
-                data = read_step_file(path)
-    errors: list[str] = []
-    warnings: list[str] = []
-    lint_basic(data, errors, warnings)
-    if args.level == "complete":
-        steps = data.get("steps")
-        if isinstance(steps, list):
-            if not steps:
-                errors.append("current_step is required for complete lint")
-            else:
-                targets = list(enumerate(steps)) if args.all else [(len(steps) - 1, steps[-1])]
-                for idx, step in targets:
-                    lint_step(step, f"steps[{idx}]" if args.all else "current_step", errors, warnings)
-    ok = not errors
-    emit({
-        "ok": ok,
-        "level": args.level,
-        "errors": errors,
-        "warnings": warnings,
-        "dry_run": args.dry_run,
-    })
-    return EXIT_OK if ok else EXIT_LINT
+    errors = lint_document(read_step_file(resolve_file(args)))
+    emit({"ok": not errors, "errors": errors, "dry_run": args.dry_run})
+    return EXIT_OK if not errors else EXIT_LINT
 
 
 def command_context(args: argparse.Namespace) -> int:
@@ -729,7 +512,7 @@ def command_approve(args: argparse.Namespace) -> int:
         prev = current_step(data)
         errors: list[str] = []
         warnings: list[str] = []
-        lint_step(prev, "current_step", errors, warnings)
+        lint_step(prev, "current_step", errors)
         if errors:
             raise StepCliError(
                 "cannot approve a new step until the current step is complete: "
@@ -812,15 +595,9 @@ def command_record(args: argparse.Namespace) -> int:
 def command_gate(args: argparse.Namespace) -> int:
     path = resolve_file(args)
     data = read_step_file(path)
-    errors: list[str] = []
-    warnings: list[str] = []
-    lint_basic(data, errors, warnings)
-    steps = data.get("steps")
-    if isinstance(steps, list):
-        for idx, step in enumerate(steps):
-            lint_step(step, f"steps[{idx}]", errors, warnings)
+    errors = lint_document(data)
     if errors:
-        emit({"ok": False, "errors": errors, "warnings": warnings})
+        emit({"ok": False, "errors": errors})
         return EXIT_LINT
     emit({
         "ok": True,
@@ -854,8 +631,12 @@ def build_parser() -> argparse.ArgumentParser:
     p_start = sub.add_parser("start", help="protocol: create a new STEP file")
     p_start.add_argument("--goal", required=True)
     p_start.add_argument("--lesson", action="append", help="initial lesson; may be repeated")
-    p_start.add_argument("--force", action="store_true", help="overwrite an existing step file")
-    p_start.set_defaults(func=command_init, resource="step")
+    p_start.add_argument(
+        "--force",
+        action="store_true",
+        help="replace the goal of an existing workflow while preserving lessons and steps",
+    )
+    p_start.set_defaults(func=command_start, resource="step")
 
     p_context = sub.add_parser("context", help="protocol: show resumable context")
     p_context.set_defaults(func=command_context, resource="continuation")
@@ -879,52 +660,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_gate = sub.add_parser("gate", help="protocol: lint and show approval-gate context")
     p_gate.set_defaults(func=command_gate, resource="continuation")
 
-    p_init = sub.add_parser("init", help="legacy: create a new step file")
-    p_init.add_argument("--goal", required=True)
-    p_init.add_argument("--lesson", action="append", help="initial lesson; may be repeated")
-    p_init.add_argument("--force", action="store_true", help="overwrite an existing step file")
-    p_init.set_defaults(func=command_init, resource="step")
-
-    p_show = sub.add_parser("show", help="legacy: show YAML views")
-    p_show.add_argument("resource", choices=["all", "continuation", "goal", "lessons", "current"])
-    p_show.set_defaults(func=command_show)
-
-    p_update = sub.add_parser("update", help="update goal, lessons, or explicit current-step fields")
-    p_update.add_argument("resource", choices=["goal", "lessons", "current"])
-    p_update.add_argument("value", nargs="?", help="goal value or YAML lessons list")
-    p_update.add_argument("--criteria", action="append", help="criteria string, YAML list, or '-' for stdin; may repeat")
-    p_update.add_argument("--do", dest="do", help="YAML object or '-' for stdin")
-    p_update.add_argument("--validate", dest="validate", help="YAML object or '-' for stdin")
-    p_update.add_argument("--next-steps", dest="next_steps", help="YAML slug/list or '-' for stdin")
-    p_update.add_argument("--recommendation", help="YAML null or slug string")
-    p_update.set_defaults(func=command_update)
-
-    p_append = sub.add_parser("append", help="append lessons, step, or current-step fields")
-    p_append.add_argument("resource", choices=["lessons", "step", "current"])
-    p_append.add_argument("value", nargs="?", help="lesson value for 'append lessons'")
-    p_append.add_argument("--slug")
-    p_append.add_argument("--intent")
-    p_append.add_argument("--criteria", action="append", help="criteria string, YAML list, or '-' for stdin; may repeat")
-    p_append.add_argument("--retro", help="YAML object or '-' for stdin")
-    p_append.add_argument("--next-steps", dest="next_steps", help="YAML slug/list or '-' for stdin")
-    p_append.set_defaults(func=command_append)
-
-    p_patch = sub.add_parser(
-        "patch",
-        help="ESCAPE HATCH: patch lessons or current; prefer explicit commands",
-    )
-    p_patch.add_argument("resource", choices=["lessons", "current"])
-    p_patch.add_argument("value", help="YAML value or '-' for stdin")
-    p_patch.set_defaults(func=command_patch)
-
-    p_lint = sub.add_parser("lint", help="lint step file shape")
-    p_lint.add_argument("level", choices=["basic", "complete"])
-    p_lint.add_argument(
-        "--all",
-        action="store_true",
-        help="for complete: check every step, not only current",
-    )
-    p_lint.add_argument("--fix", action="store_true", help="apply safe deterministic fixes only")
+    p_lint = sub.add_parser("lint", help="validate the complete workflow state")
     p_lint.set_defaults(func=command_lint, resource="step")
     return parser
 
@@ -934,26 +670,6 @@ def validate_args(args: argparse.Namespace) -> None:
         return
     if args.operation is None:
         raise StepCliError("operation is required unless --test is supplied", EXIT_USAGE)
-    if args.operation == "update" and args.resource in {"goal", "lessons"}:
-        if args.value is None:
-            raise StepCliError(f"update {args.resource} requires a value", EXIT_USAGE)
-        if any(
-            getattr(args, name) is not None
-            for name in ("do", "validate", "next_steps", "recommendation")
-        ):
-            raise StepCliError(f"update {args.resource} does not accept current-step field options", EXIT_USAGE)
-    if args.operation == "update" and args.resource == "current" and args.value is not None:
-        raise StepCliError(f"update {args.resource} does not accept a positional value", EXIT_USAGE)
-    if args.operation == "append" and args.resource == "lessons" and args.value is None:
-        raise StepCliError("append lessons requires a value", EXIT_USAGE)
-    if args.operation == "append" and args.resource in {"step", "current"} and args.value is not None:
-        raise StepCliError(f"append {args.resource} does not accept a positional value", EXIT_USAGE)
-    if (
-        args.operation == "append"
-        and args.resource == "step"
-        and (not args.slug or not args.intent or not args.criteria)
-    ):
-        raise StepCliError("append step requires --slug, --intent, and --criteria", EXIT_USAGE)
 
 
 class StepCliSelfTest(unittest.TestCase):
@@ -969,253 +685,86 @@ class StepCliSelfTest(unittest.TestCase):
         self.assertEqual(proc.returncode, expect, msg=proc.stderr + proc.stdout)
         return proc
 
-    def init_empty(self) -> None:
-        self.run_cli("init", "--goal", "Goal")
-
-    def append_first(self) -> None:
+    def approve_first(self) -> None:
         self.run_cli(
-            "append",
-            "step",
-            "--slug",
-            "first-step",
-            "--intent",
-            "Do first",
-            "--criteria",
-            "First criterion",
+            "approve", "--slug", "first-step", "--intent", "Do first",
+            "--criteria", "First criterion",
         )
 
-    def test_init_show_and_lint_basic(self) -> None:
-        self.init_empty()
-        shown = yaml.safe_load(self.run_cli("show", "continuation").stdout)
-        self.assertEqual(shown["goal"], "Goal")
-        self.assertIsNone(shown["current_step"])
-        linted = yaml.safe_load(self.run_cli("lint", "basic").stdout)
-        self.assertTrue(linted["ok"])
-        complete = yaml.safe_load(self.run_cli("lint", "complete", expect=EXIT_LINT).stdout)
-        self.assertIn("current_step is required for complete lint", complete["errors"])
-
-    def test_update_append_and_complete_lint(self) -> None:
-        self.init_empty()
-        self.append_first()
-        self.run_cli("update", "lessons", '["Keep lessons concise", "Keep lessons concise!"]')
-        shown_lessons = yaml.safe_load(self.run_cli("show", "lessons").stdout)
-        self.assertEqual(shown_lessons["lessons"], ["Keep lessons concise"])
-        self.run_cli("update", "current", "--criteria", '["Revised criterion"]')
-        self.run_cli("update", "current", "--do", '{summary: "Did", evidence: ["file"]}')
-        self.run_cli("update", "current", "--validate", '{result: success, evidence: ["checked"]}')
-        self.run_cli("append", "current", "--retro", '{wins: ["won"], issues: [], actions: []}')
-        self.run_cli("append", "current", "--next-steps", "second-step")
-        self.run_cli("update", "current", "--recommendation", 'second-step')
-        linted = yaml.safe_load(self.run_cli("lint", "complete").stdout)
-        self.assertTrue(linted["ok"])
-
-    def test_nullable_recommendation_lints(self) -> None:
-        self.init_empty()
-        self.append_first()
-        self.run_cli("update", "current", "--do", '{summary: "Did", evidence: ["file"]}')
-        self.run_cli("update", "current", "--validate", '{result: success, evidence: ["checked"]}')
-        self.run_cli("append", "current", "--retro", '{wins: [], issues: [], actions: []}')
-        self.run_cli("update", "current", "--next-steps", "[]")
-        self.run_cli("update", "current", "--recommendation", "null")
-        linted = yaml.safe_load(self.run_cli("lint", "complete").stdout)
-        self.assertTrue(linted["ok"])
-
-    def test_object_recommendation_fails(self) -> None:
-        self.init_empty()
-        self.append_first()
-        self.run_cli("update", "current", "--do", '{summary: "Did", evidence: ["file"]}')
-        self.run_cli("update", "current", "--validate", '{result: success, evidence: ["checked"]}')
-        self.run_cli("append", "current", "--retro", '{wins: [], issues: [], actions: []}')
-        self.run_cli("update", "current", "--next-steps", "second-step")
+    def record_complete(self, *, next_steps: str = "[]", recommendation: str = "null") -> None:
         self.run_cli(
-            "patch",
-            "current",
-            '{recommendation: {next: second-step, rationale: "legacy"}}',
+            "record",
+            "--do", '{summary: "Did", evidence: ["file"]}',
+            "--validate", '{result: success, evidence: ["checked"]}',
+            "--retro", '{wins: [], issues: [], actions: []}',
+            "--next-steps", next_steps,
+            "--recommendation", recommendation,
         )
-        linted = yaml.safe_load(self.run_cli("lint", "complete", expect=EXIT_LINT).stdout)
-        self.assertIn("current_step.recommendation must be a slug string or null", linted["errors"])
 
-    def test_protocol_happy_path(self) -> None:
+    def test_start_context_and_lint(self) -> None:
         self.run_cli("start", "--goal", "Goal")
-        restarted = yaml.safe_load(self.run_cli("start", "--goal", "Different goal").stdout)
-        self.assertTrue(restarted["ok"])
-        self.assertEqual(restarted["operation"], "start")
-        self.assertFalse(restarted["changed"])
         context = yaml.safe_load(self.run_cli("context").stdout)
         self.assertEqual(context["goal"], "Goal")
         self.assertIsNone(context["current_step"])
-        self.run_cli(
-            "approve",
-            "--slug",
-            "first-step",
-            "--intent",
-            "Do first",
-            "--criteria",
-            "First criterion",
-        )
-        self.run_cli(
-            "record",
-            "--do",
-            '{summary: "Did", evidence: ["file"]}',
-            "--validate",
-            '{result: success, evidence: ["checked"]}',
-            "--retro",
-            '{wins: [], issues: [], actions: []}',
-            "--next-steps",
-            '[second-step]',
-            "--recommendation",
-            "second-step",
-        )
+        linted = yaml.safe_load(self.run_cli("lint", expect=EXIT_LINT).stdout)
+        self.assertIn("current_step is required", linted["errors"])
+
+    def test_start_force_replaces_only_goal(self) -> None:
+        self.run_cli("start", "--goal", "Old goal", "--lesson", "Keep lessons concise")
+        self.approve_first()
+        self.record_complete(next_steps="[second-step]", recommendation="second-step")
+        self.run_cli("start", "--goal", "New goal", "--force")
+        context = yaml.safe_load(self.run_cli("context").stdout)
+        self.assertEqual(context["goal"], "New goal")
+        self.assertEqual(context["lessons"], ["Keep lessons concise"])
+        self.assertEqual(context["current_step"]["slug"], "first-step")
+
+    def test_protocol_happy_path_and_lint(self) -> None:
+        self.run_cli("start", "--goal", "Goal")
+        self.approve_first()
+        self.record_complete(next_steps="[second-step]", recommendation="second-step")
         gated = yaml.safe_load(self.run_cli("gate").stdout)
+        linted = yaml.safe_load(self.run_cli("lint").stdout)
         self.assertTrue(gated["ok"])
-        self.assertEqual(gated["current_step"]["recommendation"], "second-step")
+        self.assertTrue(linted["ok"])
 
     def test_approve_merges_lessons(self) -> None:
         self.run_cli("start", "--goal", "Goal", "--lesson", "Keep lessons concise")
-        approved = yaml.safe_load(
-            self.run_cli(
-                "approve",
-                "--slug",
-                "first-step",
-                "--intent",
-                "Do first",
-                "--criteria",
-                "First criterion",
-                "--lessons",
-                '[Keep lessons concise!, Prefer approval gates]',
-            ).stdout
+        self.run_cli(
+            "approve", "--slug", "first-step", "--intent", "Do first",
+            "--criteria", "First criterion",
+            "--lessons", '[Keep lessons concise!, Prefer approval gates]',
         )
-        self.assertEqual(approved["lessons_added"], 2)
-        shown = yaml.safe_load(self.run_cli("show", "lessons").stdout)
-        self.assertEqual(
-            shown["lessons"],
-            ["Keep lessons concise", "Prefer approval gates"],
-        )
+        context = yaml.safe_load(self.run_cli("context").stdout)
+        self.assertEqual(context["lessons"], ["Keep lessons concise", "Prefer approval gates"])
 
     def test_record_rejects_unlisted_recommendation_before_write(self) -> None:
         self.run_cli("start", "--goal", "Goal")
-        self.run_cli(
-            "approve",
-            "--slug",
-            "first-step",
-            "--intent",
-            "Do first",
-            "--criteria",
-            "First criterion",
-        )
+        self.approve_first()
         proc = self.run_cli(
-            "record",
-            "--next-steps",
-            "[second-step]",
-            "--recommendation",
-            "third-step",
+            "record", "--next-steps", "[second-step]", "--recommendation", "third-step",
             expect=EXIT_SCHEMA,
         )
         self.assertIn("recommendation is not listed", proc.stderr)
-        current = yaml.safe_load(self.run_cli("show", "current").stdout)["current_step"]
+        current = yaml.safe_load(self.run_cli("context").stdout)["current_step"]
         self.assertNotIn("next_steps", current)
         self.assertNotIn("recommendation", current)
 
-    def test_gate_checks_all_persisted_steps(self) -> None:
-        self.init_empty()
-        self.append_first()
-        self.run_cli(
-            "append",
-            "step",
-            "--slug",
-            "second-step",
-            "--intent",
-            "Do second",
-            "--criteria",
-            "Second criterion",
-        )
-        self.run_cli("update", "current", "--do", '{summary: "Did", evidence: ["file"]}')
-        self.run_cli("update", "current", "--validate", '{result: success, evidence: ["checked"]}')
-        self.run_cli("append", "current", "--retro", '{wins: [], issues: [], actions: []}')
-        self.run_cli("update", "current", "--next-steps", "[]")
-        self.run_cli("update", "current", "--recommendation", "null")
-        gated = yaml.safe_load(self.run_cli("gate", expect=EXIT_LINT).stdout)
-        self.assertFalse(gated["ok"])
-        self.assertIn("steps[0].do must be a mapping/object", gated["errors"])
-
     def test_approve_rejects_duplicate_slug(self) -> None:
         self.run_cli("start", "--goal", "Goal")
-        self.run_cli(
-            "approve",
-            "--slug",
-            "first-step",
-            "--intent",
-            "Do first",
-            "--criteria",
-            "First criterion",
-        )
-        self.run_cli(
-            "record",
-            "--do",
-            '{summary: "Did", evidence: ["file"]}',
-            "--validate",
-            '{result: success, evidence: ["checked"]}',
-            "--retro",
-            '{wins: [], issues: [], actions: []}',
-            "--next-steps",
-            "[first-step]",
-            "--recommendation",
-            "first-step",
-        )
+        self.approve_first()
+        self.record_complete(next_steps="[first-step]", recommendation="first-step")
         proc = self.run_cli(
-            "approve",
-            "--slug",
-            "first-step",
-            "--intent",
-            "Repeat",
-            "--criteria",
-            "Repeat criterion",
-            expect=EXIT_SCHEMA,
+            "approve", "--slug", "first-step", "--intent", "Repeat",
+            "--criteria", "Repeat criterion", expect=EXIT_SCHEMA,
         )
         self.assertIn("approved slug already exists", proc.stderr)
-        shown = yaml.safe_load(self.run_cli("show", "all").stdout)
-        self.assertEqual([step["slug"] for step in shown["steps"]], ["first-step"])
-
-    def test_append_duplicate_step_slug_adds_suffix(self) -> None:
-        self.init_empty()
-        self.append_first()
-        self.run_cli("append", "current", "--next-steps", "first-step")
-        proc = self.run_cli(
-            "append",
-            "step",
-            "--slug",
-            "first-step",
-            "--intent",
-            "Repeat",
-            "--criteria",
-            '["Repeat criterion"]',
-        )
-        appended = yaml.safe_load(proc.stdout)
-        self.assertEqual(appended["requested_slug"], "first-step")
-        self.assertEqual(appended["slug"], "first-step-2")
-        self.assertIn("using first-step-2", proc.stderr)
-        self.assertIn("new step slug is not listed", proc.stderr)
-        shown = yaml.safe_load(self.run_cli("show", "all").stdout)
-        self.assertEqual([step["slug"] for step in shown["steps"]], ["first-step", "first-step-2"])
 
     def test_dry_run_does_not_write(self) -> None:
-        self.init_empty()
-        cmd = [
-            sys.executable,
-            str(self.script),
-            "--file",
-            str(self.step_file),
-            "--dry-run",
-            "append",
-            "lessons",
-            "Dry run lesson",
-        ]
-        proc = subprocess.run(cmd, text=True, capture_output=True, check=False)
-        self.assertEqual(proc.returncode, EXIT_OK, msg=proc.stderr + proc.stdout)
-        self.assertTrue(yaml.safe_load(proc.stdout)["dry_run"])
-        shown = yaml.safe_load(self.run_cli("show", "lessons").stdout)
-        self.assertNotIn("Dry run lesson", shown["lessons"])
-
+        self.run_cli("start", "--goal", "Goal")
+        self.run_cli("--dry-run", "start", "--goal", "New goal", "--force")
+        context = yaml.safe_load(self.run_cli("context").stdout)
+        self.assertEqual(context["goal"], "Goal")
 
 def run_self_tests() -> int:
     suite = unittest.defaultTestLoader.loadTestsFromTestCase(StepCliSelfTest)

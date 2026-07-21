@@ -77,6 +77,16 @@ python scripts/step_cli.py --file STEP-refactor-step.yaml gate
 
 The agent outputs the gate YAML and separately proposes `simplify-step-docs`; exact `approved` promotes it before its execution.
 
+### Update goal
+
+To replace a workflow's goal without discarding its lessons or recorded steps, restart it with `--force`:
+
+```bash
+python scripts/step_cli.py --file STEP-refactor-step.yaml start \
+  --goal "Refactor and simplify the step skill" \
+  --force
+```
+
 ### Terminal break
 
 After completing a final approved step, record an explicitly terminal outcome and gate it:

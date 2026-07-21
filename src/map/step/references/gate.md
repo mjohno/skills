@@ -2,7 +2,7 @@
 
 **Inputs:** fresh successful `gate` YAML and either its separate chat-only proposal or terminal state.
 
-1. Present the gate result and request review.
+1. Run `gate`. It runs the same complete validation as `lint`; present its successful result and request review.
 2. On exact `approved` with a displayed proposal, promote exactly that proposal before doing any work:
    ```bash
    python scripts/step_cli.py --file STEP-<slug>.yaml approve \
