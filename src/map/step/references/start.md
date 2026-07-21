@@ -10,9 +10,9 @@
    ```bash
    python scripts/step_cli.py --file STEP-<slug>.yaml context
    ```
-3. Propose exactly one unique kebab-case step in chat only. Do not execute or persist it. Use the [`asset/proposed_next_template.md`](asset/proposed_next_template.md) packet.
-4. Request a gate and wait. On exact `approved`, read [`gate.md`](references/gate.md), then run `approve` with that exact displayed packet before doing any execution. On revision, revise the chat proposal and gate it again. To change the persisted goal, use `start --goal "..." --force`.
+3. Propose exactly one unique kebab-case step in chat only. Do not execute or persist it. Use the [`proposed_next_template.md`](../assets/proposed_next_template.md) packet.
+4. Request a gate and wait. On exact `approved`, read [`gate.md`](gate.md), then run `approve` with that exact displayed packet before doing any execution. On revision, revise the chat proposal and gate it again. To change the persisted goal, use `start --goal "..." --force`.
 
 **Outputs:** unchanged or initialized STEP state, one chat-only proposal, and a requested user gate.
 
-**Next mandatory phase:** After successful `approve`, proceed to [`references/execute.md`](references/execute.md).
+**Next mandatory phase:** After successful `approve`, proceed to [`execute.md`](execute.md).

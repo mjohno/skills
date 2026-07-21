@@ -6,7 +6,7 @@
 ```bash
 python scripts/step_cli.py --file STEP-<slug>.yaml context
 ```
-2. Record work evidence, validate the result against the intent and criteria, retrospect, and record next-step choices. These may be separate `record` calls or one batch call:
+2. Record work evidence, validate the result against the intent and criteria, retrospect, and record next-step choices. Before recording a retro, read and apply the [`retro checklist`](retro_checklist.md). These may be separate `record` calls or one batch call:
    ```bash
    python scripts/step_cli.py --file STEP-<slug>.yaml record \
      --do '{summary: "<work done>", evidence: ["<evidence>"]}' \
@@ -20,8 +20,8 @@ python scripts/step_cli.py --file STEP-<slug>.yaml context
    ```bash
    python scripts/step_cli.py --file STEP-<slug>.yaml gate
    ```
-5. When the `gate` command succeeds, output its complete YAML directly without summarizing or omitting `current_step` fields, then separately propose the selected next step in chat only using [`asset/proposed_next_template.md`](asset/proposed_next_template.md). If no next step remains, record `--next-steps '[]' --recommendation null`, gate, and offer final sign-off. A later revision at that terminal gate may add a next choice through `record` and a fresh gate.
+5. When the `gate` command succeeds, output its complete YAML directly without summarizing or omitting `current_step` fields, then separately propose the selected next step in chat only using [`proposed_next_template.md`](../assets/proposed_next_template.md). If no next step remains, record `--next-steps '[]' --recommendation null`, gate, and offer final sign-off. A later revision at that terminal gate may add a next choice through `record` and a fresh gate.
 
 **Outputs:** recorded current-step outcome, fresh successful gate YAML, and either one chat-only proposal or a terminal state.
 
-**Next mandatory phase:** Proceed to [`references/gate.md`](references/gate.md) before presenting or handling the gate.
+**Next mandatory phase:** Proceed to [`gate.md`](gate.md) before presenting or handling the gate.

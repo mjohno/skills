@@ -5,7 +5,7 @@ Primary protocol commands:
   start    create a STEP file
   context  show resumable state
   approve  merge lessons and record the exactly-approved chat proposal before execution
-  record   record current-step do/validate/retro/next choices
+  record   record current-step evidence, goal-progress retro, and next choices
   gate     lint and show the next approval-gate context
   lint     validate state shape
 
@@ -63,7 +63,7 @@ PROTOCOL_HELP = """step protocol workflow:
   4. approve --slug ... --intent ... --criteria ... [--lessons ...]
                                        merge lessons and persist the approved proposal before execution
   5. record --do ... --validate ... --retro ... --next-steps ... --recommendation ...
-                                       record execution evidence and next choices
+                                       record execution evidence, goal-progress reflection, and improvement actions
   6. gate                              lint the complete state and show approval-gate context
 
 Invariants:
@@ -660,7 +660,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_approve.add_argument("--lessons", action="append", help="lesson string, YAML list, or '-' for stdin; may repeat; merged into top-level lessons")
     p_approve.set_defaults(func=command_approve, resource="step")
 
-    p_record = sub.add_parser("record", help="protocol: record current-step results and next choices")
+    p_record = sub.add_parser("record", help="protocol: record results, goal-progress retro, and next choices")
     p_record.add_argument("--criteria", action="append", help="criteria string, YAML list, or '-' for stdin; may repeat")
     p_record.add_argument("--do", dest="do", help="YAML object or '-' for stdin")
     p_record.add_argument("--validate", dest="validate", help="YAML object or '-' for stdin")
@@ -703,6 +703,7 @@ class StepCliSelfTest(unittest.TestCase):
         )
         self.assertEqual(proc.returncode, EXIT_OK)
         self.assertIn("Primary protocol commands:", proc.stdout)
+        self.assertIn("goal-progress reflection, and improvement actions", proc.stdout)
         self.assertNotIn("operation is required unless --test is supplied", proc.stderr)
 
     def test_required_option_help_explains_inputs(self) -> None:

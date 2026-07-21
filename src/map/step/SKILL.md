@@ -44,6 +44,7 @@ Read the reference for the active phase **before performing work in that phase**
 | --- | --- | --- |
 | Start | [`references/start.md`](references/start.md) | Initializing or resuming a workflow, proposing its first step, or handling its first approval. |
 | Execute | [`references/execute.md`](references/execute.md) | Working on an approved current step, recording its outcome, or preparing its next choices. |
+| Retro | [`references/retro_checklist.md`](references/retro_checklist.md) | Recording a retro for completed work. |
 | Gate | [`references/gate.md`](references/gate.md) | Presenting a gate, handling approval, revision, criteria changes, terminal completion, or `break`. |
 
 ## 3. Examples
@@ -70,7 +71,7 @@ python scripts/step_cli.py --file STEP-refactor-step.yaml approve \
 python scripts/step_cli.py --file STEP-refactor-step.yaml record \
   --do '{summary: "Defined the step CLI protocol command surface", evidence: ["scripts/step_cli.py"]}' \
   --validate '{result: success, evidence: ["CLI help shows the protocol workflow"]}' \
-  --retro '{wins: ["Protocol command names match the goal"], issues: [], actions: []}' \
+  --retro '{wins: [], issues: [], actions: []}' \
   --next-steps '[simplify-step-docs]' \
   --recommendation simplify-step-docs
 python scripts/step_cli.py --file STEP-refactor-step.yaml gate
@@ -96,7 +97,7 @@ After completing a final approved step, record an explicitly terminal outcome an
 python scripts/step_cli.py --file STEP-refactor-step.yaml record \
   --do '{summary: "Finished the final documentation update", evidence: ["src/map/step/SKILL.md"]}' \
   --validate '{result: success, evidence: ["All required references exist"]}' \
-  --retro '{wins: ["Protocol is complete"], issues: [], actions: []}' \
+  --retro '{wins: [], issues: [], actions: []}' \
   --next-steps '[]' \
   --recommendation null
 python scripts/step_cli.py --file STEP-refactor-step.yaml gate
@@ -141,7 +142,7 @@ When an approved step is blocked or only partially succeeds, record the result a
 python scripts/step_cli.py --file STEP-refactor-step.yaml record \
   --do '{summary: "Moved the start procedure but could not validate reference links", evidence: ["src/map/step/references/start.md"]}' \
   --validate '{result: partial, evidence: ["Link checker is unavailable"]}' \
-  --retro '{wins: ["Start procedure extracted"], issues: ["Cannot run link validation"], actions: ["Investigate the documentation checker"]}' \
+  --retro '{wins: [], issues: ["Cannot run link validation"], actions: ["Investigate the documentation checker"]}' \
   --next-steps '[investigate-doc-links]' \
   --recommendation investigate-doc-links
 python scripts/step_cli.py --file STEP-refactor-step.yaml gate
