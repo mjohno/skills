@@ -14,21 +14,21 @@
 ## Findings
 
 ### P1
-- [Finding 1: what's wrong, source reference, suggested fix]
-- [Finding 2]
+1. [Finding 1: what's wrong, source reference, suggested fix]
+2. [Finding 2]
 
 ### P2
-- [Finding 1: what could be better, source reference, suggested fix]
-- [Finding 2]
+3. [Finding 1: what could be better, source reference, suggested fix]
+4. [Finding 2]
 
 ### P3
-- [Finding 1]
+5. [Finding 1]
 
 ### P4
-- [Finding 1]
+6. [Finding 1]
 
 ### P5
-- [Finding 1]
+7. [Finding 1]
 
 ## Recommended Changes
 1. [Change 1]

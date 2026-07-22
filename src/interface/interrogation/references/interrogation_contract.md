@@ -1,17 +1,21 @@
-# INTERROGATE-<slug>: <Title>
+# How to Define a Good Interrogation Contract
 
-Lenses:
-- <persona-name>: <role description used to frame questions>
-- <persona-name>: <role description used to frame questions>
+The canonical layout is the [template](assets/interrogation_template.md).
 
-Scope:
-- Internal consistency: no contradictions within the artifact.
-- Clarity: precise language, unambiguous intent.
-- <additional scope criteria>: <description of additional scope criteria>.
-- <additional scope criteria>: <description of additional scope criteria>.
-<...>
+Use this reference for design rules and contract rules.
 
-Evaluation Questions (prioritized by expected impact if unaddressed):
-1. As a <role>, I want to know <question> so that <justification>. (<source reference>).
-2. As a <role>, I want to know <question> so that <justification>. (<source reference>).
-N. As a <role>, I want to know <question> so that <justification>. (<source reference>).
+## Question Design Rules
+
+- Each question probes a specific judgment area derived from spec requirements + persona criteria.
+- Avoid binary phrasing. Favor questions that invite nuanced analysis (how, why, to what extent, what trade-offs, under what conditions).
+- Include at least one question per persona lens.
+- Prioritize: P1-equivalent areas first (structural/spec violations), then P2/P3 (quality/clarity).
+- Base criteria (consistency, clarity) should appear as early questions when the artifact's quality is a review target.
+- Each question should map to at least one spec requirement or persona criterion.
+
+## Contract Rules
+
+- Questions are **evaluable by an LLM** — they ask for reasoning anchored in the artifact content + loaded criteria, not external research.
+- The number of questions should be bounded (aim for 8–15) to keep execution tractable.
+- If a persona adds no meaningful perspective beyond another already-loaded lens, do not create a separate section.
+- Source criteria mapping is required: every question must trace back to at least one spec ID or persona criterion so findings can cite sources.
