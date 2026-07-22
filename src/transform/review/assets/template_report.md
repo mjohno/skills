@@ -1,7 +1,7 @@
 # Review Report: [Artifact Name]
 
 ## Sources
-- [Source 1: the spec(s) or workflow(s) used as the basis for comparison]
+- [Source 1: the criteria or workflow(s) used as the basis for comparison]
 - [Source 2]
 
 ## Targets
@@ -18,17 +18,11 @@
 2. [Finding 2]
 
 ### P2
-3. [Finding 1: what could be better, source reference, suggested fix]
-4. [Finding 2]
+1. [Finding 1: what could be better, source reference, suggested fix]
+2. [Finding 2]
 
 ### P3
-5. [Finding 1]
-
-### P4
-6. [Finding 1]
-
-### P5
-7. [Finding 1]
+1. [Finding 1]
 
 ## Recommended Changes
 1. [Change 1]

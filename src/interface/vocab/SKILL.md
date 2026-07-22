@@ -15,7 +15,7 @@ Non-Goals: Do not define specialized skill-owned verbs, domain glossary terms, i
 ## Terms
 
 - `study`: Read content to gather context. Do not modify files or execute files. Acknowledge completion of study with a minimal response. Do not summarize.
-- `outline`: Produce only an artifact's structure; use concise placeholders rather than substantive content.
+- `outline`: Produce only an artifact's structure; use concise placeholders rather than substantive content; E.g. headers, subsections, layout, function signatures, data types, or other scaffolding.
 - `draft`: Produce a reviewable first pass; preserve uncertainties as explicit placeholders.
 - `modify`: Make the smallest coherent requested change while preserving unrelated content and valid conventions.
 - `simplify`: Reduce complexity while preserving required meaning, behavior, and useful structure.

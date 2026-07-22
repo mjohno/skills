@@ -1,6 +1,6 @@
-# How to Define a Good Interrogation Contract
+# How to Define a Good Questionnaire Contract
 
-The canonical layout is the [template](assets/interrogation_template.md).
+The canonical layout is the [template](assets/questionnaire_template.md).
 
 Use this reference for design rules and contract rules.
 

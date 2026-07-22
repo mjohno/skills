@@ -1,6 +1,6 @@
-# Interrogation Quality Criteria
+# Questionnaire Quality Criteria
 
-Use this for evaluating an interrogation contract's quality. Quality is about coverage, traceability, and evaluability by an LLM.
+Use this for evaluating a questionnaire contract's quality. Quality is about coverage, traceability, and evaluability by an LLM.
 
 ## Review Questions
 
@@ -16,7 +16,7 @@ Use this for evaluating an interrogation contract's quality. Quality is about co
 
 ## Common Findings
 
-- Too few questions, leaving spec requirements or interrogation lenses unexamined.
+- Too few questions, leaving spec requirements or questionnaire lenses unexamined.
 - Binary phrasing that reduces nuance (e.g., "Does this implement X?" instead of "How does X handle edge case Y under Z condition?").
 - Questions with no traceable source — invented criteria rather than derived from specs/personas.
 - Role descriptions missing or vague, making lens framing inconsistent across execution.

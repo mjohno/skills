@@ -24,6 +24,7 @@ Inherits all items from [base_checklist.md](base_checklist.md). Apply base items
 - [ ] **QUALITY** **Clear scope** — Fewest non-overlapping options, categories, or branches needed; no redundant logic
 - [ ] **QUALITY** **Minimal default output** — Only essentials returned by default; detail is opt-in
 - [ ] **QUALITY** **Graceful handoff** — When it can't solve something, does it suggest specific downstream skills (e.g., lookup, remember)?
+- [ ] **QUALITY** **Structured numbering** — Findings grouped by severity/role restart their numbering at 1 in each section; no cross-section continuation
 - [ ] **QUALITY** **Structure matches purpose** — Sections flow logically (prerequisites → inputs → processes → outputs → next steps) and read like a contract
 
 ## Definition of Done
