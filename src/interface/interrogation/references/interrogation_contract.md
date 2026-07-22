@@ -1,4 +1,4 @@
-# REVIEW-<slug>: <Title>
+# INTERROGATE-<slug>: <Title>
 
 Lenses:
 - <persona-name>: <role description used to frame questions>
