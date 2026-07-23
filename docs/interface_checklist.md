@@ -11,7 +11,7 @@ Inherits all items from [base_checklist.md](base_checklist.md). Apply base items
 - [ ] **CRITICAL** Under `# [Name]`: Goal (mandatory), Non-Goals (mandatory), Use-When (mandatory)
 - [ ] **CRITICAL** Selection rules identify the default minimal contract reference(s)/asset(s).
 - [ ] **CRITICAL** Optional references/assets are selected only from explicit caller intent, domain, or constraints.
-- [ ] **CRITICAL** Return instructions identify selected package-local paths.
+- [ ] **CRITICAL** Return instructions identify selected package-local paths relative to the interface `SKILL.md`.
 - [ ] **CRITICAL** Return instructions require loaded reference/asset contents in fenced code blocks.
 - [ ] **CRITICAL** Includes one minimal example with a prompt and returned file path/content block.
 - [ ] **CRITICAL** Interface defines contract data only and does not create, modify, evaluate, persist, retrieve external data, or orchestrate work.

@@ -28,11 +28,11 @@ If the requested need falls outside this interface, state the unsupported need a
 Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
 Default path:
-- `src/interface/goal/references/goal_contract.md`
+- `references/goal_contract.md`
 
 Optional paths:
-- `src/interface/goal/assets/goal_template.md`
-- `src/interface/goal/references/goal_checklist.md`
+- `assets/goal_template.md`
+- `references/goal_checklist.md`
 
 ## Next Steps
 
@@ -47,7 +47,7 @@ Optional paths:
 Prompt: "Use the goal interface to draft a goal for reducing response times."
 Return:
 
-file_path: src/interface/goal/references/goal_contract.md
+file_path: references/goal_contract.md
 ```markdown
 [loaded compact SMART goal contract]
 ```

@@ -29,12 +29,12 @@ If requested spec needs fall outside this interface, state the unsupported need 
 Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
 Default path:
-- `src/interface/spec/references/spec_contract.md`
+- `references/spec_contract.md`
 
 Optional paths:
-- `src/interface/spec/assets/spec_template.md`
-- `src/interface/spec/references/spec_checklist.md`
-- `src/interface/spec/references/spec_quality.md`
+- `assets/spec_template.md`
+- `references/spec_checklist.md`
+- `references/spec_quality.md`
 
 ## Next Steps
 
@@ -51,7 +51,7 @@ Optional paths:
 Prompt: "Use the spec interface for replacing the authentication module."
 Return:
 
-file_path: src/interface/spec/references/spec_contract.md
+file_path: references/spec_contract.md
 ```markdown
 [loaded compact spec contract]
 ```

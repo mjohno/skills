@@ -7,6 +7,8 @@ metadata:
   category: interface
 ---
 
+<!-- Resolve every relative path in this SKILL.md from this file's directory. -->
+
 # vocab
 
 Goal: Define compact project vocabulary for human-loaded context before prompting.

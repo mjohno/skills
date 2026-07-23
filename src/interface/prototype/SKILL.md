@@ -35,7 +35,7 @@ If requested prototype needs fall outside this interface, state the unsupported 
 Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
 Default path:
-- `src/interface/prototype/references/prototype_contract.md`
+- `references/prototype_contract.md`
 
 Optional paths are listed in the selected contract's profile table.
 
@@ -52,7 +52,7 @@ Optional paths are listed in the selected contract's profile table.
 Prompt: "Use the prototype interface to validate account recovery escalation support."
 Return:
 
-file_path: src/interface/prototype/references/prototype_contract.md
+file_path: references/prototype_contract.md
 ```markdown
 [loaded compact prototype contract with selected profile and alternate profiles]
 ```

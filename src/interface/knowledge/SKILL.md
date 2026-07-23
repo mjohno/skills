@@ -31,12 +31,12 @@ If requested knowledge needs fall outside this interface, state the unsupported 
 Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
 Default path:
-- `src/interface/knowledge/references/knowledge_contract.md`
+- `references/knowledge_contract.md`
 
 Optional paths:
-- `src/interface/knowledge/assets/concept_frontmatter_template.md`
-- `src/interface/knowledge/references/knowledge_checklist.md`
-- `src/interface/knowledge/references/knowledge_quality.md`
+- `assets/concept_frontmatter_template.md`
+- `references/knowledge_checklist.md`
+- `references/knowledge_quality.md`
 
 ## Next Steps
 
@@ -50,7 +50,7 @@ Optional paths:
 Prompt: "Use the knowledge interface before recording a new concept."
 Return:
 
-file_path: src/interface/knowledge/references/knowledge_contract.md
+file_path: references/knowledge_contract.md
 ```markdown
 [loaded compact knowledge contract]
 ```

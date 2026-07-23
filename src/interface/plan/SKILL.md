@@ -28,11 +28,11 @@ If requested plan needs fall outside this interface, state the unsupported need 
 Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
 Default path:
-- `src/interface/plan/references/plan_contract.md`
+- `references/plan_contract.md`
 
 Optional paths:
-- `src/interface/plan/references/plan_checklist.md`
-- `src/interface/plan/references/plan_quality.md`
+- `references/plan_checklist.md`
+- `references/plan_quality.md`
 
 ## Next Steps
 
@@ -47,7 +47,7 @@ Optional paths:
 Prompt: "Use the plan interface to draft a refactor plan."
 Return:
 
-file_path: src/interface/plan/references/plan_contract.md
+file_path: references/plan_contract.md
 ```markdown
 [loaded compact plan contract]
 ```

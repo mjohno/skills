@@ -25,7 +25,7 @@ If requested memory needs fall outside this interface, state the unsupported nee
 Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
 Default path:
-- `src/interface/memory/references/memory_contract.md`
+- `references/memory_contract.md`
 
 ## Next Steps
 
@@ -39,7 +39,7 @@ Default path:
 Prompt: "Use the memory interface to define shared memory rules."
 Return:
 
-file_path: src/interface/memory/references/memory_contract.md
+file_path: references/memory_contract.md
 ```markdown
 [loaded compact memory contract]
 ```

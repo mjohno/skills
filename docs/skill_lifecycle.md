@@ -38,7 +38,7 @@ Create or update a skill package that is structurally valid and beautifully simp
    - Protocol packages live under `src/map/<name>/SKILL.md`.
    - Persona lenses live under `src/persona/<name>/SKILL.md`.
 7. **Component Identification**: Determine if the package requires `scripts/`, `references/`, or `assets/`.
-8. **Constraint Check**: Verify the name uses `kebab-case`.
+8. **Constraint Check**: Verify the name uses `kebab-case` and every relative package-file path in `SKILL.md` is resolved from the directory containing that file; never use repository-root-relative package paths.
 
 ### Step 2 — Scaffolding
 
@@ -59,7 +59,7 @@ Create or update a skill package that is structurally valid and beautifully simp
 - Stay passive: do not perform artifact production, external retrieval, transformation, evaluation, persistence, or orchestration.
 - Default to one compact contract reference when possible.
 - Select optional references/assets only from explicit context, such as check/review intent, language, backend, domain, or constraints.
-- Return selected file paths and expose loaded file contents in fenced code blocks.
+- Return selected file paths relative to the package `SKILL.md` and expose loaded file contents in fenced code blocks.
 - Populate `references/` with compact contract rules and optional intent-specific details. Use names such as `<artifact>_contract.md`, `<artifact>_checklist.md`, `<artifact>_quality.md`, or `<domain>_contract.md`.
 - Add templates or data to `assets/` only when they should not live inside the compact contract. Use domain-specific names such as `<domain>_template.<ext>` when a template is not generic.
 

@@ -30,13 +30,13 @@ If the script domain is unsupported, return the generic contract, state unavaila
 Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
 Default path:
-- `src/interface/script/references/script_contract.md`
+- `references/script_contract.md`
 
 Optional paths:
-- `src/interface/script/references/python_contract.md`
-- `src/interface/script/assets/python_template.py`
-- `src/interface/script/references/script_checklist.md`
-- `src/interface/script/references/script_quality.md`
+- `references/python_contract.md`
+- `assets/python_template.py`
+- `references/script_checklist.md`
+- `references/script_quality.md`
 
 ## Next Steps
 
@@ -52,7 +52,7 @@ Optional paths:
 Prompt: "Use the script interface for a file organizer script with dry-run support."
 Return:
 
-file_path: src/interface/script/references/script_contract.md
+file_path: references/script_contract.md
 ```markdown
 [loaded compact script contract]
 ```

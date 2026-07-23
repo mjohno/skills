@@ -28,11 +28,11 @@ If requested change needs fall outside this interface, state the unsupported nee
 Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
 Default path:
-- `src/interface/change/references/change_contract.md`
+- `references/change_contract.md`
 
 Optional paths:
-- `src/interface/change/assets/change_template.md`
-- `src/interface/change/references/change_checklist.md`
+- `assets/change_template.md`
+- `references/change_checklist.md`
 
 ## Next Steps
 
@@ -46,7 +46,7 @@ Optional paths:
 Prompt: "Use the change interface for auth error cleanup."
 Return:
 
-file_path: src/interface/change/references/change_contract.md
+file_path: references/change_contract.md
 ```markdown
 [loaded compact change contract]
 ```

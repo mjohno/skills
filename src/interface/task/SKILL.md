@@ -29,12 +29,12 @@ If requested task needs fall outside this interface, state the unsupported need 
 Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
 Default path:
-- `src/interface/task/references/task_contract.md`
+- `references/task_contract.md`
 
 Optional paths:
-- `src/interface/task/references/task_extraction.md`
-- `src/interface/task/references/task_checklist.md`
-- `src/interface/task/references/task_quality.md`
+- `references/task_extraction.md`
+- `references/task_checklist.md`
+- `references/task_quality.md`
 
 ## Next Steps
 
@@ -49,7 +49,7 @@ Optional paths:
 Prompt: "Use the task interface for plan item AUTH-2."
 Return:
 
-file_path: src/interface/task/references/task_contract.md
+file_path: references/task_contract.md
 ```markdown
 [loaded compact task contract]
 ```

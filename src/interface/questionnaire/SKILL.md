@@ -26,7 +26,7 @@ If requested needs fall outside this interface, state the unsupported need and h
 
 ## Next Steps
 
-- `transform/evaluate` (execution) — evaluate the artifact against each question, answer with reasoning, and produce severity-scored output via `assets/severity.md` + `assets/template_report.md`.
+- `transform/evaluate` (execution) — evaluate the artifact against each question and answer with reasoning.
 - `interface/plan` — create gap-closing work from unanswered or low-confidence questions.
 - `transform/check` — validate that a revised artifact addresses prior questionnaire findings.
 - `output/annotate` — add inline annotations for tracking findings (NOTE) and fixes (TODO).
@@ -37,12 +37,12 @@ If requested needs fall outside this interface, state the unsupported need and h
 
 **Return:**
 
-file_path: src/interface/questionnaire/references/questionnaire_contract.md
+file_path: references/questionnaire_contract.md
 ```markdown
 [contract contents: design rules + contract rules]
 ```
 
-file_path: src/interface/questionnaire/assets/questionnaire_template.md
+file_path: assets/questionnaire_template.md
 ```markdown
 [template contents]
 ```

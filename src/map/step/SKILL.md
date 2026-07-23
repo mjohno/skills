@@ -95,7 +95,7 @@ After completing a final approved step, record an explicitly terminal outcome an
 
 ```bash
 python scripts/step_cli.py --file STEP-refactor-step.yaml record \
-  --do '{summary: "Finished the final documentation update", evidence: ["src/map/step/SKILL.md"]}' \
+  --do '{summary: "Finished the final documentation update", evidence: ["SKILL.md"]}' \
   --validate '{result: success, evidence: ["All required references exist"]}' \
   --retro '{wins: [], issues: [], actions: []}' \
   --next-steps '[]' \
@@ -140,7 +140,7 @@ When an approved step is blocked or only partially succeeds, record the result a
 
 ```bash
 python scripts/step_cli.py --file STEP-refactor-step.yaml record \
-  --do '{summary: "Moved the start procedure but could not validate reference links", evidence: ["src/map/step/references/start.md"]}' \
+  --do '{summary: "Moved the start procedure but could not validate reference links", evidence: ["references/start.md"]}' \
   --validate '{result: partial, evidence: ["Link checker is unavailable"]}' \
   --retro '{wins: [], issues: ["Cannot run link validation"], actions: ["Investigate the documentation checker"]}' \
   --next-steps '[investigate-doc-links]' \

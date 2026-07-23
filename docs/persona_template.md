@@ -6,6 +6,8 @@ metadata:
   category: persona
 ---
 
+<!-- Resolve every relative path in this SKILL.md from this file's directory. -->
+
 # Persona: [Persona Name]
 
 **Perspective:** [one-sentence framing of this persona's worldview and default stance]

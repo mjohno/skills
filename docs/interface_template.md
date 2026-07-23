@@ -7,6 +7,7 @@ metadata:
 ---
 
 <!-- For context-only project terms, use vocab_template.md instead. -->
+<!-- Resolve every relative path in this SKILL.md from this file's directory. -->
 
 # [interface-name]
 
@@ -27,11 +28,11 @@ Also select:
 Always return selected package-local paths followed by loaded contents in fenced code blocks.
 
 Default path:
-- `src/interface/[interface-name]/references/[minimal_contract].md`
+- `references/[minimal_contract].md`
 
 Optional paths:
-- `src/interface/[interface-name]/references/[optional_reference].md`
-- `src/interface/[interface-name]/assets/[optional_asset]`
+- `references/[optional_reference].md`
+- `assets/[optional_asset]`
 
 ## Next Steps
 
@@ -42,7 +43,7 @@ Optional paths:
 Prompt: "Use the `[interface-name]` interface for `[artifact/context]`."
 Return:
 
-file_path: src/interface/[interface-name]/references/[minimal_contract].md
+file_path: references/[minimal_contract].md
 ```markdown
 [loaded minimal contract contents]
 ```

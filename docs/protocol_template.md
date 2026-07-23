@@ -7,6 +7,8 @@ metadata:
 disable_model_invocation: true
 ---
 
+<!-- Resolve every relative path in this SKILL.md from this file's directory. -->
+
 # [Protocol Name]
 
 Goal: [one governed interaction pattern the protocol controls]

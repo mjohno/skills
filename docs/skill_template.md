@@ -6,6 +6,8 @@ metadata:
   category: [input|transform|output|map]
 ---
 
+<!-- Resolve every relative path in this SKILL.md from this file's directory. -->
+
 # [Skill Name]
 
 Goal: [one clear outcome the skill achieves]
