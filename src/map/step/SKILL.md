@@ -24,17 +24,22 @@ flowchart TD
     propose --> gate[Request review gate]
     gate -->|approved| approve[Approve exact proposal with CLI]
     gate -->|revise| revise[Revise proposal in chat]
+    gate -->|break| pause[Pause workflow]
     revise --> gate
+    revise -->|break| pause
     approve --> execute[Execute approved step]
+    execute -->|break| pause
     execute --> record[Record evidence, validation, retro, and next choices]
     record --> nextGate[Run approval gate]
     nextGate -->|approved + proposal| approve
     nextGate -->|revise| revise
+    nextGate -->|break| pause
     nextGate -->|terminal + revised next choice| revise
-    nextGate -->|terminal + approved or break| stop[Stop workflow]
+    nextGate -->|terminal + approved| stop[Stop workflow]
+    pause --> start
 ```
 
-Only the whole user message `approved` promotes the currently displayed chat proposal. After it, `approve` is the first state-changing action and must succeed before execution. `break` is terminal only: accept it only after `gate` succeeds and the current step has `next_steps: []` and `recommendation: null`; it changes no state. Any other response is a revision request, including a request at a terminal gate to add a next choice; record that revised next choice and gate it again before approval.
+Only the whole user message `approved` promotes the currently displayed chat proposal. After it, `approve` is the first state-changing action and must succeed before execution. The whole user message `break` pauses the workflow at any user-response boundary; it changes no state and must not promote, record, or complete work. To resume, read `context`: continue an incomplete approved step through Execute, or run `gate` for a completed step and either present a fresh chat-only proposal or offer terminal sign-off. Any other response is a revision request, including a request at a terminal gate to add a next choice; record that revised next choice and gate it again before approval.
 
 ## 2. Mandatory Phase References
 
@@ -45,7 +50,7 @@ Read the reference for the active phase **before performing work in that phase**
 | Start | [`references/start.md`](references/start.md) | Initializing or resuming a workflow, proposing its first step, or handling its first approval. |
 | Execute | [`references/execute.md`](references/execute.md) | Working on an approved current step, recording its outcome, or preparing its next choices. |
 | Retro | [`references/retro_checklist.md`](references/retro_checklist.md) | Recording a retro for completed work. |
-| Gate | [`references/gate.md`](references/gate.md) | Presenting a gate, handling approval, revision, criteria changes, terminal completion, or `break`. |
+| Gate | [`references/gate.md`](references/gate.md) | Presenting a gate, handling approval, revision, criteria changes, terminal completion, pausing, or `break`. |
 
 ## 3. Examples
 
@@ -89,7 +94,7 @@ python scripts/step_cli.py --file STEP-refactor-step.yaml start \
   --force
 ```
 
-### Terminal break
+### Terminal completion
 
 After completing a final approved step, record an explicitly terminal outcome and gate it:
 
@@ -103,7 +108,11 @@ python scripts/step_cli.py --file STEP-refactor-step.yaml record \
 python scripts/step_cli.py --file STEP-refactor-step.yaml gate
 ```
 
-Present the successful gate YAML and final sign-off. Only now, when the current step shows `next_steps: []` and `recommendation: null`, the exact user response `break` stops the workflow. It does not write state.
+Present the successful gate YAML and final sign-off. Only now, when the current step shows `next_steps: []` and `recommendation: null`, the exact user response `approved` accepts final completion. It does not write state.
+
+### Pause and resume
+
+At any user-response boundary, the exact user response `break` pauses the workflow without writing state. Do not call `approve`, `record`, or any other state-changing command merely to pause. When the workflow resumes, read `context`. If its current step is incomplete, continue that approved step. If it is complete, run `gate`; present a fresh chat-only proposal selected from its persisted `next_steps`, or offer terminal sign-off when none remain.
 
 ### Revision of a proposed next step
 
